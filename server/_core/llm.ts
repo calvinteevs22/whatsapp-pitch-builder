@@ -296,7 +296,9 @@ export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
     payload.tool_choice = normalizedToolChoice;
   }
 
-  payload.max_tokens = parseInt(process.env.LLM_MAX_TOKENS || "16384");
+  // Respect caller-specified max_tokens; fall back to env var for unconstrained calls
+  const callerMaxTokens = params.max_tokens ?? params.maxTokens;
+  payload.max_tokens = callerMaxTokens ?? parseInt(process.env.LLM_MAX_TOKENS || "4096");
 
   const normalizedResponseFormat = normalizeResponseFormat({
     responseFormat,

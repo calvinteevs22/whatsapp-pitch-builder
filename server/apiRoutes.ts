@@ -560,7 +560,7 @@ Authorization: Bearer pk_YOUR_API_KEY
       // Step 3: Build the LLM prompt and generate the conversation
       const { buildSystemPrompt, buildUserPromptForApi, buildBusinessProfileContext } = await import("./aiPromptHelpers");
 
-      const systemPrompt = buildSystemPrompt(effectiveIndustry || null, effectiveMessageType);
+      const systemPrompt = buildSystemPrompt(effectiveMessageType, effectiveIndustry || null);
       let userPrompt = buildUserPromptForApi({
         prompt: aiPrompt,
         businessName: businessName || businessProfile?.businessName,
