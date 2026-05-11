@@ -1,9 +1,7 @@
 // Storage helpers — uses AWS S3 (or S3-compatible endpoint like R2/MinIO) when
-// credentials are configured, otherwise falls back to local file storage in the
-// `uploads/` directory.
+// credentials are configured, otherwise encodes content as a base64 data URL
+// so images survive server restarts and ephemeral-filesystem deploys (Railway etc).
 
-import fs from "fs";
-import path from "path";
 import {
   S3Client,
   PutObjectCommand,
@@ -51,34 +49,25 @@ function tryGetS3Config(): S3Config | null {
 }
 
 // ---------------------------------------------------------------------------
-// Local-file fallback
+// Local fallback (no S3) — embeds image as base64 data URL
 // ---------------------------------------------------------------------------
-
-const LOCAL_UPLOADS_DIR = path.resolve(process.cwd(), "uploads");
-
-function ensureUploadsDir(): void {
-  if (!fs.existsSync(LOCAL_UPLOADS_DIR)) {
-    fs.mkdirSync(LOCAL_UPLOADS_DIR, { recursive: true });
-  }
-}
 
 function localPut(
   key: string,
-  data: Buffer | Uint8Array | string
+  data: Buffer | Uint8Array | string,
+  contentType: string = "application/octet-stream"
 ): { key: string; url: string } {
-  ensureUploadsDir();
-  const filename = key.replace(/\//g, "_");
-  const filePath = path.join(LOCAL_UPLOADS_DIR, filename);
-  fs.writeFileSync(filePath, data as any);
-  // Return a server-relative URL that Express will serve via the /uploads static route
-  const url = `/uploads/${filename}`;
+  // On Railway (and other ephemeral-filesystem hosts), /uploads/ is wiped on every deploy.
+  // Store as a base64 data URL so the image is embedded in the MySQL message content
+  // and survives redeploys without any external storage dependency.
+  const buf = typeof data === "string" ? Buffer.from(data, "utf-8") : Buffer.from(data);
+  const url = `data:${contentType};base64,${buf.toString("base64")}`;
   return { key, url };
 }
 
 function localGet(key: string): { key: string; url: string } {
-  const filePath = path.join(LOCAL_UPLOADS_DIR, key.replace(/\//g, "_"));
-  const url = `file://${filePath}`;
-  return { key, url };
+  // No local filesystem in this fallback mode — caller should use storagePut which returns data URLs
+  return { key, url: "" };
 }
 
 // ---------------------------------------------------------------------------
@@ -91,7 +80,7 @@ function localGet(key: string): { key: string; url: string } {
  * Returns `{ key, url }` where `url` is:
  *   - the S3_PUBLIC_URL-prefixed URL when S3_PUBLIC_URL is set, or
  *   - a virtual-hosted-style S3 URL (`https://<bucket>.s3.<region>.amazonaws.com/<key>`), or
- *   - a `file://` path when running without S3 credentials.
+ *   - a base64 `data:` URL when running without S3 credentials (embedded in MySQL).
  */
 export async function storagePut(
   relKey: string,
@@ -102,7 +91,7 @@ export async function storagePut(
   const s3 = tryGetS3Config();
 
   if (!s3) {
-    return localPut(key, data);
+    return localPut(key, data, contentType);
   }
 
   const body =
