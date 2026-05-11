@@ -1,10 +1,8 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { useLocation } from "wouter";
-import { useState, useEffect, useMemo } from "react";
-import { useCountUp } from "@/hooks/useCountUp";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -37,30 +35,6 @@ export default function Home() {
   const [isCreating, setIsCreating] = useState(false);
   const [buildLanguage, setBuildLanguage] = useState<SupportedLanguage>("en");
   const { language: globalLanguage } = useLanguage();
-
-  // Real-time platform stats
-  const { data: platformStats } = trpc.platform.stats.useQuery(undefined, {
-    staleTime: 60_000, // cache for 1 minute
-    refetchOnWindowFocus: false,
-  });
-
-  // Animated count-up values
-  const animatedTemplates = useCountUp(platformStats?.totalTemplates, 1400);
-  const animatedMetamates = useCountUp(platformStats?.totalMetamates, 1000);
-  const animatedCountries = useCountUp(platformStats?.totalCountries, 800);
-
-  // Auto-detect and update country on login
-  const updateCountry = trpc.platform.updateCountry.useMutation();
-  useEffect(() => {
-    if (!isAuthenticated || !user) return;
-    try {
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      const country = timezoneToCountry(tz);
-      if (country) {
-        updateCountry.mutate({ country });
-      }
-    } catch {}
-  }, [isAuthenticated, user?.id]);
 
   const createThread = trpc.thread.create.useMutation();
 
@@ -178,33 +152,6 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-br from-[#075E54]/[0.03] via-transparent to-[#25D366]/[0.03]" />
         <div className="container relative">
           <div className="max-w-3xl mx-auto text-center">
-            {/* ─── Live Usage Stats Ticker ─── */}
-            <div className="flex items-center justify-center gap-2 mb-4 flex-wrap">
-              <Badge variant="secondary" className="text-xs font-semibold px-3 py-1.5 bg-[#25D366]/10 text-[#075E54] border-0 gap-1.5">
-                <Layers className="w-3.5 h-3.5" />
-                {platformStats ? (
-                  <span><span className="font-extrabold tabular-nums">{animatedTemplates.toLocaleString()}</span> Demos Built</span>
-                ) : (
-                  <span className="animate-pulse">Loading...</span>
-                )}
-              </Badge>
-              <Badge variant="secondary" className="text-xs font-semibold px-3 py-1.5 bg-[#075E54]/10 text-[#075E54] border-0 gap-1.5">
-                <Users className="w-3.5 h-3.5" />
-                {platformStats ? (
-                  <span>Used by <span className="font-extrabold tabular-nums">{animatedMetamates}</span> Metamates</span>
-                ) : (
-                  <span className="animate-pulse">Loading...</span>
-                )}
-              </Badge>
-              <Badge variant="secondary" className="text-xs font-semibold px-3 py-1.5 bg-[#34B7F1]/10 text-[#075E54] border-0 gap-1.5">
-                <Globe className="w-3.5 h-3.5" />
-                {platformStats ? (
-                  <span>Across <span className="font-extrabold tabular-nums">{animatedCountries}</span> Countries</span>
-                ) : (
-                  <span className="animate-pulse">Loading...</span>
-                )}
-              </Badge>
-            </div>
             <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold tracking-tight leading-[1.1] mb-5">
               Create WhatsApp Paid Messaging Demos
               <span className="text-[#25D366]"> in Seconds</span>
@@ -636,33 +583,3 @@ export default function Home() {
   );
 }
 
-/** Map IANA timezone to country name */
-function timezoneToCountry(tz: string): string | null {
-  const map: Record<string, string> = {
-    'Asia/Singapore': 'Singapore', 'Asia/Kuala_Lumpur': 'Malaysia',
-    'Asia/Jakarta': 'Indonesia', 'Asia/Makassar': 'Indonesia',
-    'Asia/Manila': 'Philippines', 'Asia/Hong_Kong': 'Hong Kong',
-    'Asia/Bangkok': 'Thailand', 'Asia/Kolkata': 'India', 'Asia/Calcutta': 'India',
-    'Asia/Seoul': 'South Korea', 'Asia/Taipei': 'Taiwan',
-    'Asia/Ho_Chi_Minh': 'Vietnam', 'Asia/Saigon': 'Vietnam',
-    'Asia/Tokyo': 'Japan', 'Asia/Shanghai': 'China', 'Asia/Chongqing': 'China',
-    'Australia/Sydney': 'Australia', 'Australia/Melbourne': 'Australia',
-    'Australia/Brisbane': 'Australia', 'Australia/Perth': 'Australia',
-    'Pacific/Auckland': 'New Zealand',
-    'America/New_York': 'United States', 'America/Chicago': 'United States',
-    'America/Denver': 'United States', 'America/Los_Angeles': 'United States',
-    'America/Sao_Paulo': 'Brazil', 'America/Mexico_City': 'Mexico',
-    'America/Argentina/Buenos_Aires': 'Argentina', 'America/Bogota': 'Colombia',
-    'Europe/London': 'United Kingdom', 'Europe/Dublin': 'Ireland',
-    'Europe/Paris': 'France', 'Europe/Berlin': 'Germany',
-    'Europe/Rome': 'Italy', 'Europe/Madrid': 'Spain',
-    'Europe/Amsterdam': 'Netherlands', 'Europe/Istanbul': 'Turkey',
-    'Europe/Stockholm': 'Sweden', 'Europe/Zurich': 'Switzerland',
-    'Europe/Warsaw': 'Poland', 'Europe/Lisbon': 'Portugal',
-    'Africa/Lagos': 'Nigeria', 'Africa/Johannesburg': 'South Africa',
-    'Africa/Cairo': 'Egypt', 'Africa/Nairobi': 'Kenya',
-    'Asia/Dubai': 'UAE', 'Asia/Riyadh': 'Saudi Arabia',
-    'Asia/Karachi': 'Pakistan', 'Asia/Dhaka': 'Bangladesh',
-  };
-  return map[tz] || null;
-}
