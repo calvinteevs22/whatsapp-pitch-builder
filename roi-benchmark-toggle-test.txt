@@ -1,0 +1,9 @@
+Benchmark Toggle Test - Basic Mode Inputs Step:
+
+The benchmark section now shows:
+1. Header: "AUTO-APPLIED ASIA PACIFIC WHATSAPP BENCHMARKS" 
+2. Toggle on the right side showing "Locked" state with a Switch component
+3. Read-only display of: Delivery Rate: 97%, Read Rate: 95%, Click-Through Rate: 30%, Opt-Out Rate: 0.35%
+4. The toggle switch (index 23) is visible and clickable
+
+Next: Need to test clicking the toggle to enable editing mode.

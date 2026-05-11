@@ -1,0 +1,188 @@
+ROI Calculator Analysis - Pages 1-5
+
+THEME/DESIGN:
+- Green-themed (#25D366 WhatsApp green) with dark cards (#0f172a)
+- Uses DM Sans, Plus Jakarta Sans, Sora fonts
+- Gradient background, rounded corners, shadows
+- Responsive (max-width:640px breakpoint)
+- Animations: fadeUp, fadeIn, slideIn
+
+CHANNEL CONFIG:
+- 3 channels: WhatsApp, SMS, Email
+- Each has color theme, icon, label
+
+COUNTRIES DATA (50+ countries):
+- Each has: name, region, wap (WhatsApp cost per msg), sms (SMS cost per msg)
+- Regions: Developed West, Developed Asia, Emerging Asia, LATAM, MENA
+
+INDUSTRIES (12):
+- E-commerce, Travel & Hospitality, Food Delivery, Financial Services, Automotive, Real Estate, Insurance, Education, Retail (Physical), QSR, Healthcare
+- Each has: archetype (direct/leadgen/footfall), rateLabel (Conversion Rate, Message-to-X Rate, Store Visit Rate, Order Rate, Appointment Rate)
+
+CONVERSION RATES (CONV):
+- Per region per industry, e.g. Developed West E-commerce: 1.8, Travel: 2.2
+- Different rates for each region
+
+BENCHMARK DATA (BENCH):
+- Per channel (whatsapp, sms, email) per region
+- deliveryRate, openRate, ctr (click-through rate), optOutRate
+- e.g. WhatsApp Developed West: delivery 96%, open 90%, ctr 25%, optOut 0.50%
+
+CURRENCIES:
+- 50+ currencies with code, symbol, rate (to USD)
+
+UTILITY FUNCTIONS:
+- fmt(): number formatting (B, M, K suffixes)
+- fmtMoney(): currency formatting with abbreviations
+- pct(): percentage formatting
+- dm(): currency-aware display money function
+- deriveAdv(): THE CORE CALCULATION ENGINE
+
+CORE CALCULATION (deriveAdv):
+Inputs: messages, deliveryRate, openRate, ctr, convRate, optOutRate, costPerMsg, dealValue
+Calculates:
+- delivered = messages * deliveryRate
+- opened = delivered * openRate
+- clicked = opened * ctr
+- conversions = clicked * convRate
+- revenue = conversions * dealValue
+- spend = messages * costPerMsg
+- roi = revenue/spend (if spend > 0)
+- rev1k = (conversions/messages) * 1000 * dealValue
+- cpConv = spend/conversions (cost per conversion)
+- cpClick = spend/clicked (cost per click)
+- reachRate = deliveryRate * openRate * 100
+- moLost = messages * optOutRate
+- yrLost = moLost * 12
+- revAtRisk = yrLost * deliveryRate * openRate * ctr * convRate * dealValue
+
+GLOBAL CSS:
+- Custom scrollbar styling
+- Range input slider styling (green thumb)
+- Tooltip component
+
+--- Pages 6-10 ---
+
+UI COMPONENTS:
+1. Card - Hoverable card with white bg, shadow, border, fadeUp animation
+2. InsightBox - Dark card with colored pills (key-value pairs with icons), narrative text
+3. StepIndicator - Multi-step wizard with green circles, connecting lines
+4. Btn - Primary/secondary/ghost button variants with sizes (sm/md/lg)
+5. InputField - Labeled number input with prefix/suffix, tooltip, min/max/step
+6. TabBar - Horizontal tab switcher with green active state
+7. ModeToggle - Basic/Advanced mode toggle
+8. MetricCard - Colored card showing icon, label, value, subtext
+9. ChannelInputPanel - Per-channel input form with:
+   - Messages Sent/Month
+   - Delivery Rate (%)
+   - Read/Open Rate (%)
+   - Click-Through Rate (%)
+   - Conversion Rate (%) with industry-specific label
+   - Opt-Out Rate (%)
+   - Cost per Message ($)
+   All with benchmark tooltips
+10. FunnelViz - Visual funnel showing Sent→Delivered→Opened→Clicked→Converted with animated bars
+11. ScorecardTable - Comparison table across channels with metrics:
+    - Messages Sent, Delivery Rate, Delivered, Open/Read Rate, CTR, Conversion Rate
+    - Conversions/Mo, Revenue/Mo, Spend/Mo, ROI, Cost/Conversion, Opt-Out Rate
+    - Highlights best channel per metric with colored checkmarks
+12. ShiftSimulator - Slider showing "Shift volume from {channel} to WhatsApp" with percentage slider (0-100%), calculates net revenue impact
+
+--- Pages 11-15 ---
+
+SHIFT SIMULATOR DETAILS:
+- Shows MetricCards: Messages Shifted, WA Revenue Gained, {channel} Revenue Lost, Net Monthly Gain, Annual Projection, WA Incremental Spend
+- Revenue per 1,000 Messages bar chart comparing WhatsApp vs competitor channels
+- InsightBox with narrative about gain/loss analysis
+- Slider 0-100% to shift volume from competitor to WhatsApp
+
+AUDIENCE HEALTH PANEL:
+- Side-by-side cards comparing WhatsApp vs competitor channel
+- Shows: Opt-Out Rate, Lost/Month, Lost/Year, Revenue at Risk (Annual)
+- InsightBox comparing opt-out rates, subscriber losses, revenue at risk
+- Narrative about which channel is stronger long-term
+
+EXECUTIVE SUMMARY:
+- Gradient card with rocket icon
+- Shows client name, industry, country
+- Key stats: revenue/month, ROI multiplier, message volume
+- Per-channel comparison: revenue difference, ROI comparison
+- "Prepared for {client}" badge
+
+MONTHLY PROJECTION:
+- 12-month revenue projection chart
+- Stacked bar chart with WhatsApp + competitor channels
+- Accounts for audience decay from opt-outs
+- Month labels (M1-M12)
+- Legend with channel colors
+
+SCENARIOS (Pre-built):
+1. E-commerce Promo - Singapore, 50K messages, $45 deal value
+2. Auto Dealership - UAE, 10K messages, $35K deal value
+3. QSR Flash Sale - Brazil, 100K messages, $12 deal value
+4. Insurance Leads - India, 200K messages, $500 deal value
+5. Travel Bookings - UK, 30K messages, $850 deal value
+6. Healthcare - US, 25K messages, $150 deal value
+
+EXPORT MODAL:
+- Client name input
+- Export options: PDF, CSV, Clipboard
+- Generates downloadable reports
+
+--- Pages 16-20 ---
+
+EXPORT FORMATS:
+1. HTML - Interactive Report with full report + shift simulator, generates standalone HTML file
+2. CSV - Spreadsheet Data, opens in Excel/Google Sheets
+3. TXT - Text Summary, plain text executive summary
+
+HTML REPORT STRUCTURE:
+- Standalone HTML page with embedded CSS and JavaScript
+- Cover section with gradient header
+- Channel Scorecard table
+- Shift Simulator with interactive slider
+- Generated by WhatsApp ROI Calculator footer
+
+BREAK-EVEN CARD:
+- Calculates break-even point for WhatsApp messaging
+- Inputs: costPerMsg, deliveryRate, openRate, ctr, convRate, dealValue
+- Calculates: convPerMsg (revenue per message), breakEvenMsgs, monthlySpend, beConversions, beMsgs, bePctOfVolume, beDays, profit
+- Shows: Break-Even Messages, Break-Even % of Volume, Days to Break-Even, Monthly Profit After Break-Even
+- Visual progress indicator
+
+--- Pages 21-27 ---
+
+SCENARIO COMPARE (6th Tab):
+- Side-by-side comparison of two scenarios (A and B)
+- Each scenario has: Messages/Month, Deal Value, CTR, Post-Click Conv Rate
+- Calculates: Revenue/Mo, Conversions, ROI, Spend/Mo, Cost/Conv, Rev/1K Msgs
+- Shows winner and revenue difference
+- InsightBox with narrative comparing scenarios
+
+MAIN APP STRUCTURE:
+- State: mode (basic/advanced), step (0-4), country, industry, compChannels, dealValue, chInputs, rTab, rRTab
+- Input modes: volume (set messages) or goal (set target revenue, auto-calculate messages needed)
+- Currency support: USD or local currency based on country selection
+- Step wizard: Country → Industry → Inputs/Channels → Results
+- Basic mode: 4 steps; Advanced mode: 5 steps (adds Channels step)
+- Pre-built scenarios can be applied to auto-fill all inputs
+
+RESULTS TABS:
+- Tab 0: Scorecard (ScorecardTable + FunnelViz)
+- Tab 1: Shift Simulator (ShiftSimulator)
+- Tab 2: Audience Health (AudienceHealth)
+- Tab 3: Break-Even (BreakEvenCard)
+- Tab 4: Executive Summary (ExecSummary)
+- Tab 5: Scenario Compare (ScenarioCompare)
+- Tab 6: Monthly Projection (MonthlyProjection)
+
+GOAL MODE:
+- User sets target revenue instead of message volume
+- Auto-calculates needed messages: Math.ceil(targetRevenue / revenuePerMsg)
+- Shows: needed messages, spend, ROI, conversions
+- Useful for reverse-engineering campaign size from revenue targets
+
+ALL RESULTS COMPUTED:
+- allR memo computes deriveAdv for each active channel
+- Active channels: basic mode = [whatsapp, ...compChannels]; advanced = all with inputs
+- Each channel gets full funnel metrics

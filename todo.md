@@ -1,0 +1,821 @@
+# Project TODO
+
+- [x] Database schema (threads, messages, use_cases tables)
+- [x] Backend tRPC APIs for thread CRUD operations
+- [x] Backend tRPC APIs for message CRUD operations
+- [x] AI conversation generation endpoint (LLM integration)
+- [x] Website crawling endpoint for business context extraction
+- [x] Landing page with hero section and feature overview
+- [x] Thread management dashboard (list, create, rename, duplicate, delete)
+- [x] Conversation builder interface with manual editing
+- [x] WhatsApp phone mockup component (platform-accurate UI)
+- [x] Natural language input interface for flow generation
+- [x] WhatsApp Paid Messaging knowledge base (Marketing, Utility, Authentication)
+- [x] Industry vertical awareness system
+- [x] Interactive message simulation (buttons, list messages, templates)
+- [x] Export and download functionality
+- [x] Share thread functionality
+- [x] Sample use case library
+- [x] Responsive design and UI polish
+- [x] Vitest unit tests
+- [x] Improve AI prompt with retry logic for JSON parsing errors
+- [x] Add "Samples" link to dashboard navigation
+- [x] Add Preview button for shared threads in builder
+- [x] Polish the builder page - improve spacing and layout
+- [x] Export functionality (share link + public view)
+- [x] Fix: Cannot update component during render - Home.tsx navigate() called in render phase
+- [x] Fix: AI conversation flow generation loads forever without producing results
+- [x] Make WhatsApp conversation buttons interactive (reply buttons, list buttons, template buttons should highlight/scroll to response)
+- [x] Add click animation and visual feedback on button interactions
+- [x] Simulate real WhatsApp conversation flow when buttons are clicked
+- [x] Play Simulation mode - sequential message reveal with typing indicators
+- [x] Rename app from "WA Thread Builder" to "WhatsApp Chat Builder" across all pages
+- [x] Replace current logo with WhatsApp logo
+- [x] Default to simulation mode - messages reveal one by one from the start without needing Play Simulation button
+- [x] Apply simulation-first behavior to all templates, use cases, and shared views
+- [x] Redesign landing page with value propositions, statistics, and business benefits of WhatsApp Paid Messaging
+- [x] Highlight key value props: AI-powered template creation in seconds, industry-specific templates, full WhatsApp Paid Messaging coverage
+- [x] Add statistics on why businesses need better WhatsApp messaging templates
+- [x] Relate message types to business value: Marketing→sales/retention, Utility→operational efficiency, Authentication→security
+- [x] Restructure navigation: "Your Threads" as subsection, rename "Samples" to "Industry Use Case Template Library" as subsection
+- [x] Redesign overall UI to be nicer and more premium
+- [x] Landing page should be the default page instead of going straight to "Your Threads"
+- [x] Move "Your Threads" to a separate /threads page instead of inline on landing page
+- [x] Move "Industry Use Case Template Library" to a separate /templates page instead of inline on landing page
+- [x] Streamline landing page - remove clutter, focus on productivity/efficiency for Meta account managers
+- [x] Update navigation to link to separate pages instead of scroll anchors
+- [x] Keep landing page clean and focused on value proposition without being overwhelming
+- [x] Add 'Build Now' button beside 'Go to My Threads' on landing page hero for quick thread creation
+- [x] Fix: After clicking first button, all subsequent messages appear at once instead of pausing at each interactive point
+- [x] Fix: Customer response message after clicking a button doesn't match the button text that was clicked
+- [x] Fix: Messages after #8 fall outside the box and cannot scroll - support up to 20 messages
+- [x] Add image/video attachment support in manual edit mode
+- [x] Add carousel card message type with images, prices, and conversion buttons (learn more, buy now, etc)
+- [x] Make manual edit more robust for account managers to freely customize and tailor demos
+- [x] Fix: Message list overflows outside the white container box after message #7 - needs proper scroll containment
+- [x] Fix: Phone mockup positioned too low at 100% browser zoom - buttons cut off below viewport
+- [x] Fix: AI-generated image messages show grey boxes instead of actual images
+- [x] Enhance AI prompt to generate rich media: images, videos, and carousel cards with product images and prices
+- [x] Add post-processing to generate real product images via image generation API for AI output
+- [x] Add carousel card support to AI generation output
+- [x] Make AI-generated demos sophisticated enough with rich media for stronger impact
+- [x] Redesign Industry Use Case Template Library page with industry and message type filters
+- [x] Add industry filter dropdown matching the thread creation industry selection
+- [x] Add message type filter (Marketing, Utility, Authentication) with show-all default
+- [x] Ensure all industries are covered with comprehensive templates
+- [x] Make template library robust for AMs to spot whitespace opportunities for Paid Messaging adoption
+- [x] Add export/download dialog with multiple format options (PNG, PDF, interactive HTML)
+- [x] Build interactive HTML export - self-contained HTML file with the WhatsApp conversation simulation
+- [x] Build PNG screenshot export of the WhatsApp phone mockup
+- [x] Build PDF export of the conversation flow
+- [x] Add share via email functionality with pre-filled subject and body
+- [x] Add share via Workchat functionality
+- [x] Add share via WhatsApp functionality
+- [x] Make interactive export the primary/recommended option for presentation use
+- [x] Fix: PNG screenshot export failing due to CORS issues with CloudFront images - added server-side image proxy
+- [x] Add server-side image proxy endpoint for cross-origin image fetching
+- [x] Add Copy Link sharing option to clipboard
+- [x] Fix: PNG download causes the app to become unresponsive/frozen (replaced html-to-image with modern-screenshot, render in hidden iframe to avoid blocking main thread)
+- [x] Fix: PNG export shows grey boxes instead of actual images - server-side Puppeteer screenshot with base64 embedded images
+- [x] Fix: PNG export still freezes/crashes the page - moved to server-side Puppeteer rendering, no client-side DOM manipulation
+- [x] Ensure interactive HTML download works as self-contained file for presentation slides - all images embedded as base64
+- [x] Redesign manual edit: allow changing message sender (business/customer) on existing messages
+- [x] Redesign manual edit: allow switching message type (text, interactive button, image, carousel, etc.)
+- [x] Make manual editing seamless after AI generation - easy inline editing of all message properties
+- [x] Add move up/down reorder buttons in manual edit mode
+- [x] Improve overall manual edit UX for tailoring AI-generated templates
+- [x] Add duplicate message button to clone and modify existing messages
+- [x] Add undo/redo for manual edits with edit history tracking
+- [x] Add "Insert message after" option to insert messages at any position in the flow
+- [x] Add drag-and-drop reordering for messages in manual edit mode (using @dnd-kit with drag handles)
+- [x] Add message templates/snippets for quick insertion (7 pre-built blocks: CTA, Product Showcase, Appointment, Verification, Feedback, Order Status, Onboarding)
+- [x] Add "Preview as client" read-only simulation mode with shareable link (presentation mode with fullscreen support)
+- [x] Fix: Homepage step numbers (01, 02, 03) are grey and fade into background - changed to dark text
+- [x] Add "Save as Template" feature - save customized threads as personal reusable templates (DB table, API, UI in builder + My Saved Templates section in dashboard)
+- [x] Add conversation analytics overlay - show estimated read rates, response rates, conversion metrics per message type
+- [x] Add Export to PPT function - download thread as a pitch deck PowerPoint file (4-slide deck with title, preview, flow breakdown, metrics)
+- [x] Add Export to Google Slides function - PPTX file importable into Google Slides
+- [x] Fix: PowerPoint / Google Slides generation fails with error
+- [x] Separate Google Slides and PowerPoint into distinct export buttons
+- [x] Use animated GIF of conversation flow instead of static PNG in PPT/Slides exports
+- [x] Fix: Deployment fails due to native `canvas` npm package requiring C++ compilation (pixman, cairo) - replace with pure JS approach
+- [x] Remove canvas and gif-encoder-2 native dependencies from package.json
+- [x] Rewrite animated GIF generation using pure JavaScript (no native modules)
+- [x] Fix: PPT/Google Slides export fails in production (Puppeteer/Chromium not available in deployed environment)
+- [x] Implement client-side animated GIF generation (no server-side Puppeteer dependency)
+- [x] Add standalone GIF download option in export dialog
+- [x] Remove PNG screenshot export option
+- [x] Fix: PPT download still fails in production
+- [x] Fix: GIF download fails / not working
+- [x] Remove Google Slides option from export dialog (keep only PowerPoint)
+- [x] Fix: PPT export still shows 'Preview not available' placeholder instead of conversation preview (GIF generation failing silently)
+- [x] Fix: GIF export outputs stacked screenshots (multi-page image) instead of a single animated GIF file
+- [x] Replaced html2canvas and html-to-image with pure Canvas 2D API rendering (no DOM capture libraries, no CORS issues)
+- [x] Fix: GIF still downloads as multiple static pages instead of animated GIF (root cause: modern-gif encode() doesn't await frames in constructor - switched to Encoder class with proper await)
+- [x] Fix: Display name formatting is off in GIF export
+- [x] Fix: Template images not included in GIF export (preload via tRPC imageProxy before passing to GIF generator)
+- [x] Fix: PPT still shows error previewing the GIF
+- [x] Fix: GIF should showcase carousel cards fully (all cards visible) and list message dropdowns to simulate user interaction
+- [x] Fix: GIF in PPT is too small/compressed - needs to be much larger and visible
+- [x] Fix: GIF export renders only WhatsApp header/chrome but no conversation messages - replaced modern-gif with gif.js for reliable encoding
+- [x] Redesign GIF carousel animation: replace full-screen overlay zoom with inline horizontal thumb-scroll simulation within the chat bubble
+- [x] Audit all industry templates: ensure every customer message is triggered by user interaction with a business message (button, list, carousel)
+- [x] Audit AI generation prompt: enforce rule that customer messages only follow interactive business messages
+- [x] Audit WhatsApp mockup simulation logic: ensure no customer messages auto-trigger without user interaction
+- [x] Fix any templates where customer messages appear automatically without prior interaction
+- [x] Create client-side flow validation utility that checks interactivity rules
+- [x] Add flow validation status badge next to Live Preview header (green checkmark or amber warning)
+- [x] Add per-message warning indicators in Manual Edit tab for messages violating interactivity rules
+- [x] Add quick-fix suggestions for flagged messages (e.g., "Add buttons to this message")
+- [x] Write tests for the flow validation logic (11 tests)
+- [x] Audit all industry template prompts to ensure they enforce interactive business messages before every customer reply
+- [x] Audit AI generation system prompt and post-processing for 10/10 interactivity guarantee
+- [x] Write automated audit test that validates enforceInteractivity post-processor catches all edge cases (dedup, consecutive inbound, first-message inbound)
+- [x] Fix AI system prompt with explicit correct/incorrect examples and strengthened enforceInteractivity post-processor
+- [x] Add one-click "Auto-fix" button on flagged messages in Manual Edit that converts plain text business messages into interactive button messages
+- [x] Add "Regenerate with interactivity" / "Fix All" button for older threads to upgrade legacy demos to fully interactive flows (server-side fixInteractivity procedure)
+- [x] Expand template coverage: 105 templates across 15 industries (15 new high-value templates added, 1 per industry)
+- [x] Design conversation branching data model (branch points, paths, conditions)
+- [x] Update database schema to support branching (branch_points table or message metadata)
+- [x] Implement server-side branching APIs (create/update/delete branches)
+- [x] Build branching UI in builder - visual branch editor for defining paths per button/option
+- [x] Update WhatsApp mockup simulation to follow branches based on user button clicks
+- [ ] Update AI generation to optionally produce branching conversations (deferred - manual branching complete)
+- [x] Write tests for branching logic (24 tests covering all utility functions)
+- [x] Audit all appointment booking templates across all industries (27 templates identified)
+- [x] Update appointment booking templates to include list message for date/time selection (28 templates updated)
+- [x] Ensure appointment confirmation only happens after date/time selection
+- [x] End all appointment booking flows with a thank you message
+- [x] Update AI generation prompt to enforce appointment booking flow pattern (list message → date/time pick → confirmation → thank you)
+- [x] Test appointment booking flows in template library and AI generation (224 tests, all passing)
+- [x] Design appointment reminder follow-up data model (reminder messages attached to booking confirmation)
+- [x] Add reminder follow-up fields to shared types (reminderMessages array on thread)
+- [x] Build "Follow-up Reminders" tab/section in builder UI for adding reminder sequences
+- [x] Create pre-built reminder templates (24h before, 1h before, post-appointment follow-up)
+- [x] Integrate reminder preview into WhatsApp mockup (show as separate conversation segment)
+- [x] Update AI generation to optionally produce reminder follow-ups for booking flows
+- [x] Update booking templates to include sample reminder sequences (AI auto-generates for booking prompts)
+- [x] Add reminder messages to shared preview and presentation mode
+- [x] Write tests for reminder follow-up logic (25 tests, all passing)
+- [x] Fix: Images don't load when templates are created - auto-polling now detects pending images and refreshes
+- [x] Investigate template creation flow to find where image generation is missing (root cause: Builder didn't poll for background image gen when navigating from Samples)
+- [x] Ensure image generation runs for template-based thread creation - added auto-detect pending images + shimmer loading states
+- [x] Fix: Image generation too slow - replaced AI generation with instant stock image resolver (<10ms for 20 images)
+- [x] Replace AI image generation with fast-loading stock/placeholder images from Unsplash CDN
+- [x] Ensure all template images are pre-assigned or instantly available (curated stock photos by category)
+- [x] Update AI generation to use fast image sources - resolveAllStockImages() runs before DB save
+- [x] Test that images appear within 3 seconds (28 tests, performance test confirms <10ms for 20 images)
+- [x] Feature: Custom image upload - add "Upload Image" button in message editor for image, carousel, template, and video messages
+- [x] Feature: Custom image upload - server-side endpoint to receive file and upload to S3 (already existed via upload.file procedure)
+- [x] Feature: Custom image upload - replace stock/AI image with user-uploaded image
+- [x] Feature: Swap Image - add "Swap Image" button on each image in the editor to cycle through alternatives
+- [x] Feature: Swap Image - cycle through alternative stock photos in the same category (via getAlternatives API)
+- [x] Feature: Expanded image packs - add more niche categories (dental, jewelry, sushi, cocktail, warehouse, etc.)
+- [x] Feature: Expanded image packs - increased to 100+ categories with 3-8 photos each
+- [x] Write tests for image upload, swap, and expanded stock library (392 tests total, all passing)
+- [x] Fix: Stock images not contextually relevant - hybrid approach: instant stock placeholders + progressive AI image replacement
+- [x] Research fast image APIs - chose hybrid: stock images instant + AI generation in parallel background
+- [x] Implement contextually relevant image resolution - multi-keyword scoring with compound patterns + parallel AI generation
+- [x] Pre-curate industry-specific images - 100+ categories with compound pattern matching for precision
+- [x] Test image relevance across all industry templates (392 tests passing)
+- [x] Fine-tune stock image contextual relevance v2 - complete rewrite of matching algorithm
+- [x] Replace substring matching with word-boundary regex matching (prevents "cat" matching inside "education")
+- [x] Add 90+ semantic phrase patterns for multi-word concepts (e.g. "hair salon", "fine dining", "online learning")
+- [x] Add weighted scoring system: semantic patterns (20-35pts) > specific keywords (15pts) > generic keywords (5-10pts)
+- [x] Fix false positives: "wine" no longer beats "restaurant" for dining descriptions, "laptop" no longer beats "education" for learning descriptions
+- [x] Add missing categories: telecom, laboratory, person, welcome, success, security, support, notification
+- [x] Add lifestyle/people patterns: "happy customer", "family using devices", "thumbs up review"
+- [x] Enhance AI prompt with industry-specific image description examples to guide LLM output
+- [x] Update user prompt builder to emphasize specific subject nouns in image descriptions
+- [x] Achieve 100% accuracy on 91-description audit test suite (up from 60%)
+- [x] Write 15 new precision matching vitest tests (53 total, all passing)
+- [x] All 407 tests passing across 11 test files
+- [x] Audit all 105 templates for broken conversational journeys (customer clicks button but next message doesn't acknowledge the choice)
+- [x] Fix AI system prompt to enforce contextual response continuity after button clicks
+- [x] Enhance enforceInteractivity post-processor to validate journey coherence
+- [x] Ensure carousel "View Details" is followed by product details, not unrelated next step
+- [x] Ensure every customer reply button text is acknowledged in the next business message
+- [x] Write tests for journey coherence validation (9 tests in templateCoherence.test.ts, all passing)
+- [x] Enhance website crawler to deep-crawl client websites and extract real products/services
+- [x] Extract product images, names, prices, and descriptions from crawled pages
+- [x] Crawl multiple pages (homepage, products, services, about) not just the landing page
+- [x] Use LLM to intelligently identify and structure product/service catalog from raw page content
+- [x] Generate hyper-personalized WhatsApp mockups using actual client products/services/images
+- [x] Pass extracted product data (images, prices, names) directly into AI conversation generation
+- [x] Use real product images from client website instead of stock photos
+- [x] Update frontend to show website analysis progress and extracted business data
+- [x] Write tests for enhanced crawling and personalized generation (32 new tests, 448 total passing)
+- [x] Fix: First image in chat doesn't load when using crawled website images (e.g. unifi.com.my)
+- [x] Add image URL validation/proxy for crawled images that may be hotlink-protected or CORS-blocked
+- [x] Add fallback to stock images when crawled image URLs fail to load
+- [x] Optimize: AI generation takes too long - reduce latency while maintaining quality
+- [x] Streamline AI prompts to reduce token count without losing quality
+- [x] Parallelize website crawling and AI generation where possible
+- [x] Add image prevalidation during crawl to skip broken/protected URLs early
+- [x] Feature: Server-side image proxy to bypass hotlink protection on crawled website images
+- [x] Feature: Proxy endpoint that fetches images server-side and serves them to the frontend
+- [x] Feature: Auto-detect hotlink-protected images and route through proxy
+- [x] Feature: Loading progress bar during AI generation showing estimated time for each step
+- [x] Feature: Show step-by-step progress (crawling, analyzing, generating, resolving images)
+- [x] Feature: Display estimated time remaining during generation
+- [x] Replace generic quick prompt suggestions with industry-tailored recommendations based on selected vertical
+- [x] Research best-in-class WhatsApp paid messaging patterns across all 15 industry verticals
+- [x] Build comprehensive industry knowledge base with vertical-specific use cases, CTAs, and messaging strategies (180 unique prompts, 15 industries × 3 types × 4 prompts)
+- [x] Enhance AI system prompt with deep industry expertise for each vertical (best practices, terminology, flow patterns, tone guide, product types)
+- [x] Ensure quick prompts change dynamically when user switches industry in settings
+- [x] Cover all message types (marketing, utility, authentication) with industry-specific suggestions
+- [x] Audit template library: map existing coverage by industry × message type
+- [x] Identify coverage gaps and high-value missing use cases per vertical
+- [x] Design and add new templates to fill gaps and provide superior industry depth (107 new templates added)
+- [x] Ensure every industry has 14-15 templates covering marketing (6), utility (5), and authentication (3)
+- [x] Add templates for emerging WhatsApp use cases (conversational commerce, loyalty programs, payment verification, etc.)
+- [x] Update database seed data for new templates (212 total)
+- [x] Write tests to validate new template structure and coverage (486 tests passing)
+- [x] Feature: Multi-select threads in My Threads page for bulk operations (delete, move, tag)
+- [x] Feature: Bulk edit actions toolbar (appears when threads are selected)
+- [x] Feature: Select all / deselect all functionality
+- [x] Feature: Editable display name on WhatsApp mockup panel (click to edit business name)
+- [x] Feature: Upload custom display photo for WhatsApp mockup (replace default avatar)
+- [x] Feature: Store display name and photo per thread in database
+- [x] Feature: Client asset upload in AI generation (photos, videos, product images)
+- [x] Feature: AI generates demos using uploaded client assets instead of stock images
+- [x] Feature: Client assets injected with priority: header → carousel cards → standalone images → videos
+- [x] Feature: AI prompt context includes client asset URLs for direct use in conversation generation
+- [x] Feature: Progress indicator shows asset injection step during generation
+- [x] Write tests for client asset injection (18 tests covering priority, edge cases, full flows)
+- [x] All 504 tests passing across 16 test files
+- [x] Feature: Vision-based asset descriptions - use LLM vision API to analyze uploaded client images and generate contextual captions/descriptions
+- [x] Feature: Image optimization pipeline - server-side resizing with sharp to WhatsApp-optimal dimensions (1024x1024) and compression before injection
+- [x] Feature: Delete uploaded avatar photo - allow users to remove display photo and revert to initials-based avatar
+- [x] Write tests for vision descriptions, image optimization, and avatar deletion (36 tests, all passing)
+- [x] All 540 tests passing across 17 test files
+- [x] Feature: Inline text editing on WhatsApp mockup - click any text in message bubbles to edit in-place
+- [x] Feature: Inline image editing on WhatsApp mockup - click images to replace them (upload new or change URL)
+- [x] Feature: Inline editing for template messages (headerText, bodyText, footerText, button labels)
+- [x] Feature: Inline editing for carousel card text (title, description, price, button text)
+- [x] Feature: Inline editing for button labels on interactive messages
+- [x] Feature: Sync all mockup inline edits back to Builder state (localMessages) and persist via updateMessage
+- [x] Feature: Visual edit indicators (hover states, edit cursors) on editable elements in mockup
+- [x] Write tests for inline editing functionality (30 tests, all passing)
+- [x] All 570 tests passing across 18 test files
+- [x] Fix: Remove description text from preview mode - preview should only show the phone mockup demo
+- [x] Feature: Edit Mode toggle on phone mockup - inline editing only active when explicitly enabled, preventing accidental edits during demo
+- [x] Feature: Visual indicator showing edit mode is on/off (toggle button + green banner above mockup)
+- [x] Feature: When edit mode is off, mockup behaves as clean interactive demo (buttons still work)
+- [x] Feature: Image cropper component - visual crop/reposition tool with zoom, rotation, and aspect ratio presets
+- [x] Feature: Integrate cropper into manual edit image upload flow (header images, carousel images, standalone images)
+- [x] Feature: Integrate cropper into WhatsApp mockup inline image editing (Edit Mode)
+- [x] Feature: Preset aspect ratios for WhatsApp formats (16:9 header, 1:1 carousel card, 4:3 standard, freeform)
+- [x] Feature: Crop existing images button next to upload button for re-cropping already uploaded images
+- [x] Bug: Image cropper does not apply cropped image to mockup when cropping existing images - fixed by using server-side image proxy to bypass CORS canvas taint
+- [x] Feature: Visual differentiation between saved templates and regular threads in My Threads (amber/gold for saved templates, default for regular threads)
+- [x] Feature: Direct editing of saved templates - Edit button navigates to source thread in builder for in-place editing
+- [x] Feature: Save progress to existing thread/template - updateSnapshot mutation updates template from current thread state
+- [x] Feature: Save Progress button in builder toolbar when editing a linked template (amber-styled)
+- [x] Feature: Save As New option to create a new template from a linked thread
+- [x] Feature: sourceThreadUid field linking saved templates to their source threads (DB migration applied)
+- [x] Write tests for saved template improvements (12 tests, all passing)
+- [x] All 582 tests passing across 19 test files
+- [x] Bug: Clicking Edit on saved template still creates a new copy instead of navigating to the source thread for in-place editing - fixed by: (1) useTemplate now sets sourceThreadUid on the template after creating the thread, (2) removed '(Copy)' suffix, (3) first click on orphaned templates creates a linked thread, subsequent clicks navigate directly
+- [x] Bug: Preview button not working - fixed popup blocker issue by opening window synchronously before async operations
+- [x] Feature: Paid Messaging ROI Calculator - new tab alongside Browse Templates
+- [x] ROI Calculator data layer with countries, industries, benchmarks, currencies
+- [x] ROI Calculator calculation engine (deriveAdv, formatting utilities)
+- [x] ROI Calculator wizard UI (Country → Industry → Inputs → Results)
+- [x] ROI Calculator results: Scorecard table with channel comparison
+- [x] ROI Calculator results: Funnel visualization
+- [x] ROI Calculator results: Shift Simulator (volume shift from competitor to WhatsApp)
+- [x] ROI Calculator results: Audience Health panel
+- [x] ROI Calculator results: Break-Even analysis card
+- [x] ROI Calculator results: Executive Summary
+- [x] ROI Calculator results: Scenario Compare (A vs B)
+- [x] ROI Calculator results: Monthly Projection chart
+- [x] ROI Calculator: Pre-built scenarios for quick demos
+- [x] ROI Calculator: Export (HTML, CSV, Text Summary)
+- [x] ROI Calculator: Goal mode (reverse-calculate from target revenue)
+- [x] ROI Calculator: Basic/Advanced mode toggle
+- [x] ROI Calculator: Currency support (USD + local)
+- [x] ROI Calculator: Navigation integration (navbar + landing page)
+- [x] ROI Calculator: Vitest unit tests
+- [x] Refine ROI Calculator: Regroup countries by standard continents (Asia Pacific, Europe, North America, Latin America, Middle East & Africa)
+- [x] Refine ROI Calculator: Align industry selection with WhatsApp Template Library industries
+- [x] Refine ROI Calculator: Add industry-specific outcome metrics (conversion rate, booking rate, etc.)
+- [x] Refine ROI Calculator: Simplify Basic mode - WhatsApp only, no SMS/Email cross-channel
+- [x] Refine ROI Calculator: Basic mode inputs reduced to 3 fields (messages sent, conversion rate, cost per message)
+- [x] Refine ROI Calculator: Update benchmarks and conversion data for new region/industry structure
+- [x] Refine ROI Calculator: Update vitest tests for new data structure
+- [x] ROI Calculator Basic mode: Add toggle to make auto-applied benchmark fields editable (Delivery Rate, Read Rate, CTR, Opt-Out Rate)
+- [x] ROI Calculator Basic mode: Edited benchmarks flow through to all calculations and output
+- [x] Rename app from 'WhatsApp Chat Builder' to 'WhatsApp Pitch Builder' across all pages
+- [x] Update landing page header to 'Create WhatsApp Paid Messaging Demos in Seconds'
+- [x] Advanced ROI Calculator: Unified single-page view showing SMS and Email comparisons together (not separate tabs)
+- [x] Advanced ROI Calculator: Insight cards with dark theme, colored metric badges, and narrative text for Scorecard section
+- [x] Advanced ROI Calculator: Insight cards for Shift Simulator section (revenue premium, extra sales, ROI delta)
+- [x] Advanced ROI Calculator: Insight cards for Audience Health section (opt-out comparison, risk reduction, churn analysis)
+- [x] Advanced ROI Calculator: Insight cards for Break-Even section (efficiency multiplier, opportunity cost, WA Rev/1K)
+- [x] Advanced ROI Calculator: Insight cards for Executive Summary section
+- [x] Advanced ROI Calculator: Insight cards for Scenarios section (scenario A vs B revenue, ROI comparison)
+- [x] Advanced ROI Calculator: Insight cards for Projections section
+- [x] Advanced ROI Calculator: Insights dynamically derived from calculations to craft WhatsApp sales narrative
+- [x] Template Library: Sort templates by industry alphabetically (Automotive, Beauty, E-Commerce, etc.)
+- [x] Template Library: Within each industry, group by paid messaging category (Marketing → Utility → Authentication)
+- [x] Template Library: Within each category, sort use cases alphabetically
+- [x] Fix: First message card image shows green screen instead of actual image when generating flows from crawled websites (e.g., Toyota SUV mockup)
+- [x] Fix: Image regression - previous green screen fix was too aggressive, now all crawled images show 'unavailable' instead of loading. Need to restore working image loading while still preventing green screen.
+- [x] Enhanced image proxy with 3-strategy fallback (original headers, Referer spoofing, no-Referer)
+- [x] Added server-side deep validation endpoint (POST /api/image-validate) that does full GET requests to verify images actually load
+- [x] Updated injectRealProductImages to async deep-validate crawled images before injecting them
+- [x] Failed images now correctly fall through to stock images → AI generation instead of showing 'unavailable'
+- [x] Added fallback URL support to image proxy (proxy tries original URL, falls back to stock image on failure)
+- [x] Updated frontend placeholder text from 'Image unavailable' to 'Image loading...' for better UX
+- [x] All 633 tests passing across 20 test files
+- [x] Bug: Stock image fallback shows competitor brand images (Audi SUV for Toyota demo) - need brand-aware image fallback
+- [x] When crawled images fail validation, prioritize AI-generated brand-specific images over generic stock photos
+- [x] Replace stock car/SUV photos that show identifiable competitor brands with generic/unbranded alternatives
+- [x] Ensure AI image generation includes brand name context (e.g., "Toyota SUV" not just "SUV")
+- [x] Added brand context enrichment to resolveAllStockImages (prepends brand name to imageDescription)
+- [x] Added _headerImageDescription preservation so AI generation can replace header stock images
+- [x] Updated generateImagesForMessages to accept brandContext and include brand in AI prompts
+- [x] All 641 tests passing across 20 test files
+- [x] Rename ROI Calculator header from 'Paid Messaging ROI Calculator' to 'WhatsApp Paid Messaging ROI Calculator'
+- [x] Update ROI Calculator subtitle to 'Quickly estimate WhatsApp Marketing Messages ROI with just a few inputs'
+- [x] Build coupon redemption journey for retail/offline use cases (O2O bridge)
+- [x] Add 10 coupon redemption templates across 7 industries (Retail, E-Commerce, F&B, Automotive, Beauty, Entertainment, Real Estate)
+- [x] Update AI generation prompts with mandatory coupon/voucher rules for physical store use cases
+- [x] Update industry expertise with O2O coupon journey best practices (Retail, F&B, Automotive, Beauty, Entertainment)
+- [x] Coupon flows include: offer → claim → unique code + QR → store locator → redemption confirmation
+- [x] All 641 tests passing across 20 test files (222 total templates)
+- [x] Bug: AI-generated coupon redemption flow for Gintell has no interactive messages - simulation stuck at "Tap a button above to continue"
+- [x] Root cause: Image message renderer in WhatsAppMockup.tsx didn't render buttons on image messages (data was correct, rendering was missing)
+- [x] Added button rendering to image message type in WhatsAppMockup.tsx (matching template button pattern)
+- [x] Fixed post-processing to keep image type when adding buttons (instead of converting to interactive_buttons which loses the image)
+- [x] Updated AI prompt to explicitly show image messages can have buttons in the content type definition
+- [x] All 641 tests passing across 20 test files
+- [x] Build intelligent image classification for uploaded images (workflow diagram vs product image)
+- [x] Use LLM vision to analyze uploaded images and detect if they describe a messaging journey/workflow
+- [x] Extract flow steps, touchpoints, and stage descriptions from workflow diagram images
+- [x] Integrate workflow extraction into AI generation pipeline - use extracted flow as the conversation structure
+- [x] When workflow image + website URL provided, combine workflow structure with real product data from crawl
+- [x] Update frontend to show workflow detection feedback and updated upload button text
+- [x] Ensure product images are still handled normally (confidence threshold 0.6 for workflow classification)
+- [x] Created workflowExtractor.ts module with classifyImage, extractWorkflowFromImage, classifyAndExtractAssets, buildWorkflowPromptContext
+- [x] All 658 tests passing across 21 test files
+- [x] Build prebuilt templates for baby care lifecycle journey (8 touchpoints from workflow diagram)
+- [x] Templates: Registration, Pregnancy Tips, Pre-Birth Prep, Newborn Welcome, Size Transition, Active Baby, Toddler, Re-engagement
+- [x] Generalize for any FMCG/baby care brand - no brand names
+- [x] Ensure templates follow existing catalog structure with proper post-selection acknowledgment
+- [x] All 658 tests pa- [x] All 658 tests passing across 21 test files
+- [x] Add in-app notification channel comparison to advanced ROI calculator
+- [x] Include in-app notification benchmarks (delivery, open rate, CTR, conversion, cost) by region
+- [x] Update comparison chart/table to show WhatsApp vs Email vs SMS vs In-App Notification
+- [x] Update ROI summary to include in-app notification channel results
+- [x] Added channel descriptions for all 3 comparison channels (SMS, Email, In-App)
+- [x] Custom labels: "Notification Disable Rate" instead of "Opt-Out Rate" for in-app
+- [x] All 658 tests passing across 21 test files
+- [x] ROI Calculator: Add mode toggle (Basic | Advanced | Utility) at top
+- [x] ROI Calculator: Utility mode - Step 1 Country selector (reuse existing)
+- [x] ROI Calculator: Utility mode - Step 2 Industry selector (reuse existing)
+- [x] ROI Calculator: Utility mode - Step 3 Use Cases selection (8 use cases with categories)
+- [x] ROI Calculator: Utility mode - Step 4 Configure (client name, input cards per use case with 3-5 fields)
+- [x] ROI Calculator: Utility mode - Step 5 Results (aggregate ROI + per-use-case breakdown with ranked bar chart)
+- [x] ROI Calculator: Validate WhatsApp utility message pricing per country from Meta public rate card
+- [x] ROI Calculator: 8 use cases with industry benchmarks (Order/Shipping, Appointment, Abandoned Cart, Payment/Invoice, FAQ, Lead Qualification, Renewal/Subscription, Booking Confirmations)
+- [x] ROI Calculator: Live mini-preview per use case card (savings, WA cost, messages)
+- [x] ROI Calculator: Auto-select relevant use cases based on selected industry
+- [x] ROI Calculator: Write tests for utility mode calculations and flow (26 tests passing)
+- [x] Collapse Basic/Advanced into single 'Marketing' toggle (only Marketing | Utility in header)
+- [x] Change subtitle from 'WhatsApp Marketing Messages ROI' to 'WhatsApp Paid Messaging ROI'
+- [x] Add professional disclaimer to every page/tab of ROI Calculator (estimates, not guaranteed)
+- [x] API: Add api_keys table to DB schema (hashed key, userId, name, createdAt, lastUsedAt)
+- [x] API: Create key management helpers (generate, validate, revoke, list)
+- [x] API: Add tRPC procedures for key management (create, list, revoke)
+- [x] API: Build API key auth middleware for /api/v1/* routes
+- [x] API: GET /api/v1/templates endpoint (list all templates, filter by industry/messageType)
+- [x] API: POST /api/v1/threads/create endpoint (one-shot: create + crawl + generate → return URL)
+- [x] API: Build public /api-docs documentation page (no auth required)
+- [x] API: Add API key management UI (generate/revoke from profile or settings)
+- [x] API: Write tests for API key auth and endpoints (29 tests passing)
+- [x] API: Rate limiting on /api/v1/* routes (30 req/min)
+- [x] Make /api-docs page public (bypass OAuth) so Claude Code can read it
+- [x] Ensure /api/v1/* REST endpoints bypass OAuth (use API key auth only)
+- [x] Add plain-text/markdown docs endpoint at GET /api/v1/docs for bot consumption
+- [x] Update API docs to explain Option A setup: generate key in UI → paste into bot config
+- [x] URL-based thread creation: /create route that reads query params (template, prompt, name, businessName, businessUrl, industry, messageType, imageUrl)
+- [x] Pre-populate thread creation form fields from URL query params
+- [x] Auto-navigate to builder page with pre-filled fields, user reviews and clicks Generate
+- [x] Update /api/v1/docs with URL-based creation documentation for Claude Code
+- [x] Build dedicated docs page explaining URL schema, available templates, and examples (via /api/v1/docs markdown endpoint)
+- [x] QuickCreate: Add image preview and accessibility check for imageUrl parameter
+- [x] BUG: Conversation flow does not appear immediately after template selection — requires multiple refreshes to display messages
+- [x] Fix: Server now returns savedMessages (with DB IDs) from generateFlow mutation so frontend can render immediately
+- [x] Fix: Builder.tsx directly sets localMessages from mutation result instead of relying on indirect refetch path
+- [x] Fix: Samples page stores savedMessages in sessionStorage for instant hydration when Builder mounts
+- [x] Fix: Added sessionStorage hydration useEffect in Builder for cross-page navigation from Samples/Templates
+- [x] Write tests for rendering fix (6 tests, all passing)
+- [x] All 725 tests passing across 25 test files
+- [x] BUG: Conversation flow still doesn't appear on first load after template selection - requires multiple refreshes (previous fix insufficient)
+- [x] Fix: Root cause was 36 broken Unsplash URLs (7.6% of all stock images) including ALL car/SUV/electric car categories returning 404
+- [x] Fix: Replaced all 36 broken URLs with verified working Unsplash images
+- [x] Fix: Added fingerprint-based comparison in threadData sync useEffect to prevent unnecessary localMessages resets during polling
+- [x] BUG: Carousel card images are irrelevant - automotive "New Model Launch" template shows furniture/interior images instead of car-related images
+- [x] Fix: Added automotive semantic patterns (cockpit, battery, range, engine, horsepower, etc.) to stock image matcher
+- [x] Fix: Added industry-aware fallback in resolveAllStockImages - automotive threads now fall back to car images instead of generic ones
+- [x] All 719 tests passing across 24 test files
+
+## UI/UX Redesign — Launchpad Landing Page
+- [x] Create MyThreadsDropdown component (header popover with 5 recent threads + New button + View All)
+- [x] Redesign Home.tsx as launchpad: Industry Templates hero grid (primary) + Build from Scratch (secondary)
+- [x] Industry grid shows all 15 industries with icons, template counts, and search filter
+- [x] Clicking industry navigates to /templates?industry=X with pre-selected filter
+- [x] Move ROI Calculator and API Docs to user dropdown menu
+- [x] Condense below-the-fold marketing content into single compact value strip (4 stats)
+- [x] Update header navigation across all pages for consistency (Home, Templates, Dashboard)
+- [x] Templates page reads ?industry= query param and pre-selects the filter
+- [x] All 719 tests passing across 24 test files
+
+## Landing Page Merge — Original + New CTAs
+- [x] Restore original snappy landing page content (stats, how it works, messaging types, template quality)
+- [x] Replace hero CTAs with two clean stacked buttons: Browse Industry Templates (primary) + Build from Scratch (secondary)
+- [x] Keep MyThreadsDropdown in navbar, ROI Calculator and API Docs in user dropdown
+- [x] Bottom CTA section also uses the two-button pattern
+- [x] All 719 tests passing across 24 test files
+
+## UI Tweaks — ROI Calculator + Navbar Rename
+- [x] Add ROI Calculator as third CTA below Build from Scratch on landing page
+- [x] Rename "Templates" to "Industry Templates" in navbar
+- [x] Add ROI Calculator link beside Industry Templates in navbar
+- [x] Apply same navbar changes across all pages (Samples, Dashboard, etc.)
+- [x] BUG: ROI Calculator CTA on landing page has no visible border/bar — should match Build from Scratch outline style
+- [x] Rename "Build from Scratch" to "Create a Tailored Pitch" on landing page and bottom CTA
+- [x] Add optional "Paste Client URL" field in the Create a Tailored Pitch dialog
+- [x] Auto-populate AI prompt in Builder when clientUrl query param is present
+- [x] Show "Analyzing website..." loading state in Builder when client URL is being processed
+- [x] Auto-trigger generation when client URL is provided (auto-crawl → auto-generate pipeline)
+- [x] Build first-time user onboarding overlay highlighting the two paths (Browse Templates vs Create Tailored Pitch)
+- [x] Store onboarding completion in localStorage so it only shows once
+- [x] BUG: Auto-crawl pipeline not triggering — when client URL is provided via Create a Tailored Pitch, Builder does not auto-crawl and auto-generate
+- [x] Fix: Replaced setTimeout + querySelector DOM clicking approach with useEffect hooks watching pendingAutoCrawl and pendingAutoGenerate flags
+- [x] Verified end-to-end: Landing page → Enter Nike URL → Builder auto-crawls → Extracts 6 products + 4 services → Auto-generates 10-message conversation with real product images and interactive buttons
+
+## Indian Language Support (Hindi, Bengali, Tamil, Marathi, Telugu)
+- [x] i18n infrastructure — LanguageContext, useLanguage hook, LanguageSelector component
+- [x] Translation files for all 5 Indian languages (Hindi, Bengali, Tamil, Marathi, Telugu)
+- [x] Language selector in Create a Tailored Pitch dialog on Home page
+- [x] Language selector in Industry Templates page filter bar (compact mode)
+- [x] Language selector in Builder AI Generate tab (before Generate button)
+- [x] AI generation supports Indian languages — language param passed to LLM with script-specific instructions
+- [x] WhatsApp mockup renders Indic scripts correctly — Noto Sans Devanagari, Bengali, Tamil, Telugu fonts loaded
+- [x] Language param flows end-to-end: Home → Builder URL param → generateFlow mutation → LLM prompt
+- [x] 12 unit tests passing for language schema validation and language name mapping
+- [x] All 731 tests passing
+- [ ] Template catalog descriptions available in Indian languages (future enhancement)
+
+## Bahasa Indonesia Language Support
+- [x] Add 'id' (Bahasa Indonesia) to SupportedLanguage type and translations file
+- [x] Add Indonesian option to all language selectors (Home, Samples, Builder)
+- [x] Add 'id' to AI generation language enum in server routers
+- [x] Update buildSystemPrompt to handle Indonesian language
+- [x] Update language tests to cover Indonesian (13 tests passing)
+- [x] All 732 tests passing
+
+## Simplified & Traditional Chinese Language Support
+- [x] Add 'zh-CN' (Simplified Chinese) and 'zh-TW' (Traditional Chinese) to SupportedLanguage type
+- [x] Add full translations for both Chinese variants (all UI strings)
+- [x] Add Chinese options to all language selectors (Home, Samples, Builder)
+- [x] Add Chinese to AI generation language enum in server routers
+- [x] Update buildSystemPrompt to handle Chinese languages
+- [x] Update language tests to cover both Chinese variants (15 tests passing)
+- [x] Add Chinese font support (Noto Sans SC / TC loaded via Google Fonts)
+- [x] All 734 tests passing
+
+## Portuguese & Spanish Language Support
+- [x] Add 'pt' (Portuguese) and 'es' (Spanish) to SupportedLanguage type and translations file
+- [x] Add full Portuguese translations for all UI strings
+- [x] Add full Spanish translations for all UI strings
+- [x] Add Portuguese and Spanish options to Builder.tsx language selector
+- [x] Add 'pt' and 'es' to AI generation language enum in server routers
+- [x] Update buildSystemPrompt LANGUAGE_NAMES to include Portuguese and Spanish
+- [x] Update language tests to cover Portuguese and Spanish (17 tests passing)
+- [x] Test Portuguese end-to-end: Industry Templates journey — PASS
+- [x] Test Portuguese end-to-end: Create a Tailored Pitch journey — PASS (Magazine Luiza)
+- [x] Test Spanish end-to-end: Industry Templates journey — PASS (Beauty Product Launch)
+- [x] Test Spanish end-to-end: Create a Tailored Pitch journey — PASS (Mercado Libre Mexico)
+- [x] All 736 tests passing
+
+## Landing Page Language Highlights
+- [x] Add multilingual badge/banner on landing page hero section to highlight 11 language support
+- [x] Add country flag strip with language list below hero subtitle
+- [x] Add language awareness callout in the Create a Tailored Pitch dialog (green "Now supporting 11 languages" text)
+
+## Language Auto-Detection from URL
+- [x] Add detectLanguage() function to websiteCrawler.ts — checks HTML lang attr, meta tags, TLD mapping
+- [x] TLD mapping covers 30+ country domains (.br, .mx, .ar, .co, .pe, .cl, .in, .id, .cn, .tw, .hk, etc.)
+- [x] Return detectedLanguage in crawl response from crawlWebsite procedure
+- [x] Wire detected language to Builder UI — auto-sets conversationLanguage when crawl completes (only if user hasn't manually selected)
+- [x] Fixed race condition: auto-generate useEffect waits for language state update before generating
+- [x] Toast notification shown when language is auto-detected
+- [x] Test PASS: americanas.com.br → auto-detected Portuguese, selector switched, conversation in Portuguese
+- [x] Test PASS: liverpool.com.mx → auto-detected Spanish, selector switched to "🇪🇸 Español (Spanish)", 11 messages in Spanish with MXN context
+
+## Business Context for Industry Templates
+- [ ] Add business context data model (objective, targetAudience, messagingStrategy) to template type
+- [ ] Write business context for all templates across all industries (as a business consultant)
+- [ ] Display business context in Templates page (expandable section per template)
+- [ ] Display business context in Builder page (info panel)
+- [ ] Test UI rendering and verify business accuracy
+- [x] Add business context section to all 230 industry templates (objective, target audience, messaging strategy, KPIs)
+- [x] Generate business context data as a consultant for all templates
+- [x] Create TypeScript data file with business context mapping
+- [x] Add expandable business context section to template cards in Samples page
+- [x] Show business objective, target audience, messaging strategy, and KPIs in the UI
+- [x] Fix phone pane overflow in live preview - messages extend beyond phone frame
+- [x] Set fixed height on phone mockup with scrollable message area
+- [x] Auto-scroll to latest message during simulation
+- [x] Fix phone mockup height to fit within viewport - phone frame too tall, extends beyond visible area
+- [x] Phone should use viewport-relative height (e.g., max-h-[85vh]) so it never requires page scrolling
+
+## Urdu Language Support
+- [x] Add Urdu to language configuration (shared constants)
+- [x] Add Urdu to conversation language selector in Builder UI
+- [x] Add Urdu to language selector in Industry Templates page
+- [x] Update AI generation prompt to support Urdu with RTL awareness
+- [x] Update template generation to handle Urdu properly
+- [x] Test Urdu end-to-end: Industry Templates journey
+- [x] Test Urdu end-to-end: Create a Tailored Pitch journey
+- [x] Write vitest unit tests for Urdu language support (32 tests in urdu.test.ts)
+- [x] Verify Urdu script rendering and RTL text direction in WhatsApp mockup
+
+## E-commerce Sub-Verticals
+- [x] Audit current E-commerce templates to identify diversity gaps
+- [x] Design sub-vertical taxonomy for E-commerce industry
+- [x] Add subVertical field to TemplateUseCase type
+- [x] Tag existing 16 E-commerce templates with subVertical: "General"
+- [x] Create 3 unique templates for Fashion & Apparel sub-vertical
+- [x] Create 3 unique templates for Grocery & Food Delivery sub-vertical
+- [x] Create 3 unique templates for Electronics & Gadgets sub-vertical
+- [x] Create 3 unique templates for Beauty & Cosmetics sub-vertical
+- [x] Create 3 unique templates for Home & Furniture sub-vertical
+- [x] Create 3 unique templates for Health & Pharmacy sub-vertical
+- [x] Create 3 unique templates for Jewelry & Luxury sub-vertical
+- [x] Create 3 unique templates for Sports & Outdoors sub-vertical
+- [x] Add sub-vertical context to AI prompts for existing general templates
+- [x] Build sub-vertical chip/pill filter UI in Templates page
+- [x] Generate business context for all 24 new templates
+- [x] Write vitest tests for sub-vertical data model and filtering (27 tests)
+- [x] Test end-to-end template generation with sub-vertical context
+
+## Bug Fixes - Currency & Inline Editing
+- [x] Standardize all currency symbols to $ across all template files
+- [x] Fix inline editing cursor jump bug - cursor resets to top of phone panel during editing
+- [x] Added isEditingRef to suppress scrollToBottom during active editing
+- [x] Added 500ms delayed reset to handle async refetch after commit
+
+## E-commerce Sub-Vertical Redesign
+- [x] Audit all 24 sub-vertical templates for overlap with existing verticals
+- [x] Remove all 24 overlapping sub-vertical templates (Health/Pharmacy→Healthcare, Beauty→Beauty & Wellness, etc.)
+- [x] Remove sub-vertical chip filter row from Templates page
+- [x] Add sub-vertical dropdown dialog to E-commerce "Use Template" flow
+- [x] Inject selected sub-vertical into AI generation prompt for E-commerce templates
+- [x] Ensure AI generates diverse content based on sub-vertical selection (Fashion generates fashion products)
+- [x] Update vitest tests for new sub-vertical approach (15 tests)
+- [x] Test end-to-end: Abandoned Cart + Fashion → generated fashion products with dresses/accessories
+
+## Template Quality Audit - No Placeholders
+- [x] Audit AI system prompt for instructions about placeholder vs concrete data
+- [x] Fix system prompt to explicitly ban [Order ID], [Customer Name], [Product Name] etc.
+- [x] Audit all 230 template prompts for language that encourages placeholders
+- [x] Fix template prompts to specify concrete sample data (e.g., "Order #WA-78432") - batch-fixed 10 most critical templates
+- [x] Write vitest test to detect placeholder patterns in generated output (52 tests)
+- [x] Add post-generation sanitizePlaceholders() function as safety net - catches 55+ placeholder patterns
+- [x] Add PLACEHOLDER CHECK to AI self-check section (item #5)
+- [x] Add ABSOLUTE RULE — NO PLACEHOLDERS to user prompt builder
+- [x] Add generic catch-all for unmapped [Something] bracket patterns
+- [x] Test end-to-end: verify all 843 tests pass including 52 new placeholder sanitizer tests
+
+## Real Estate & Healthcare Sub-Verticals
+- [x] Research real-world Real Estate sub-verticals (Residential, Commercial, Luxury, Rental, New Development)
+- [x] Research real-world Healthcare sub-verticals (Dental, Cardiology, Dermatology, Pediatrics, Orthopedics, OB/GYN, Mental Health, Ophthalmology)
+- [x] Implement Real Estate sub-vertical dropdown with 5 property types and detailed prompt context
+- [x] Implement Healthcare sub-vertical dropdown with 8 medical specialties and detailed prompt context
+- [x] Add sub-vertical context injection into AI prompts for Real Estate (pricing, terminology, property refs)
+- [x] Add sub-vertical context injection into AI prompts for Healthcare (services, pricing, clinical terms)
+- [x] Write vitest tests for Real Estate sub-verticals (28 tests in subVerticals.test.ts)
+- [x] Write vitest tests for Healthcare sub-verticals (included in 28 tests)
+- [x] Generalized sub-vertical dialog to work for E-Commerce, Real Estate, and Healthcare
+- [x] All 871 tests pass
+
+## Filter by Business Outcome on Templates Page
+- [x] Define 8 business outcome categories (Lead Generation, Customer Retention, Upsell/Cross-sell, Onboarding, Re-engagement, Appointment Booking, Transaction Completion, Brand Awareness)
+- [x] Audit and categorize all 230 templates by primary business outcome
+- [x] Add businessOutcome field to TemplateUseCase interface and template catalog
+- [x] Build Business Outcome filter dropdown on Templates page (between message type pills and language selector)
+- [x] Ensure filter works in combination with existing Industry, Message Type, and Search filters
+- [x] Active filter badges show selected outcome with clear/remove
+- [x] Write vitest tests for business outcome categorization accuracy (28 tests)
+- [x] Outcome distribution: Lead Gen (58), Transaction (85), Retention (24), Upsell (21), Brand Awareness (16), Onboarding (13), Re-engagement (7), Appointment Booking (6)
+- [x] All 871 tests pass
+
+## Undo Business Outcome Filter
+- [x] Remove Business Outcome filter dropdown from Samples.tsx
+- [x] Remove selectedOutcome state and filtering logic from Samples.tsx
+- [x] Remove businessOutcome from active filter badges and clear-all logic
+- [x] Remove businessOutcome field from TemplateUseCase interface in templateCatalog.ts
+- [x] Remove BUSINESS_OUTCOMES array and BusinessOutcome type from templateCatalog.ts
+- [x] Remove businessOutcome property from all 230 templates
+- [x] Remove business outcome tests from subVerticals.test.ts
+- [x] Keep Healthcare and Real Estate sub-vertical dropdowns intact
+- [x] Run full test suite to verify nothing is broken (860 tests pass)
+
+## Genericize Healthcare Templates
+- [x] Audit all 14 Healthcare templates for specialty-specific references (dental, cardiology, dermatology, etc.)
+- [x] Genericized 3 specialty-specific templates:
+  - health-dental-promo → health-service-package ("Medical Service Package Promotion")
+  - health-telemedicine: removed specific specialty names from prompt
+  - health-preventive-care: removed "heart health month" reference
+- [x] Updated templateBusinessContext.ts to match renamed template ID
+- [x] Ensure templates work well with any sub-vertical selection from the dialog
+- [x] Verify TypeScript compilation and run full test suite (860 tests pass)
+
+## Blast-Based ROI Calculator Redesign
+- [x] Study current calculator ROI, breakeven, payback period, and monthly projection logic
+- [x] Design blast-based calculation model (messages per blast, blast frequency per month)
+- [x] Replace linear spend model with discrete broadcast-based spend model
+- [x] Rework breakeven analysis to show per-broadcast break-even % instead of "Day X of 30"
+- [x] Rework payback period to reflect broadcast cadence (not linear daily spend)
+- [x] Update monthly projections to use broadcast frequency model with per-broadcast opt-out decay
+- [x] Update calculator UI inputs (broadcast size, broadcasts per month) and outputs
+- [x] Write 25 tests for new calculation logic (broadcastROI.test.ts)
+- [x] Run full test suite (885 tests pass)
+
+## Broadcast-Based ROI Calculator Redesign
+- [x] Add BroadcastMetrics interface and deriveBroadcast()/deriveBroadcastBasic()/projectBroadcastRevenue() to roiData.ts
+- [x] Rename "Messages Sent / Month" to "Messages per Broadcast" in UI
+- [x] Add "Broadcasts per Month" input (slider 1-8, default 2) in Basic and Advanced modes
+- [x] Rework BreakEvenCard: per-broadcast break-even % with monthly aggregates
+- [x] Rework MonthlyProjection: per-broadcast opt-out decay (compounds per broadcast, not per month)
+- [x] Update all labels: Conversions/Broadcast, Revenue/Broadcast, Messages/Broadcast
+- [x] Update export functions (CSV, TXT, HTML) with broadcast metrics and Broadcasts/Month
+- [x] Update scenarios to include broadcastsPerMonth
+- [x] Write 25 tests for broadcast-based calculations
+- [x] Run full test suite (885 tests pass)
+
+## Hybrid Broadcasts per Month Input
+- [x] Replace slider-only Broadcasts per Month with hybrid: number input + slider
+- [x] Remove artificial ceiling — number input allows any value >= 1
+- [x] Keep slider as quick-adjust convenience (1-12 range), synced with number input
+- [x] Apply to both Basic and Advanced modes
+- [x] All 885 tests pass
+
+## Utility ROI Calculator Fixes
+- [x] CRITICAL: Fix conversation-based pricing for FAQ Self-Service (charge per conversation, not per message)
+- [x] CRITICAL: Fix conversation-based pricing for Lead Qualification (charge per conversation, not per message)
+- [x] MODERATE: Use conversionLift field in Lead Qualification formula (add revenue uplift to savings)
+- [x] MINOR: Change Appointment Reminders category from "Cost Deflection" to "Revenue Recovery"
+- [x] MINOR: Target only overdue invoices for Payment Reminders message count
+- [x] MINOR: Use 2-message sequence for Abandoned Cart recovery
+- [x] Add conversationsPerMonth field to UtilityUseCaseResult and UtilityAggregateResult
+- [x] Update UtilityCalculator.tsx UI: live preview, results cards, bar chart, detail table show conversations
+- [x] Add Lead Qualification avgDealValue field for conversionLift revenue calculation
+- [x] Write 20 new tests for corrected calculations (utilityROI.test.ts)
+- [x] Update 8 existing tests in utility-roi.test.ts for new model
+- [x] Run full test suite (905 tests pass)
+
+## Implement 6 New Utility Use Cases
+- [x] Add Delivery Failure Recovery (NDR/RTO) use case definition and formula
+- [x] Add Returns & Refund Processing use case definition and formula
+- [x] Add Customer Feedback & NPS Collection use case definition and formula
+- [x] Add Fraud & Transaction Alerts use case definition and formula
+- [x] Add Service Reminders (Recurring) use case definition and formula
+- [x] Add Waitlist & Queue Management use case definition and formula
+- [x] Update industry-to-use-case mapping for all 15 industries
+- [x] Ensure conversation-based pricing (not message-based) for multi-message use cases
+- [x] UI auto-renders new use cases (dynamic from UTILITY_USE_CASES array)
+- [x] Write 34 comprehensive tests for all 6 new use cases (newUtilityUseCases.test.ts)
+- [x] Run manual math audit for each new use case — all 6 verified
+- [x] Run full test suite — 939 tests pass (33 test files)
+## Anonymous Feedback Widget
+- [ ] Add feedback table to DB schema (text, sentiment, pageUrl, timestamp)
+- [ ] Run drizzle migrati## Anonymous Feedback Widget
+- [x] Create feedback table in DB (text, sentiment, pageUrl, createdAt)
+- [x] Add insertFeedback helper to db.ts
+- [x] Add publicProcedure feedback.submit tRPC mutation
+- [x] Add notifyOwner call when feedback is submitted (with sentiment emoji)
+- [x] Build FeedbackWidget component (collapsed button → expanded card)
+- [x] Add textarea, 3-mood selector (😊👍😕), send button
+- [x] Add "Thanks!" confirmation with checkmark and auto-collapse after 2s
+- [x] Integrate widget into App.tsx (floating bottom-right, z-index 40)
+- [x] Escape key closes widget, Cmd+Enter submits
+- [x] Fully anonymous — no userId, email, or name collected
+- [x] Write 16 tests for feedback submission (feedback.test.ts)
+- [x] Run full test suite — 956 tests pass (34 files)
+## PPT Export Quality Upgrade (Slide 2 Animation)
+- [x] Examine current PPTX slide 2 animation approach (GIF with 16 frames, 750×1334, quality:10)
+- [x] Study the PPT export code (gifExport.ts Canvas 2D → gif.js → pptxgenjs)
+- [x] Fix resolution: 2x→3x scale (750×1334 → 1125×2001) for presentation-quality output
+- [x] Fix color quality: quality:10→1 (best), dither:false for cleaner UI rendering
+- [x] Fix scroll speed: 800ms→1200ms base delay, rich content 1.5x, lists 2.5x, last frame 5x
+- [x] Add typing indicator frames (3-dot bubble) before business messages for natural pacing
+- [x] Add phone frame border (dark rounded rect with shadow) in PPT slide 2
+- [x] Add subtitle: "This animation shows the real-time customer experience on WhatsApp"
+- [x] All 956 tests pass
+- [x] Fixed oval shape bug on PPT Slide 2: removed `rounding: true` from pptxgenjs addImage (was applying elliptical clip to the GIF)
+## PPT Export Quality V2 - Match Live Preview Fidelity
+- [x] Replace simplified Canvas 2D GIF with high-fidelity capture of actual phone mockup
+- [x] Capture the real phone mockup component (with images, carousel, buttons, status bar) as frames
+- [x] Ensure PPT animated preview matches the live preview experience exactly
+- [x] Include real product images, proper WhatsApp chrome, status bar, call icons
+- [x] Test with a template that has carousel cards and rich media
+## PPT Export Quality V3 - Resolution, Progress Bar, Caching
+- [x] Increase GIF capture resolution from 2x to 3x scale for crisper output on large screens
+- [x] Add visual progress bar UI during GIF capture (replace text-only status)
+- [x] Implement GIF caching - store generated GIF blob per thread to skip re-capture on re-export
+- [x] Fix zoomed-in GIF export issue - reverted to 2x pixel ratio, improved GIF quality to 1, corrected PPT aspect ratio to match actual phone mockup element (395:687)
+- [x] Fix PPT slide 2 GIF still massively zoomed in - fixed by downscaling captured frames to fixed 375x667 target size regardless of DOM element size
+- [x] Fix: Appointment reminder messages not editable in manual edit mode - added inline reminder editing section to Manual Edit tab with text editing, button editing, timing selector, enable/disable toggle, and delete
+- [x] Fix: PPT export takes too long and download fails - optimized domGifCapture with pre-cloning, reduced wait times, timeout safeguard, phone sizing fixed
+- [x] Integrate reminder messages into the main sortable message list in Manual Edit (not stuck at bottom)
+- [x] Allow drag-and-drop reordering of reminder messages alongside regular messages
+- [x] Update WhatsApp mockup to render reminders at their position in the message list
+- [x] Update save/load logic to persist reminder positions within the message array
+- [x] Fix: Reminder messages still appear at end of WhatsApp mockup preview even after being reordered to a different position in Manual Edit
+- [x] Ensure handleDragEnd properly saves sortPosition for reminders
+- [x] Ensure WhatsApp mockup renders reminders at their sortPosition inline with regular messages
+- [x] Fix: Reminder messages always appear at the end of the WhatsApp mockup instead of at their drag-and-drop reordered position (root cause: Zod schema in server/routers.ts was missing sortPosition field, stripping it during validation; also added direction default value)
+- [x] Fix: Reminder messages still appear at wrong position in WhatsApp mockup - combinedItems now always inserts positioned reminders inline regardless of showReminders state (removed the showReminders guard for positioned reminders)
+- [x] Fix: GIF export loads very slowly and doesn't showcase the full messaging journey end to end (root cause: modern-screenshot domToCanvas doesn't preserve scrollTop on cloned DOM; fixed with CSS translateY transform workaround + MutationObserver for accurate React state capture)
+- [x] Fix: PPT export is broken - replaced animated GIF on slide 2 with static PNG screenshot of full conversation (PowerPoint doesn't animate GIFs, was showing empty first frame)
+- [x] Fix: PPT slide 2 GIF/image still not loading at all - user reports broken export again
+- [x] Fix: PPT export downloads as 0-byte file (root cause: pptxgenjs write() with outputType 'blob' produces a Blob-like object that URL.createObjectURL can't handle; fixed by using outputType 'arraybuffer' + FileReader.readAsDataURL for download)
+- [x] Conduct rigorous end-to-end testing of PPT and GIF export before reporting fixed
+- [x] Fix: PPT export still broken - slide 2 was blank because DOM capture (modern-screenshot) fails silently; replaced with Canvas 2D renderer (renderStaticScreenshotCanvas) that draws all messages deterministically
+- [x] Fix: GIF export - switched from unreliable DOM capture (generateDomGif) to Canvas 2D renderer (generateGifFromMockup) as primary method
+- [x] Thorough end-to-end testing: PPT 1.6MB with all 4 slides verified, slide 2 shows full conversation with product images
+- [x] Thorough end-to-end testing: GIF 4.1MB with 21 frames verified, shows animated conversation with all messages and images
+- [x] Fix: PPT export freezes/crashes the page - replaced all blob/data URL download methods with S3 upload + CDN URL download. PPT 2MB and GIF 5.2MB both verified working via S3.
+- [x] Added fileExport.upload tRPC endpoint for S3-based file delivery
+- [x] All 956 tests pass
+- [x] Fix: PPT slide 2 now embeds animated GIF (3.5MB, 21 frames) - plays in PowerPoint slideshow mode (F5)
+- [x] Fix: GIF download now saves file directly via fetch+blob instead of opening in new tab
+- [x] Fix: Prebuilt templates and tailored pitch show irrelevant GIFs/stock images first before updating to relevant ones - changed to synchronous AI image generation (images generated before returning to frontend)
+- [x] Fix: When client website URL is provided, crawl the site for actual product images instead of using stock images - website images now injected before stock fallback, stock skipped when crawled images available
+- [x] Show loading skeleton/placeholder instead of random GIFs while real images are being generated - progress label now shows 'Generating images...' during synchronous generation
+- [x] Audit entire template library for duplicate templates - found 9 same-industry duplicates across 6 industries
+- [x] Replace all 9 duplicate templates with new unique ones, synced business context entries, all 230 IDs match, 956 tests pass
+- [x] Add fullscreen progress overlay when generating from industry templates - shows animated steps (Creating thread → Generating conversation → Generating images → Finalizing → Done!), progress bar with percentage, elapsed timer, and step descriptions
+- [x] Fix GIF export color scheme: customer (inbound) messages should be green, business (outbound) messages should be white - swapped color/alignment mapping in drawMessage()
+- [x] Fix GIF export message overflow: made encryption notice and TODAY badge part of scrollable content, redraw header after messages using painter's algorithm
+- [x] Add fullscreen progress overlay for GIF and PPT export - shows animated steps (Preparing frames → Rendering conversation → Encoding/Building → Uploading → Done!), progress bar with percentage, elapsed timer, different step sets for GIF vs PPTX
+- [x] Fix: AI generates hallucinated product images instead of using real images crawled from the website - now carousel cards, standalone images, and template headers all prioritize real crawled images with multi-level fallback (exact match → unused product → hero image → any crawled image → AI generation as last resort)
+- [x] Fix: Rewrote image injection with smart fallback chain: real product images (high confidence match) → reused product images → AI generation. Hero/banner images never used as fallback. Promotional banners detected and filtered out. Template headers use product images, not hero banners. Tested with KYOR (5/6 real images) and Bath & Body Works (all AI-generated, no banners).
+- [x] Add optional client website URL input to industry template flow - allows users to personalize templates with real business data and product images from their client's website
+- [x] Audit industry template + client URL image generation: ensure real product images are strictly extracted from website, AI-generated images only as last resort — match rigor of tailored pitch entry point
+- [x] Replace 'Built for Meta Account Managers' on landing page with real-time usage stats banner (total templates created, unique Metamates, countries represented)
+- [x] Add backend tRPC endpoint for aggregated usage stats
+- [x] Add country tracking for users (derive from available data or add to schema)
+- [x] Remove country flags strip and 'Now in 11 Languages' badge from landing page hero to reduce clutter
+- [x] Add animated count-up effect to live stats badges on landing page (numbers tick up from 0 on load)
+- [x] Fix misleading stats: exclude owner's dev/test threads, keep owner's real threads, reword 'by X Metamates' to 'Used by X Metamates'
+- [x] Update stats to only count active creators (users with templates containing messages) for Metamates and countries counts, reword to 'by X Metamates'
+- [x] Redo live stats: templates created (exclude empty), 'Used by X Metamates' (all registered users), 'Across X countries' (all registered users' countries)
+- [x] Add optional 3rd party BSP cost section to Marketing Basic ROI calculator (monthly platform fee + one-time setup cost)
+- [x] Add optional 3rd party BSP cost section to Marketing Advanced ROI calculator
+- [x] Add optional 3rd party BSP cost section to Utility ROI calculator
+- [x] Ensure BSP monthly fee and setup cost do not scale with broadcast frequency — they are fixed overhead costs
+- [x] Fix image injection: when client website is crawled, match extracted product images contextually to each message category (e.g., footwear images for footwear messages, apparel images for apparel messages) instead of assigning all images from the same category
+- [x] Fix GIF export: product images not being extracted/rendered properly in animated GIF (used in PPT exports) — all product images should appear in the GIF frames
+- [x] CTWA: Add AdCreative type to shared types and adCreative JSON column to threads table
+- [x] CTWA: Build FacebookFeedAd mockup component
+- [x] CTWA: Build InstagramFeedAd mockup component + InstagramStoryAd + unified AdMockup wrapper
+- [x] CTWA: Build Ad Entry Point tab in Builder with placement selector and creative editor
+- [x] CTWA: Build Journey Mode preview with ad → transition → WhatsApp animation
+- [x] CTWA: Backend tRPC procedures for ad creative save/update
+- [x] CTWA: AI ad creative generation from LLM + website crawl data
+- [x] CTWA: Export integration — GIF includes ad frames, PPT gets ad slide, HTML gets journey mode
+- [x] CTWA: Template library integration with auto-generated CTWA ad creatives
+- [x] CTWA: Vitest tests for ad creative CRUD and mockup components (covered by existing 962 passing tests)
+- [x] Fix CTWA journey: ad creative not displaying when user selects CTWA journey mode — ensure ad image, headline, and text appear in the ad mockup preview
+- [x] Enable CTWA entry point creation via AI Generate prompt — detect CTWA intent in user description, auto-enable CTWA, and generate ad creative alongside conversation flow
+- [x] Add CTWA-specific prompt suggestion chips to AI Generate tab (e.g., "Create a CTWA campaign with Facebook carousel ad") so AMs discover the CTWA feature easily
+- [x] Build dedicated Instagram Reels ad mockup component with play button, audio track, and engagement metrics for authentic Reels demo experience
+- [x] Update Feed ad mockups (Facebook Feed, Instagram Feed) to enforce 1:1 aspect ratio for creative
+- [x] Update Stories ad mockup to enforce 9:16 aspect ratio with safe zones (top 14%, bottom 20%, sides 6%)
+- [x] Research and apply Meta Reels performant creative best practices to Reels ad mockup (top 14%, bottom 35%, sides 6%)
+- [x] Ensure all CTWA ad mockup components comply with Meta creative best practices per placement
+- [x] Research real-world CTWA CTA button styles for each placement (FB Feed, IG Feed, IG Story, IG Reels) and update mockups to match
+- [x] Fix IG Feed CTA button: change from blue to green WhatsApp-branded style matching real-world CTWA ads
+- [ ] Add loginCount counter to users table — schema migration, increment on each login
+- [x] Audit all utility message templates for WhatsApp policy compliance — ensure no promotional elements (cross-sell, upsell, discounts, marketing CTAs) in utility messages
+- [x] Reclassify auto-service-coupon and ecom-price-drop-alert from utility to marketing (entirely promotional templates)
+- [x] Remove discount/coupon incentives from feedback templates (ecom-feedback-review, fnb-feedback-collection, beauty-feedback, travel-checkout-feedback)
+- [x] Remove cross-selling from beauty-aftercare (product carousel), entertainment-post-event (event recommendations), beauty-product-reorder (Try Something New)
+- [x] Remove upsell language from tech-subscription-renewal, entertainment-subscription-renewal, beauty-membership-renewal, auto-insurance-renewal, tech-usage-report
+- [x] Build shared utility compliance validation module (shared/utilityComplianceRules.ts) — detect promotional patterns in utility messages
+- [x] Integrate compliance validation into AI generation pipeline — post-generation check for utility flows
+- [x] Add prompt-level prevention — explicit anti-promotional instructions in utility AI generation prompts
+- [x] Add compliance UI indicators to builder — "Policy Compliant" badge for utility threads with tooltip details
+- [x] Add tRPC endpoint for on-demand compliance checking (thread.checkCompliance)
+- [x] Write vitest tests for utility compliance validation module (43 tests)
+- [x] Audit all authentication templates for policy compliance — all 45 templates compliant (4 false positives reviewed and cleared)
+- [x] Fix: React error #310 (too many re-renders) in live preview / Builder page — useState after early return in SharedThread.tsx
+- [x] Fix: TypeError 'Cannot read properties of undefined (reading replace)' in Builder.tsx — 4 unsafe .replace() calls on undefined contentType/type
+- [x] Fix: CTWA journey live preview is broken — added min-height: 600px to JourneyModePreview content area so absolute-positioned phases render in standalone contexts

@@ -1,0 +1,63 @@
+Advanced ROI Calculator Results Test - Scorecard Tab
+=====================================================
+
+1. SCORECARD TABLE: Working correctly
+   - Shows all 3 channels (WhatsApp, SMS, Email) in one table
+   - Green checkmarks on winning metrics
+   - All metrics present: Messages Sent, Delivered, Opened/Read, Clicked, Conversions/Mo, Revenue/Mo, ROI, Cost/Conversion, Rev/1K Msgs, Opt-Out Rate
+
+2. FUNNEL VISUALIZATION: Working correctly
+   - Shows 3 funnels side by side (WA, SMS, Email)
+   - Each shows: Sent → Delivered → Opened → Clicked → Converted
+
+3. INSIGHT CARDS: Working correctly - dark themed cards with colored badges
+   - SMS Insight: Efficiency 6.7x, Opportunity Cost $53.1K, WA Rev/1K $1.2K
+     "WhatsApp is 6.7× more efficient than SMS. The opportunity cost of using SMS for your 50.0K monthly messages is ~$53.1K/month in foregone revenue."
+   - SMS Reach: WA Reach 92.2%, SMS Reach 86.2%, CTR Mul 1.7x
+     "WhatsApp's 30.0% CTR is 1.7× stronger than SMS's 18.0%. Per 100 messages, WhatsApp generates 2.50 conversions vs 0.38."
+   - Email Insight: Efficiency 218.3x, Opportunity Cost $62.2K, WA Rev/1K $1.2K
+     "WhatsApp is 218.3× more efficient than Email. The opportunity cost of using Email for your 50.0K monthly messages is ~$62.2K/month in foregone revenue."
+   - Email Reach: WA Reach 92.2%, Email Reach 21.1%, CTR Mul 15.0x
+     "WhatsApp's 30.0% CTR is 15.0× stronger than Email's 2.0%. Per 100 messages, WhatsApp generates 2.50 conversions vs 0.01."
+
+All insight cards show on one page - no separate tabs for SMS/Email. ✅
+
+SHIFT SIMULATOR TAB: Working correctly ✅
+- Shows both SMS→WA and Email→WA shift simulators on ONE page (unified view)
+- Each has interactive slider (0-100% migration)
+- Shows 4 metric cards: Extra Conversions/Mo, Extra Revenue/Mo, Extra Revenue/Year, Messages Shifted
+- Insight cards with badges: Shifted %, New WA Volume, New SMS/Email Volume
+- Narrative text: "Shifting 25% of SMS volume (12.5K messages) to WhatsApp would generate an additional 265 conversions per month, worth $13.3K in incremental revenue ($159.3K/year)."
+
+AUDIENCE HEALTH TAB: Working correctly ✅
+- Shows WA vs SMS and WA vs Email comparisons on one page
+- Metric cards: WA Opt-Out Rate, SMS/Email Opt-Out Rate, WA Yearly Audience Loss, SMS/Email Yearly Audience Loss
+- Insight cards with badges: WA Rev at Risk, SMS/Email Rev at Risk, Risk Difference
+- Narrative about subscriber churn and revenue at risk
+
+BREAK-EVEN TAB: Working correctly ✅
+- Shows Break-Even Conversions, Break-Even Messages, Days to Break Even, Monthly Profit
+- Visual break-even bar showing cost recovery vs pure profit zone
+- Insight cards comparing WA vs SMS and WA vs Email break-even days and profit delta
+- Narrative: "WhatsApp pays for itself after just 86 conversions (3,442 messages). At your current send rate, that's day 3 of 30."
+
+SUMMARY TAB: Working correctly ✅
+- Executive Summary with industry/country context
+- Per-channel comparison paragraphs
+- Insight card: WA Annual Rev, Best Alt Annual, Avg Efficiency
+- Compelling narrative about combined opportunity cost
+
+SCENARIOS TAB: Working correctly ✅
+- Side-by-side Scenario A vs B with editable inputs
+- Shows Revenue, Conversions, ROI, Spend, Cost/Conv, Rev/1K Msgs
+- Insight card: Scenario A Rev, Scenario B Rev, Difference
+- Narrative comparing scenarios
+
+PROJECTION TAB: Working correctly ✅
+- 12-month bar chart with all channels
+- Accounts for audience decay from opt-outs
+- 12-month totals for each channel
+- Insight cards per competitor: Revenue Premium %, Extra Sales/Mo, ROI Delta
+- Narrative about widening revenue gap due to opt-out differences
+
+ALL 7 TABS VERIFIED ✅ - All insight cards working with colored badges and compelling narratives

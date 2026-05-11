@@ -1,0 +1,26 @@
+Green Screen Image Analysis
+============================
+
+From the screenshot, the first message card shows a SOLID GREEN rectangle (not the emerald gradient placeholder).
+This means the image IS loading (no onError triggered), but the image itself is a green/blank image.
+
+Key observations:
+1. The green color matches WhatsApp's brand green (#25D366), NOT the emerald-50/100 gradient placeholder
+2. The onError handler would show "Image loading..." text - but we see a solid green block
+3. This means the img src URL IS valid and returns a response, but the image content is wrong
+
+Possible causes:
+1. The crawled image URL from toyota.com.my returns a redirect or placeholder
+2. The image proxy endpoint returns a green/empty image on certain failures
+3. The AI-generated image URL is a green placeholder from the image generation API
+4. The headerImageUrl is set to a color value or data URI that renders as green
+
+The green color is very specific - it looks like #25D366 (WhatsApp green) or similar.
+This suggests the image generation API might be returning a green placeholder image,
+or the stock image resolver is returning a green fallback.
+
+Need to check:
+1. The image proxy endpoint for error handling
+2. The stock image resolver fallback behavior
+3. The AI generation image resolution flow
+4. What URL is actually being set as headerImageUrl for the first message

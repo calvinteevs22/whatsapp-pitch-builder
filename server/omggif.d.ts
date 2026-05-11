@@ -1,0 +1,30 @@
+declare module "omggif" {
+  interface GifWriterOptions {
+    loop?: number;
+    palette?: number[];
+    background?: number;
+  }
+
+  interface FrameOptions {
+    palette?: number[];
+    delay?: number;
+    disposal?: number;
+    transparent?: number;
+  }
+
+  class GifWriter {
+    constructor(buf: Buffer, width: number, height: number, options?: GifWriterOptions);
+    addFrame(
+      x: number,
+      y: number,
+      width: number,
+      height: number,
+      indexedPixels: Uint8Array,
+      options?: FrameOptions
+    ): number;
+    end(): number;
+  }
+
+  export { GifWriter };
+  export default { GifWriter };
+}

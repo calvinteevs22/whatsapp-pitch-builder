@@ -1,0 +1,9 @@
+modern-gif encode API:
+- frames[].data can be: CanvasImageSource | BufferSource | string (URL path)
+- So we can pass data URLs directly as strings!
+- The issue in our code is that we pass data URLs as frame.data which should work
+- But we need to check if toPng returns proper data URLs
+
+The approach should work - let me check what's actually failing.
+The PPT export calls generateMockupGif which depends on finding .wa-chat-bg in the DOM.
+The issue might be that the mockup ref isn't properly set or the element selector is wrong.

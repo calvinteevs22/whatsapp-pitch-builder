@@ -1,0 +1,41 @@
+Green Screen Root Cause Analysis
+==================================
+
+From the screenshot, the first message card (template type) shows a SOLID GREEN rectangle.
+The green color is bright/lime green, NOT the emerald gradient placeholder.
+
+Key insight from the code:
+1. The WhatsAppMockup renders template header images with:
+   - `<div className="w-full aspect-[1.91/1] bg-gray-200 overflow-hidden">`
+   - `<img src={content.headerImageUrl} ... onError={...} />`
+
+2. The onError handler replaces the img with an emerald gradient + "Image loading..." text
+
+3. BUT the green screen is NOT the emerald gradient placeholder. It's a solid bright green.
+
+4. This means the image IS loading (no error), but the image content itself is problematic.
+
+Possible root causes:
+A) The crawled hero image from toyota.com.my might be a green/colored placeholder image
+B) The image proxy might return a valid image response but with wrong content
+C) The image generation API might return a green placeholder on certain failures
+D) The image might be partially loaded/corrupted, showing the bg-gray-200 behind a partially transparent image
+
+Wait - looking more carefully at the screenshot:
+- The green is a BRIGHT lime/WhatsApp green (#25D366 or similar)
+- It fills the entire aspect-[1.91/1] container
+- No text overlay, no icon - just solid green
+
+This looks like it could be:
+1. A 1x1 transparent PNG being stretched (but that would show bg-gray-200, not green)
+2. The image generation API returning a green image
+3. The crawled hero image being a green banner/placeholder from the website
+
+Most likely: The image generation API is returning a green placeholder image when it fails,
+OR the crawled hero image from toyota.com.my is actually a green promotional banner.
+
+FIX APPROACH:
+1. Add proper image validation - check if the loaded image is a solid color (likely a placeholder)
+2. Add onLoad validation to detect solid-color images and trigger fallback
+3. Better: validate image dimensions and content on the server side before injecting
+4. Ensure the onError fallback shows a proper placeholder instead of green

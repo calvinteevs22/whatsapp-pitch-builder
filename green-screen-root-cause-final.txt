@@ -1,0 +1,33 @@
+GREEN SCREEN ROOT CAUSE ANALYSIS
+=================================
+
+Found the exact code at WhatsAppMockup.tsx lines 997-1016.
+
+FLOW:
+1. Line 997: If headerImageUrl exists and does NOT start with "GENERATE_IMAGE:", render an <img> tag
+2. Line 1000: The <img> has an onError handler (lines 1000-1003)
+3. Line 1003: On error, replaces parent innerHTML with a gradient placeholder:
+   "bg-gradient-to-br from-emerald-50 to-emerald-100" + "Image loading..." text
+4. Line 1007-1015: If headerImageUrl starts with "GENERATE_IMAGE:", show a pulsing placeholder
+
+PROBLEM:
+When the image proxy returns a response that is NOT an image error (e.g., returns 
+a 1x1 transparent PNG, or a redirect page), the <img> tag doesn't fire onError 
+because it technically "loaded" something. The result is:
+- If proxy returns 1x1 transparent PNG → shows tiny transparent pixel on gray bg
+- If proxy returns HTML error page → may show broken image or green bg
+- If the crawled URL itself returns a non-image (e.g., HTML redirect) → similar issue
+
+But the user's screenshot shows a SOLID BRIGHT GREEN block, not the emerald-50 gradient.
+This suggests the image proxy might be returning something that renders as green.
+
+WAIT - looking more carefully at the user's screenshot:
+The green is a BRIGHT, SOLID green (#00FF00 or similar) - not the emerald gradient.
+This could be from the image itself being a placeholder/error image from toyota.com.my.
+
+ACTUAL FIX NEEDED:
+1. Add a proper loading state with skeleton while the image loads
+2. Add image validation - check if the loaded image has reasonable dimensions
+3. Improve the onError fallback to show a better placeholder
+4. Add a retry mechanism that falls back to AI-generated image if crawled image fails
+5. The image proxy should validate the response is actually an image before returning it

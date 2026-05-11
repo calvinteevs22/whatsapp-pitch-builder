@@ -1,0 +1,1 @@
+ALTER TABLE `messages` MODIFY COLUMN `contentType` enum('text','template','interactive_buttons','interactive_list','image','location','document','audio','video','carousel') NOT NULL DEFAULT 'text';

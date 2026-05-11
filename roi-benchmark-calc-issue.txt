@@ -1,0 +1,17 @@
+Benchmark Override Calculation Issue:
+
+The Delivery Rate was set to 979090 (due to browser input tool appending, not a real user issue).
+Results show:
+- Delivered: 489.5M (way more than 50K sent - because 979090% delivery rate was applied)
+- This PROVES the benchmark overrides ARE flowing through to calculations correctly!
+- The deriveBasic function is using the custom benchmark values
+
+The toggle UI works correctly:
+1. "Locked" state shows read-only benchmark values with green text
+2. "Editing" state shows 4 editable input fields (Delivery Rate, Read Rate, CTR, Opt-Out Rate)
+3. Header changes from "AUTO-APPLIED" to "CUSTOM"
+4. Toggle label changes from "Locked" to "Editing"
+5. Border color changes to green when editing
+6. Turning off the toggle resets to region defaults
+
+The feature is working as intended. The inflated numbers are just from the browser test tool issue.

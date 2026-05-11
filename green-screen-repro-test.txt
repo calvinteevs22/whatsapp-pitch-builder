@@ -1,0 +1,38 @@
+GREEN SCREEN REPRODUCTION TEST - Toyota Malaysia
+=================================================
+Date: 2026-03-10
+
+Test: Created thread "Toyota SUV Green Screen Test", crawled toyota.com.my, 
+clicked "New Model Launch Announcement" suggested flow, then Generate.
+
+Result: The first message card DOES have an image showing - it appears to be 
+a grayscale/dark photo of what looks like a car interior. The image loaded 
+successfully this time. Toast says "Generating product images in background..."
+
+Key observation: The first message shows "Introducing the New Innova Zenix!" 
+with an image that loaded. But the toast says "Generating product images in 
+background..." which means the images are still being replaced.
+
+The green screen issue reported by the user likely occurs when:
+1. The initial crawled hero image URL fails to load (hotlink protection, CORS, etc.)
+2. The image proxy returns an error/empty response
+3. The placeholder gradient shows as a solid green block
+
+Need to wait for background image generation to complete and check again.
+The message says the image proxy initially shows a crawled website image,
+then the background AI generation replaces it with a generated image.
+
+If the crawled hero image is blocked/invalid, the user sees a green placeholder
+until the AI-generated image replaces it. If the AI generation also fails,
+the green screen persists.
+
+ROOT CAUSE HYPOTHESIS:
+The "green screen" is the emerald gradient placeholder (#10b981 to #059669) 
+that shows when headerImageUrl is set but the actual image fails to load.
+The CSS gradient creates a solid green appearance.
+
+FIX NEEDED:
+1. Better error handling in the image proxy
+2. Better fallback when crawled images fail
+3. Show a proper loading skeleton instead of the green gradient
+4. Ensure AI-generated images replace failed crawled images

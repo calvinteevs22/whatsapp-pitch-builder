@@ -1,0 +1,11 @@
+ROI Calculator Refinement Status:
+- Build: Clean, no TypeScript errors
+- LSP: No errors
+- Homepage: Shows ROI Calculator button in navbar and hero section
+- deriveBasic function exists and works correctly
+- All 15 industries with industry-specific outcomes are in roiData.ts
+- Regions grouped as: Europe, North America, Asia Pacific, Latin America, Middle East & Africa
+- Basic mode: WhatsApp-only, 3 inputs (messages, conversion rate, cost per msg) + deal value
+- Advanced mode: Full multi-channel comparison with SMS/Email
+
+Next: Test in browser, update tests, save checkpoint

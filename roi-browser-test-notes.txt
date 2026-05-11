@@ -1,0 +1,28 @@
+ROI Calculator Browser Test Notes
+==================================
+
+Step 1 (Country): Working - dropdown shows all 45+ countries grouped by region
+- Selected Ireland, currency toggle shows USD/EUR options
+- Step indicator shows green checkmark when completed
+
+Step 2 (Industry): Working - 11 industry cards displayed in grid
+- E-commerce selected, shows green highlight
+- Each card shows industry name and conversion rate label
+
+Step 3 (Inputs): Working - shows Configure Inputs panel
+- By Volume / By Revenue Goal toggle present
+- Average Deal Value and Client Name fields at top
+- WhatsApp channel card with all inputs pre-filled:
+  - Messages Sent/Month: 50,000
+  - Delivery Rate: 96%
+  - Read Rate: 90%
+  - Click-Through Rate: 25%
+  - Conversion Rate: 8.33%
+  - Opt-Out Rate: 0.5%
+  - Cost per Message: $0.052
+- SMS channel card visible below
+- Need to scroll to see Email channel and Calculate button
+
+Issues noted:
+- The inputs form looks functional but crowded
+- Need to test Calculate Results button and all 7 results tabs

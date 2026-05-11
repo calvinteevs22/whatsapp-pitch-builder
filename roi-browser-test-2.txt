@@ -1,0 +1,6 @@
+Browser test - Country dropdown:
+- Regions correctly grouped: ASIA PACIFIC, EUROPE, NORTH AMERICA, LATIN AMERICA, MIDDLE EAST & AFRICA
+- Asia Pacific is now unified (not split into developed/emerging)
+- All countries visible and properly categorized
+- Basic mode is active by default with 4 steps: Country, Industry, Inputs, Results
+- Subtitle says "Quickly estimate WhatsApp messaging ROI with just a few inputs"

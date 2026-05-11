@@ -1,0 +1,20 @@
+Crawl Test Findings - Nike.com
+================================
+The crawl completed successfully. The card shows:
+- Business name: Nike (with green sparkle icon)
+- Description: "Nike is a global leader in athletic footwear..."
+- 6 Products, 3 Services Extracted
+- Product cards with images (Air Jordan M... $99.97, Nike Dri-FIT O... $28.97, etc.)
+- Some product cards have images, others show placeholder icons
+- Suggested Flows section below
+
+The crawl result card IS loading and displaying correctly.
+The "first card" issue might refer to:
+1. The product cards that don't have images (showing placeholder icons)
+2. Or possibly the suggested flow cards below
+
+Need to scroll down to see the suggested flows and check if those load.
+The website URL field was reset to "https://example.com" after crawl completed - this is the placeholder.
+
+The profile name was auto-updated to "Nike" and industry to "Retail".
+The WhatsApp preview also updated to show "Nike" as the business name.

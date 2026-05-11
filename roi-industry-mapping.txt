@@ -1,0 +1,69 @@
+Template Library Industries (from shared/types.ts INDUSTRIES array):
+1. E-Commerce
+2. Healthcare
+3. Food & Beverage
+4. Finance & Banking
+5. Travel & Hospitality
+6. Education
+7. Real Estate
+8. Automotive
+9. Retail
+10. Technology
+11. Beauty & Wellness
+12. Entertainment
+13. Logistics
+14. Insurance
+15. Telecommunications
+
+Current ROI Calculator Industries (from shared/roiData.ts ROI_INDUSTRIES):
+1. E-commerce (archetype: direct, rateLabel: Conversion Rate)
+2. Travel & Hospitality (archetype: direct, rateLabel: Booking Rate)
+3. Food Delivery (archetype: direct, rateLabel: Order Rate)
+4. Financial Services (archetype: direct, rateLabel: Conversion Rate)
+5. Automotive (archetype: leadgen, rateLabel: Message-to-Test-Drive Rate)
+6. Real Estate (archetype: leadgen, rateLabel: Message-to-Booking Rate)
+7. Insurance (archetype: leadgen, rateLabel: Message-to-Policy Rate)
+8. Education (archetype: leadgen, rateLabel: Message-to-Enrollment Rate)
+9. Retail (Physical) (archetype: footfall, rateLabel: Store Visit Rate)
+10. QSR (archetype: footfall, rateLabel: Order Rate)
+11. Healthcare (archetype: footfall, rateLabel: Appointment Rate)
+
+MAPPING NEEDED:
+- "E-commerce" → "E-Commerce" (case change)
+- "Food Delivery" → "Food & Beverage" (rename + expand)
+- "Financial Services" → "Finance & Banking" (rename)
+- "Retail (Physical)" → "Retail" (simplify)
+- "QSR" → REMOVE (merge into Food & Beverage)
+- ADD: Technology
+- ADD: Beauty & Wellness
+- ADD: Entertainment
+- ADD: Logistics
+- ADD: Telecommunications
+
+NEW INDUSTRY LIST (15 industries matching template library):
+1. E-Commerce (direct) - Conversion Rate
+2. Healthcare (footfall) - Appointment Rate
+3. Food & Beverage (direct) - Order Rate
+4. Finance & Banking (direct) - Conversion Rate
+5. Travel & Hospitality (direct) - Booking Rate
+6. Education (leadgen) - Enrollment Rate
+7. Real Estate (leadgen) - Booking Rate
+8. Automotive (leadgen) - Test Drive Rate
+9. Retail (direct) - Conversion Rate
+10. Technology (direct) - Conversion Rate
+11. Beauty & Wellness (footfall) - Appointment Rate
+12. Entertainment (direct) - Ticket Conversion Rate
+13. Logistics (leadgen) - Signup Rate
+14. Insurance (leadgen) - Policy Rate
+15. Telecommunications (direct) - Subscription Rate
+
+REGION MAPPING:
+Old: Developed West, Developed Asia, Emerging Asia, LATAM, MENA
+New: Europe, North America, Asia Pacific, Latin America, Middle East & Africa
+
+Country reassignment:
+- Europe: France, Germany, Ireland, Italy, Netherlands, Norway, Poland, Portugal, Denmark, Spain, Sweden, Switzerland, UK
+- North America: US, Canada
+- Asia Pacific: Australia, Bangladesh, Cambodia, Hong Kong, India, Indonesia, Japan, Malaysia, Myanmar, New Zealand, Pakistan, Philippines, Singapore, South Korea, Sri Lanka, Taiwan, Thailand, Vietnam
+- Latin America: Argentina, Brazil, Chile, Colombia, Mexico, Peru
+- Middle East & Africa: Egypt, Israel, Qatar, Saudi Arabia, South Africa, Turkey, UAE

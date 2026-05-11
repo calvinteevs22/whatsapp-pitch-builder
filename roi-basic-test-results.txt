@@ -1,0 +1,12 @@
+Basic Mode Results Test - E-Commerce, Malaysia:
+
+The Basic mode results page shows a clean, single-page layout with:
+1. Top KPI cards: Monthly Revenue ($17.3K), ROI (4.0x), Monthly Conversions (346), Monthly Spend ($4.3K)
+2. WhatsApp Messaging Funnel: Sent (50K) → Delivered (48.5K) → Opened (46.1K) → Clicked (13.8K) → Converted (346)
+3. Three metric cards: Cost per Conversion ($12.44), Revenue per 1K Messages ($345.56), Annual Revenue ($207.3K)
+4. Break-Even Analysis (dark card): Break-Even Conversions (86), Break-Even Messages (12.4K), Days to Break Even (8), Monthly Profit ($13.0K)
+5. Break-even progress bar with narrative text
+6. Executive Summary: "For E-Commerce in Malaysia, WhatsApp messaging generates $17.3K/month..."
+
+The Basic mode is clean and focused - WhatsApp only, no SMS/Email comparison tabs. Perfect simplification.
+The industry-specific "Conversion Rate" label is used throughout for E-Commerce.
