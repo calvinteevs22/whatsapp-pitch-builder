@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import { createServer } from "http";
 import net from "net";
+import path from "path";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./oauth";
 import { registerImageProxyRoute } from "../imageProxyRoute";
@@ -35,6 +36,12 @@ async function startServer() {
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
+  // Serve locally-stored uploaded/generated images (fallback when S3 is not configured)
+  const uploadsDir = path.resolve(process.cwd(), "uploads");
+  app.use("/uploads", express.static(uploadsDir, {
+    maxAge: "7d",
+    immutable: false,
+  }));
   // OAuth callback under /api/oauth/callback
   registerOAuthRoutes(app);
   // Image proxy for hotlink-protected external images

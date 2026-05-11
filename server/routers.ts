@@ -767,11 +767,11 @@ export const appRouter = router({
           websiteContext = buildBusinessProfileContext(bp);
           console.log(`[AI Gen] Using business profile: ${bp.businessName}, ${productCatalog.length} products/services`);
         } else {
-          // Fallback: try to crawl URL from prompt
+          // Fallback: try to crawl URL from prompt or businessUrl field
           const urlMatch = input.prompt.match(/https?:\/\/[^\s,]+/i) || (input.businessUrl ? [input.businessUrl] : null);
           if (urlMatch) {
+            const url = urlMatch[0];
             try {
-              const url = urlMatch[0];
               console.log(`[AI Gen] No business profile provided, attempting deep crawl of ${url}`);
               const profile = await deepCrawlWebsite(url);
               productCatalog = [...profile.products, ...profile.services];
@@ -789,8 +789,17 @@ export const appRouter = router({
               });
               console.log(`[AI Gen] Deep crawl extracted ${productCatalog.length} products/services`);
             } catch (e) {
-              // Continue without website context
-              console.log(`[AI Gen] Deep crawl failed, continuing without website context`);
+              // Crawl failed (bot protection, timeout, etc.) — inject minimal brand context from URL
+              console.log(`[AI Gen] Deep crawl failed for ${url}, injecting brand context from URL`);
+              try {
+                const hostname = new URL(url).hostname.replace(/^www\./, "");
+                const brandName = hostname.split(".")[0];
+                // Capitalise first letter
+                const brandNameFormatted = brandName.charAt(0).toUpperCase() + brandName.slice(1);
+                websiteContext = `\n\n=== BRAND CONTEXT (website could not be crawled) ===\nBrand name: ${brandNameFormatted}\nWebsite: ${url}\nINSTRUCTION: Generate a conversation specifically for the ${brandNameFormatted} brand. Use the brand name in messages, reference their actual product lines and brand identity. Do NOT generate a generic template — this must feel like it is from ${brandNameFormatted}.\n=== END BRAND CONTEXT ===`;
+              } catch {
+                // URL parsing failed, continue without context
+              }
             }
           }
         }

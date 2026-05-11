@@ -67,10 +67,11 @@ function localPut(
   data: Buffer | Uint8Array | string
 ): { key: string; url: string } {
   ensureUploadsDir();
-  const filePath = path.join(LOCAL_UPLOADS_DIR, key.replace(/\//g, "_"));
+  const filename = key.replace(/\//g, "_");
+  const filePath = path.join(LOCAL_UPLOADS_DIR, filename);
   fs.writeFileSync(filePath, data as any);
-  // Return a file:// URL so callers always get a resolvable reference
-  const url = `file://${filePath}`;
+  // Return a server-relative URL that Express will serve via the /uploads static route
+  const url = `/uploads/${filename}`;
   return { key, url };
 }
 

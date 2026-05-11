@@ -849,17 +849,22 @@ export default function Builder() {
     }
     setIsGenerating(true);
     const startTime = Date.now();
+    // Consider a crawl result usable even if it has no products/services, as long as we have a business name.
+    // Sites with bot protection (e.g. Toyota) return a crawl result with a business name but empty products.
+    // We still want to pass that brand context to the AI so it doesn't generate a generic template.
+    const hasCrawlResult = !!crawlResult?.businessName;
     const hasWebsite = !!crawlResult?.products?.length || !!crawlResult?.services?.length;
     const hasAssets = clientAssets.length > 0;
     const hasImageAssets = clientAssets.filter(a => a.type === "image").length > 0;
     const totalSteps = (hasWebsite ? 4 : 3) + (hasAssets ? 1 : 0) + (hasImageAssets ? 1 : 0);
-    
+
     try {
       // Step 1: Preparing
       setGenerationProgress({ step: 1, totalSteps, label: "Preparing business context...", startTime });
-      
-      // Build business profile from crawl result if available
-      const businessProfile = hasWebsite
+
+      // Build business profile from crawl result if available.
+      // Include even sparse crawl results (no products) so brand name context flows to the AI.
+      const businessProfile = hasCrawlResult
         ? {
             businessName: crawlResult.businessName || businessName || "",
             industry: crawlResult.industry || industry || "",
@@ -868,8 +873,8 @@ export default function Builder() {
             brandTone: crawlResult.brandTone,
             logoUrl: crawlResult.logoUrl,
             heroImageUrl: crawlResult.heroImageUrl,
-            products: crawlResult.products,
-            services: crawlResult.services,
+            products: crawlResult.products || [],
+            services: crawlResult.services || [],
           }
         : undefined;
 
