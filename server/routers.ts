@@ -1,4 +1,5 @@
 import { COOKIE_NAME } from "@shared/const";
+import { getSeasonalMomentById } from "@shared/seasonalMoments";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
@@ -523,28 +524,6 @@ export const appRouter = router({
         return { fixed: created.length, messages: created };
       }),
 
-    /**
-     * Check utility compliance for a thread's messages.
-     * Returns compliance status and any violations found.
-     */
-    checkCompliance: publicProcedure
-      .input(z.object({
-        threadUid: z.string(),
-      }))
-      .query(async ({ input }) => {
-        const thread = await getThreadByUid(input.threadUid);
-        if (!thread) {
-          throw new TRPCError({ code: "NOT_FOUND" });
-        }
-        const messages = await getMessagesByThread(thread.id);
-        const parsedMessages = messages.map(m => ({
-          direction: m.direction,
-          contentType: m.contentType,
-          content: (typeof m.content === 'string' ? JSON.parse(m.content as string) : m.content) as Record<string, any>,
-        }));
-        const result = validateUtilityCompliance(parsedMessages, thread.messageType || undefined);
-        return result;
-      }),
 
     /**
      * Add a branch to a thread. Creates branched messages that appear when
@@ -739,6 +718,7 @@ export const appRouter = router({
         industry: z.string().optional(),
         subVertical: z.string().optional(),
         messageType: z.enum(["marketing", "utility", "authentication"]).default("marketing"),
+        seasonalMoment: z.string().optional(),
         threadUid: z.string().optional(),
         // NEW: Business profile from deep crawl — enables hyper-personalized generation
         businessProfile: z.object({
@@ -919,7 +899,7 @@ export const appRouter = router({
         }
 
         const systemPrompt = buildSystemPrompt(input.messageType, input.industry, input.language);
-        const userPrompt = buildUserPrompt(input) + websiteContext + workflowContext + clientAssetContext;
+        const userPrompt = buildUserPrompt(input, input.seasonalMoment) + websiteContext + workflowContext + clientAssetContext;
 
         let parsed: any;
         let attempts = 0;
@@ -2297,10 +2277,21 @@ function sanitizePlaceholders(messages: any[]): any[] {
   return messages;
 }
 
-function buildUserPrompt(input: { prompt: string; businessName?: string; businessUrl?: string; industry?: string | null; subVertical?: string; messageType: string }): string {
+function buildUserPrompt(input: { prompt: string; businessName?: string; businessUrl?: string; industry?: string | null; subVertical?: string; messageType: string }, seasonalMomentId?: string): string {
   let prompt = `Create a WhatsApp ${input.messageType} conversation: ${input.prompt}`;
   if (input.businessName) prompt += `\nBusiness: ${input.businessName}`;
   if (input.industry) prompt += `\nIndustry: ${input.industry}`;
+  if (seasonalMomentId) {
+    const moment = getSeasonalMomentById(seasonalMomentId);
+    if (moment) {
+      prompt += `\n\n=== SEASONAL CAMPAIGN CONTEXT ===`;
+      prompt += `\nCampaign Moment: ${moment.name}`;
+      prompt += `\nContext: ${moment.campaignContext}`;
+      prompt += `\nSuggested angles: ${moment.promoAngles.join(", ")}`;
+      prompt += `\nINSTRUCTION: Tailor the entire conversation to this seasonal moment. The opening template, product selection, pricing, urgency language, and call-to-action must all reflect the ${moment.name} campaign context above.`;
+      prompt += `\n=================================`;
+    }
+  }
   if (input.subVertical) {
     const SUB_VERTICAL_CONTEXT: Record<string, Record<string, string>> = {
       "E-Commerce": {

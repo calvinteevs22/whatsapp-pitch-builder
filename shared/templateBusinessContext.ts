@@ -1391,4 +1391,60 @@ export const templateBusinessContext: Record<string, TemplateBusinessContext> = 
   },
 
   // === E-Commerce Sub-Vertical Templates ===
+
+  // === Government & Public Services Templates ===
+  "gov-citizen-awareness": {
+    objective: "Drive citizen awareness and engagement with a public health, safety, or civic initiative through a high-reach WhatsApp broadcast.",
+    targetAudience: "All citizens in the target jurisdiction, segmented by region, age group, or demographics relevant to the campaign (e.g., parents for child health campaigns, drivers for road safety campaigns).",
+    messagingStrategy: "Lead with a clear, authoritative message from the agency. Use rich media (image, infographic) to make key information digestible. Provide easy action steps and resource links. Avoid bureaucratic language — write for the average citizen. High open rates on WhatsApp make this channel ideal for mass awareness.",
+    kpis: ["Message open rate (target: 85%+)", "Resource click-through rate", "Campaign reach vs. target population", "Citizen action completion rate"],
+  },
+  "gov-program-enrollment": {
+    objective: "Maximize enrollment in a government benefit program by simplifying the application journey and reducing drop-off through interactive guidance.",
+    targetAudience: "Citizens who are eligible for the program based on income, demographics, or prior interactions with the agency. Cross-reference with existing citizen databases.",
+    messagingStrategy: "Lead with the benefits the citizen will receive — not the process. Use an eligibility quiz via interactive_buttons to pre-qualify and personalize the journey. Reduce friction at every step by providing clear instructions, document checklists, and real-time support options.",
+    kpis: ["Enrollment conversion rate (target: 25-40%)", "Application completion rate", "Drop-off rate by step", "Time from outreach to application submission"],
+  },
+  "gov-service-promotion": {
+    objective: "Drive adoption of a new e-Government digital service by demonstrating its value and simplifying the onboarding experience.",
+    targetAudience: "Citizens who currently use the equivalent in-person or paper-based service. Segment by age and digital literacy — tailor messaging for less digitally-savvy groups.",
+    messagingStrategy: "Show, don't tell. Use screenshots and step-by-step guides to demonstrate how easy the digital service is. Emphasize time saved vs. in-person visits. Offer a guided onboarding tour via interactive buttons to reduce fear of change. Track adoption rates and adjust messaging for low-adopting segments.",
+    kpis: ["Digital service adoption rate", "App download / portal registration rate", "In-person visit reduction rate", "Citizen satisfaction score for digital service"],
+  },
+  "gov-appointment-reminder": {
+    objective: "Reduce no-show rates and appointment queue backlogs by sending timely, interactive appointment reminders with easy reschedule options.",
+    targetAudience: "Citizens with upcoming government appointments — passport, permit, vaccination, or public service visits.",
+    messagingStrategy: "Send the first reminder 48-72 hours before, with a 24-hour and same-day reminder. Each reminder should confirm key details (date, time, location, what to bring) and offer a frictionless reschedule option. This reduces no-shows by 30-50% compared to no reminders.",
+    kpis: ["No-show rate reduction (target: 30-50% improvement)", "Reschedule rate", "Appointment utilization rate", "Citizen satisfaction with appointment process"],
+  },
+  "gov-permit-status": {
+    objective: "Reduce inbound citizen inquiries and improve transparency by proactively updating citizens on their permit or license application status.",
+    targetAudience: "Citizens with active permit or license applications — business licenses, construction permits, driving licenses, etc.",
+    messagingStrategy: "Proactive updates at each milestone eliminate the need for citizens to call or visit the office. Each update should include the application reference number, current status, next step, and estimated timeline. If documents are required, provide a clear list and upload instructions via interactive_list.",
+    kpis: ["Inbound inquiry call reduction (target: 40-60%)", "Application completion rate", "Average processing time", "Citizen satisfaction with transparency"],
+  },
+  "gov-tax-notification": {
+    objective: "Improve tax filing compliance and on-time payment rates by sending timely, personalized notifications and e-filing guidance.",
+    targetAudience: "All registered taxpayers, segmented by filing status, taxpayer category (individual, business), and payment history.",
+    messagingStrategy: "Send deadline reminders 4, 2, and 1 week before. Include the citizen's specific filing details and a direct link to the e-filing portal. For first-time filers, include a step-by-step guide. Post-filing, send payment notifications with a breakdown and easy payment options.",
+    kpis: ["On-time filing rate improvement", "e-Filing adoption rate", "On-time payment rate", "Late filing penalty revenue reduction"],
+  },
+  "gov-emergency-alert": {
+    objective: "Rapidly disseminate critical public safety information to all citizens in affected areas to minimize harm during emergencies.",
+    targetAudience: "All citizens in affected geographic areas. Use location-based segmentation where possible.",
+    messagingStrategy: "Emergency alerts must be: immediate, clear, actionable. Lead with the emergency type and severity. Provide specific instructions, not general advice. Include resource links for shelters, hotlines, and evacuation routes. Send follow-up status updates as the situation evolves. Use WhatsApp's 98% delivery rate to maximize reach.",
+    kpis: ["Delivery and open rate (target: 95%+ within 30 min)", "Citizen response to safety instructions", "Evacuation compliance rate", "Post-emergency citizen safety satisfaction score"],
+  },
+  "gov-identity-verification": {
+    objective: "Secure government service access and prevent fraud by verifying citizen identity via WhatsApp OTP before processing sensitive transactions.",
+    targetAudience: "Citizens attempting to access sensitive government services — tax records, benefit changes, permit applications, or account modifications.",
+    messagingStrategy: "Initiate the OTP flow only after the citizen has requested a specific service. Keep the message authoritative and clear — state exactly why the verification is needed. Set a short OTP expiry (5-10 minutes) and provide a clear path if the OTP is not received.",
+    kpis: ["Authentication success rate (target: 95%+)", "Fraud incident reduction rate", "Authentication completion time (target: under 2 minutes)", "Unauthorized access prevention rate"],
+  },
+  "gov-digital-signature": {
+    objective: "Digitize citizen consent and document authorization processes to reduce paperwork, in-person visits, and processing time for government transactions.",
+    targetAudience: "Citizens who need to authorize government transactions — tax consent, property transfers, medical consent, or regulatory approvals.",
+    messagingStrategy: "Show a clear summary of what the citizen is authorizing before requesting consent. Use plain language — avoid legal jargon. Provide a 'Review Details' option before the consent step. After authorization, issue a digital confirmation with timestamp and reference code for citizen records.",
+    kpis: ["Digital consent adoption rate vs. paper", "Document processing time reduction (target: 60-80%)", "Citizen drop-off rate at consent step", "Authorization completion rate"],
+  },
 };

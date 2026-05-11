@@ -2584,6 +2584,106 @@ export const TEMPLATE_CATALOG: TemplateUseCase[] = [
     flowSteps: ["Win-back Template", "What's New", "Exclusive Voucher", "Product Picks", "Re-subscribe"],
     prompt: "Create a WhatsApp marketing flow for a baby care brand's re-engagement campaign for inactive parents. Start with a template with a heartfelt image ('We miss you! 💛 It's been a while — here's something special just for you') with 'See What's New' and 'Claim Voucher' buttons. After clicking 'Claim Voucher', show an exclusive comeback offer image with a unique voucher code worth 20% off the next purchase, valid for 14 days. Then show interactive_buttons: 'How old is your little one now?' with age range buttons: 'Under 6 months', '6-12 months', '1-2 years', '2+ years'. After the customer selects an age range, show a personalized carousel of 3 age-appropriate product recommendations with updated prices and 'Shop Now' buttons. After the customer selects a product from the carousel, show product details with the voucher discount applied and 'Order with Voucher' and 'Browse More' buttons. After clicking 'Order with Voucher', confirm the order and ask if they'd like to re-subscribe to weekly tips and offers.",
   },
+
+
+  // ═══════════════════════════════════════════
+  // GOVERNMENT & PUBLIC SERVICES
+  // ═══════════════════════════════════════════
+  // Marketing
+  {
+    id: "gov-citizen-awareness",
+    title: "Public Awareness Campaign",
+    description: "Broadcast public health, safety, or civic awareness campaigns with rich media and clear calls to action for citizen engagement.",
+    industry: "Government",
+    messageType: "marketing",
+    tags: ["Public Awareness", "Civic Engagement", "Health & Safety"],
+    flowSteps: ["Awareness Template", "Key Information", "Resource Links", "Take Action", "Feedback Prompt"],
+    prompt: "Create a WhatsApp marketing flow for a government agency running a public awareness campaign (e.g. public health, road safety, or civic initiative). Start with a hero image template announcing the campaign with key message and 'Learn More' and 'Share' buttons. Then send a rich image with key facts and statistics. Present an interactive_list of available resources and actions citizens can take. After the citizen selects an action, confirm their participation and ask for feedback with interactive_buttons.",
+  },
+  {
+    id: "gov-program-enrollment",
+    title: "Government Program Enrollment",
+    description: "Drive citizen enrollment in government programs — subsidies, welfare schemes, grants — with eligibility checks and application guidance.",
+    industry: "Government",
+    messageType: "marketing",
+    tags: ["Program", "Enrollment", "Subsidy", "Grant"],
+    flowSteps: ["Program Announcement", "Benefits Overview", "Eligibility Check", "Apply Now", "Application Confirmed"],
+    prompt: "Create a WhatsApp marketing flow for a government agency promoting enrollment in a citizen benefit program (e.g. housing subsidy, utility assistance, or skills grant). Start with an image template announcing the program with 'Check Eligibility' and 'Learn More' buttons. After the citizen clicks 'Check Eligibility', walk through an eligibility quiz using interactive_buttons. Then present a carousel of key program benefits with specific amounts and 'Apply Now' buttons. After the citizen selects a benefit from the carousel, guide them through the application steps and confirm their application with a reference number.",
+  },
+  {
+    id: "gov-service-promotion",
+    title: "e-Government Service Promotion",
+    description: "Promote digital government services — online portals, apps, and e-services — to drive citizen adoption and reduce in-person visits.",
+    industry: "Government",
+    messageType: "marketing",
+    tags: ["Digital Services", "e-Government", "App", "Portal"],
+    flowSteps: ["Service Launch", "Feature Showcase", "Download / Register CTA", "Guided Onboarding"],
+    prompt: "Create a WhatsApp marketing flow for a government agency promoting adoption of a new digital service (e.g. national ID app, e-permits portal, or tax filing platform). Start with an image template announcing the digital service with 'Download App' and 'Learn Features' buttons. After the citizen clicks 'Learn Features', show a carousel of 3-4 key features with screenshots and 'Try It' buttons. After the citizen selects a feature from the carousel, provide a step-by-step guide for that feature using interactive_buttons for confirmation at each step.",
+  },
+
+  // Utility
+  {
+    id: "gov-appointment-reminder",
+    title: "Government Appointment Reminder",
+    description: "Send citizens reminders for upcoming government appointments — visa, passport, permit, or health screenings — with reschedule options.",
+    industry: "Government",
+    messageType: "utility",
+    tags: ["Appointment", "Reminder", "Permit", "Passport"],
+    flowSteps: ["Appointment Confirmed", "24h Reminder", "Day-of Reminder", "Reschedule Option", "Outcome"],
+    prompt: "Create a WhatsApp utility flow for a government agency sending appointment reminders for a citizen appointment (e.g. passport renewal, permit inspection, or vaccination schedule). Confirm the appointment with reference number, location, and required documents. Send a 24-hour reminder with interactive_buttons for 'Confirm Attendance' or 'Reschedule'. On the day, send a final reminder with directions. If the citizen selects 'Reschedule', present an interactive_list of available date/time slots, then confirm the new appointment.",
+  },
+  {
+    id: "gov-permit-status",
+    title: "Permit & License Status Update",
+    description: "Keep citizens informed on permit and license application status with milestone updates and required document requests.",
+    industry: "Government",
+    messageType: "utility",
+    tags: ["Permit", "License", "Application Status", "Documents"],
+    flowSteps: ["Application Received", "Under Review", "Document Request", "Approved / Action Required"],
+    prompt: "Create a WhatsApp utility flow for a government agency updating a citizen on their permit or license application status. Confirm receipt with an application reference number. Send an 'Under Review' update with expected timeline. If documents are required, send an interactive_list of the required documents with upload instructions. Finally, send an approval notification with the permit/license details, validity period, and QR code reference.",
+  },
+  {
+    id: "gov-tax-notification",
+    title: "Tax Filing & Payment Notification",
+    description: "Notify citizens about tax filing deadlines, assessment results, payment due dates, and e-filing guidance.",
+    industry: "Government",
+    messageType: "utility",
+    tags: ["Tax", "Payment", "Filing Deadline", "Assessment"],
+    flowSteps: ["Filing Reminder", "Assessment Notice", "Payment Due", "Confirmation"],
+    prompt: "Create a WhatsApp utility flow for a tax authority notifying a citizen about their annual tax filing. Send a filing deadline reminder with specific date and 'File Now' and 'View Guide' buttons. After clicking 'View Guide', send an image with the e-filing step-by-step guide. Then send the tax assessment result with breakdown of income, deductions, and payable amount. Present payment options via interactive_list, then confirm payment receipt with a specific transaction reference.",
+  },
+  {
+    id: "gov-emergency-alert",
+    title: "Emergency & Public Safety Alert",
+    description: "Broadcast emergency alerts — natural disasters, health emergencies, road closures — with instructions and safety resource links.",
+    industry: "Government",
+    messageType: "utility",
+    tags: ["Emergency", "Alert", "Safety", "Disaster"],
+    flowSteps: ["Emergency Alert", "Safety Instructions", "Resource Links", "Status Updates"],
+    prompt: "Create a WhatsApp utility flow for a government emergency management agency broadcasting a public safety alert (e.g. severe weather warning, road closure, or health advisory). Send an urgent template message with the emergency type, affected area, and 'Safety Instructions' and 'Evacuation Routes' buttons. After the citizen clicks 'Safety Instructions', send detailed step-by-step safety instructions with an image. Then present an interactive_list of emergency resources (hotlines, shelters, first aid). Follow up with a status update when the situation is resolved.",
+  },
+
+  // Authentication
+  {
+    id: "gov-identity-verification",
+    title: "Citizen Identity Verification",
+    description: "Verify citizen identity via WhatsApp OTP before granting access to sensitive government services or processing applications.",
+    industry: "Government",
+    messageType: "authentication",
+    tags: ["Identity", "OTP", "Verification", "Security"],
+    flowSteps: ["Service Access Request", "Identity Check", "OTP Sent", "Access Granted"],
+    prompt: "Create a WhatsApp authentication flow for a government agency verifying a citizen's identity before processing a sensitive service request (e.g. benefits application, record access, or account change). Acknowledge the service request with a specific reference number. Send an OTP verification message with the 6-digit code and expiry time. After the citizen confirms receipt, validate the OTP and grant access with a session token and next steps.",
+  },
+  {
+    id: "gov-digital-signature",
+    title: "Document Signing & Authorization",
+    description: "Facilitate secure digital consent and document authorization for government transactions via WhatsApp verification flow.",
+    industry: "Government",
+    messageType: "authentication",
+    tags: ["Digital Signature", "Consent", "Authorization", "Document"],
+    flowSteps: ["Document Request", "Review Summary", "Consent Confirmation", "Authorized"],
+    prompt: "Create a WhatsApp authentication flow for a government agency requesting a citizen's digital consent to authorize a transaction or document (e.g. tax declaration consent, medical authorization, or land transfer consent). Send a document summary with key terms and 'Review Details' and 'Decline' buttons. After the citizen reviews, send the full document summary image. Then request explicit consent with interactive_buttons ('I Agree' / 'I Decline'). After the citizen confirms, send an authorization confirmation with a digital reference code and timestamp.",
+  },
 ];
 
 // Sub-verticals are now handled via AI prompt injection, not separate templates

@@ -36,6 +36,7 @@ import type { CarouselCard, ReminderMessage } from "@shared/types";
 import { INDUSTRIES, MESSAGE_TYPES, REMINDER_TIMING_OPTIONS } from "@shared/types";
 import type { ReminderTiming } from "@shared/types";
 import { getIndustryPrompts } from "@shared/industryPrompts";
+import { SEASONAL_MOMENTS, getSeasonalMomentsByCategory } from "@shared/seasonalMoments";
 import type { MessageContent } from "@shared/types";
 import ReminderEditor from "@/components/ReminderEditor";
 import {
@@ -155,6 +156,7 @@ export default function Builder() {
   const [businessUrl, setBusinessUrl] = useState("");
   const [industry, setIndustry] = useState("");
   const [messageType, setMessageType] = useState<"marketing" | "utility" | "authentication">("marketing");
+  const [seasonalMoment, setSeasonalMoment] = useState<string>("");
   const [aiPrompt, setAiPrompt] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [isCrawling, setIsCrawling] = useState(false);
@@ -903,6 +905,7 @@ export default function Builder() {
         businessUrl: businessUrl || undefined,
         industry: industry || undefined,
         messageType,
+        seasonalMoment: seasonalMoment || undefined,
         threadUid: effectiveUid,
         businessProfile,
         clientAssets: clientAssets.length > 0
@@ -2281,6 +2284,37 @@ export default function Builder() {
                         <option value="es">🇪🇸 Español (Spanish)</option>
                       </select>
                     </div>
+
+                    {/* Seasonal Moment Selector — marketing only */}
+                    {messageType === "marketing" && (
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
+                          <Sparkles className="w-3.5 h-3.5" />
+                          Seasonal Campaign Moment
+                          <span className="text-[10px] text-muted-foreground font-normal">(optional)</span>
+                        </label>
+                        <select
+                          value={seasonalMoment}
+                          onChange={(e) => setSeasonalMoment(e.target.value)}
+                          className="w-full h-9 rounded-md border border-input bg-background px-3 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        >
+                          <option value="">— No seasonal context —</option>
+                          {Object.entries(getSeasonalMomentsByCategory()).map(([category, moments]) => (
+                            <optgroup key={category} label={category}>
+                              {moments.map((m) => (
+                                <option key={m.id} value={m.id}>{m.name}</option>
+                              ))}
+                            </optgroup>
+                          ))}
+                        </select>
+                        {seasonalMoment && (() => {
+                          const m = SEASONAL_MOMENTS.find(x => x.id === seasonalMoment);
+                          return m ? (
+                            <p className="text-[10px] text-muted-foreground leading-relaxed">{m.description}</p>
+                          ) : null;
+                        })()}
+                      </div>
+                    )}
 
                     <Button
                       data-generate-btn

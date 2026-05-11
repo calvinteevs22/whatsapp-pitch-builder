@@ -425,6 +425,39 @@ const EXPERTISE: Record<string, IndustryExpertise> = {
     ],
     toneGuide: "Clear, tech-savvy, value-focused. Emphasize speed, coverage, and savings. Use specific numbers (GB, Mbps, price). Modern and straightforward — no telecom jargon.",
   },
+
+  Government: {
+    bestPractices: [
+      "Use authoritative but plain-language tone — avoid bureaucratic jargon that confuses citizens",
+      "Always include specific reference numbers (application IDs, permit codes, case numbers) to build credibility",
+      "Lead with citizen benefit, not process — 'Save 2 hours at the office' beats 'Submit Form JK-14B'",
+      "Include clear document checklists for any application or appointment flows",
+      "Emergency and utility alerts should be immediate, direct, and actionable — no marketing fluff",
+      "Authentication flows must clearly state WHY the OTP is needed and what transaction it protects",
+      "For program enrollment, use eligibility quizzes to personalize the journey and reduce confusion",
+      "Always provide a human support option (hotline number, live agent) as a fallback",
+    ],
+    terminology: [
+      "Application Reference", "IC / NRIC / Passport Number", "Processing Time", "Eligible Citizens",
+      "e-Services Portal", "Digital Identity", "OTP Verification", "Form Submission",
+      "Renewal", "Expiry Date", "Inspection", "Compliance", "Authorized", "Approved",
+      "Public Advisory", "Emergency Alert", "Safety Guidelines", "Hotline",
+      "Benefits", "Subsidy", "Grant", "Tax Filing", "Assessment", "Rebate",
+    ],
+    flowPatterns: [
+      "Awareness campaign → Key facts image → Resource list → Take action CTA → Feedback collection",
+      "Program announcement → Benefits carousel → Eligibility check → Application guide → Reference number issued",
+      "Appointment confirmation → Document checklist → 24h reminder → Day-of reminder → Reschedule option",
+      "Status received → Processing update → Document request if needed → Approval / outcome notification",
+      "Service request → Identity OTP verification → Consent authorization → Transaction confirmed",
+    ],
+    productTypes: [
+      "Citizen Permits & Licenses", "Tax Filing & Payments", "Public Health Programs",
+      "Social Welfare Benefits", "Emergency Alerts", "e-Government Portals",
+      "Digital Identity Services", "Civic Education Campaigns",
+    ],
+    toneGuide: "Clear, authoritative, and citizen-friendly. Write in plain language — avoid bureaucratic jargon. Be direct and action-oriented. For emergency and utility messages: urgent and calm. For program promotions: warm, empowering, and benefit-led. Never salesy. Trust is paramount.",
+  },
 };
 
 /**

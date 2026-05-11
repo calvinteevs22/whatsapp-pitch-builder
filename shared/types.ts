@@ -156,6 +156,7 @@ export const INDUSTRIES = [
   "Entertainment",
   "Finance & Banking",
   "Food & Beverage",
+  "Government",
   "Healthcare",
   "Insurance",
   "Logistics",
