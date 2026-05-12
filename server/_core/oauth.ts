@@ -4,6 +4,8 @@ import crypto from "crypto";
 import * as db from "../db";
 import { getSessionCookieOptions } from "./cookies";
 import { sdk } from "./sdk";
+import * as emailService from "./email";
+import { getNextResetDate } from "../usage";
 
 async function hashPassword(password: string): Promise<string> {
   const salt = crypto.randomBytes(16).toString("hex");
@@ -85,6 +87,7 @@ export function registerOAuthRoutes(app: Express) {
 
       const passwordHash = await hashPassword(password);
       const openId = crypto.randomUUID();
+      const verifyToken = crypto.randomBytes(32).toString("hex");
 
       await db.upsertUser({
         openId,
@@ -92,6 +95,18 @@ export function registerOAuthRoutes(app: Express) {
         email,
         loginMethod: passwordHash,
         lastSignedIn: new Date(),
+      });
+
+      // Set genResetAt and email verify token on new user
+      const newUser = await db.getUserByEmail(email);
+      if (newUser) {
+        await db.updateUserBilling(newUser.id, { genResetAt: getNextResetDate() });
+        await db.setEmailVerifyToken(newUser.id, verifyToken);
+      }
+
+      // Fire-and-forget — don't fail registration if email fails
+      emailService.sendVerificationEmail(email, verifyToken).catch((err) => {
+        console.warn("[Auth] Failed to send verification email:", err.message);
       });
 
       const sessionToken = await sdk.createSessionToken(openId, {
@@ -105,6 +120,60 @@ export function registerOAuthRoutes(app: Express) {
     } catch (error) {
       console.error("[Auth] Register failed", error);
       res.status(500).json({ error: "Registration failed" });
+    }
+  });
+
+  // Email verification
+  app.get("/api/auth/verify-email", async (req: Request, res: Response) => {
+    const { token } = req.query as { token?: string };
+    if (!token) { res.status(400).send("Invalid token"); return; }
+    try {
+      const user = await db.getUserByEmailVerifyToken(token);
+      if (!user) { res.status(400).send("Invalid or expired verification link"); return; }
+      await db.setEmailVerified(user.id);
+      res.redirect("/?verified=1");
+    } catch {
+      res.status(500).send("Verification failed");
+    }
+  });
+
+  // Forgot password — request reset
+  app.post("/api/auth/forgot-password", async (req: Request, res: Response) => {
+    const { email: userEmail } = req.body;
+    if (!userEmail) { res.status(400).json({ error: "Email is required" }); return; }
+    try {
+      const user = await db.getUserByEmail(userEmail);
+      // Always return success to prevent email enumeration
+      if (user) {
+        const token = crypto.randomBytes(32).toString("hex");
+        const expiresAt = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+        await db.setResetToken(user.id, token, expiresAt);
+        emailService.sendPasswordResetEmail(userEmail, token).catch((err) => {
+          console.warn("[Auth] Failed to send reset email:", err.message);
+        });
+      }
+      res.json({ success: true });
+    } catch {
+      res.status(500).json({ error: "Request failed" });
+    }
+  });
+
+  // Reset password — apply new password
+  app.post("/api/auth/reset-password", async (req: Request, res: Response) => {
+    const { token, password: newPassword } = req.body;
+    if (!token || !newPassword) { res.status(400).json({ error: "Token and password are required" }); return; }
+    if (newPassword.length < 6) { res.status(400).json({ error: "Password must be at least 6 characters" }); return; }
+    try {
+      const user = await db.getUserByResetToken(token);
+      if (!user || !user.resetTokenExpiresAt || new Date() > user.resetTokenExpiresAt) {
+        res.status(400).json({ error: "Invalid or expired reset link" });
+        return;
+      }
+      const newHash = await hashPassword(newPassword);
+      await db.clearResetToken(user.id, newHash);
+      res.json({ success: true });
+    } catch {
+      res.status(500).json({ error: "Password reset failed" });
     }
   });
 }

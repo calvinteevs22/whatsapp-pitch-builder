@@ -407,3 +407,78 @@ export async function updateUserCountry(userId: number, country: string) {
   if (!db) return;
   await db.update(users).set({ country }).where(eq(users.id, userId));
 }
+
+// ==================== BILLING QUERIES ====================
+
+export async function getUserById(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(users).where(eq(users.id, id)).limit(1);
+  return result[0];
+}
+
+export async function updateUserBilling(userId: number, data: {
+  plan?: "free" | "pro" | "agency";
+  genResetAt?: Date;
+  stripeCustomerId?: string | null;
+  stripeSubscriptionId?: string | null;
+  subscriptionStatus?: "active" | "canceled" | "past_due" | "trialing" | null;
+}) {
+  const db = await getDb();
+  if (!db) return;
+  await db.update(users).set(data as any).where(eq(users.id, userId));
+}
+
+export async function getUserByStripeCustomerId(customerId: string) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(users).where(eq(users.stripeCustomerId, customerId)).limit(1);
+  return result[0];
+}
+
+export async function getUserByStripeSubscriptionId(subscriptionId: string) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(users).where(eq(users.stripeSubscriptionId, subscriptionId)).limit(1);
+  return result[0];
+}
+
+// ==================== EMAIL AUTH QUERIES ====================
+
+export async function setEmailVerified(userId: number) {
+  const db = await getDb();
+  if (!db) return;
+  await db.update(users).set({ emailVerified: true, emailVerifyToken: null }).where(eq(users.id, userId));
+}
+
+export async function setEmailVerifyToken(userId: number, token: string) {
+  const db = await getDb();
+  if (!db) return;
+  await db.update(users).set({ emailVerifyToken: token }).where(eq(users.id, userId));
+}
+
+export async function getUserByEmailVerifyToken(token: string) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(users).where(eq(users.emailVerifyToken, token)).limit(1);
+  return result[0];
+}
+
+export async function setResetToken(userId: number, token: string, expiresAt: Date) {
+  const db = await getDb();
+  if (!db) return;
+  await db.update(users).set({ resetToken: token, resetTokenExpiresAt: expiresAt }).where(eq(users.id, userId));
+}
+
+export async function getUserByResetToken(token: string) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(users).where(eq(users.resetToken, token)).limit(1);
+  return result[0];
+}
+
+export async function clearResetToken(userId: number, newPasswordHash: string) {
+  const db = await getDb();
+  if (!db) return;
+  await db.update(users).set({ resetToken: null, resetTokenExpiresAt: null, loginMethod: newPasswordHash }).where(eq(users.id, userId));
+}
