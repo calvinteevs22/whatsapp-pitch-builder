@@ -8,6 +8,7 @@ import { registerOAuthRoutes } from "./oauth";
 import { registerImageProxyRoute } from "../imageProxyRoute";
 import { registerApiRoutes } from "../apiRoutes";
 import { registerStripeWebhook } from "../stripeWebhook";
+import { startResetJobs } from "../resetJobs";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
@@ -31,7 +32,23 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
   throw new Error(`No available port found starting from ${startPort}`);
 }
 
+function logStartupChecks() {
+  const warnings: string[] = [];
+  if (!process.env.STRIPE_SECRET_KEY) warnings.push("STRIPE_SECRET_KEY not set — billing disabled");
+  if (!process.env.STRIPE_WEBHOOK_SECRET) warnings.push("STRIPE_WEBHOOK_SECRET not set — webhooks will not verify");
+  if (!process.env.STRIPE_PRICE_ID_PRO) warnings.push("STRIPE_PRICE_ID_PRO not set — Pro checkout unavailable");
+  if (!process.env.STRIPE_PRICE_ID_AGENCY) warnings.push("STRIPE_PRICE_ID_AGENCY not set — Agency checkout unavailable");
+  if (!process.env.RESEND_API_KEY) warnings.push("RESEND_API_KEY not set — emails will only log to console");
+  if (!process.env.APP_URL) warnings.push("APP_URL not set — email links will use http://localhost:3000");
+  if (warnings.length > 0) {
+    console.warn("[Startup] Missing env vars:");
+    warnings.forEach(w => console.warn(`  ⚠ ${w}`));
+  }
+}
+
 async function startServer() {
+  logStartupChecks();
+  startResetJobs();
   const app = express();
   const server = createServer(app);
   // Stripe webhook needs raw body — must be registered before express.json()
