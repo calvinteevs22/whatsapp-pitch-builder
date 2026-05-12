@@ -30,6 +30,7 @@ import { buildSystemPrompt } from "./aiPromptHelpers";
 import { deepCrawlWebsite, type BusinessProfile } from "./websiteCrawler";
 import { getProxiedImageUrl, batchValidateImageUrls } from "./imageProxyRoute";
 import { classifyAndExtractAssets, buildWorkflowPromptContext, type WorkflowExtractionResult } from "./workflowExtractor";
+import { checkAndIncrementUsage, requiresPlan } from "./usage";
 
 const branchConfigSchema = z.object({
   branchId: z.string(),
@@ -136,6 +137,13 @@ export const appRouter = router({
         profileName: z.string().optional(),
       }))
       .mutation(async ({ ctx, input }) => {
+        // Free tier: max 10 threads
+        if (ctx.user.plan === "free") {
+          const existingThreads = await getThreadsByUser(ctx.user.id);
+          if (existingThreads.length >= 10) {
+            throw new TRPCError({ code: "FORBIDDEN", message: "requires_plan:pro" });
+          }
+        }
         const uid = nanoid(12);
         return createThread({
           uid,
@@ -251,6 +259,7 @@ export const appRouter = router({
     exportHtml: protectedProcedure
       .input(z.object({ uid: z.string(), embedImages: z.boolean().optional() }))
       .query(async ({ ctx, input }) => {
+        await requiresPlan(ctx.user.id, "pro");
         const thread = await getThreadByUid(input.uid);
         if (!thread || thread.userId !== ctx.user.id) {
           throw new TRPCError({ code: "NOT_FOUND" });
@@ -754,6 +763,8 @@ export const appRouter = router({
         language: z.enum(["en", "hi", "bn", "ta", "mr", "te", "ur", "id", "zh-CN", "zh-TW", "pt", "es"]).default("en"),
       }))
       .mutation(async ({ ctx, input }) => {
+        await checkAndIncrementUsage(ctx.user.id);
+
         // Build context from business profile if available, otherwise try URL crawl
         let websiteContext = "";
         let productCatalog: Array<{name: string; description: string; price: string; imageUrl: string; category: string}> = [];
@@ -1264,7 +1275,8 @@ Return JSON with: { "headline": "...", "primaryText": "...", "ctaText": "..." }`
 
     crawlWebsite: protectedProcedure
       .input(z.object({ url: z.string().url() }))
-      .mutation(async ({ input }) => {
+      .mutation(async ({ ctx, input }) => {
+        await requiresPlan(ctx.user.id, "pro");
         try {
           console.log(`[CrawlWebsite] Deep crawling ${input.url}`);
           const profile = await deepCrawlWebsite(input.url);
@@ -1325,6 +1337,7 @@ Return JSON with: { "headline": "...", "primaryText": "...", "ctaText": "..." }`
         placement: z.enum(["facebook_feed", "instagram_feed", "instagram_story", "instagram_reels"]).default("facebook_feed"),
       }))
       .mutation(async ({ ctx, input }) => {
+        await requiresPlan(ctx.user.id, "pro");
         const thread = await getThreadByUid(input.threadUid);
         if (!thread || thread.userId !== ctx.user.id) {
           throw new TRPCError({ code: "NOT_FOUND", message: "Thread not found" });
