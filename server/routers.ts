@@ -31,6 +31,7 @@ import { deepCrawlWebsite, type BusinessProfile } from "./websiteCrawler";
 import { getProxiedImageUrl, batchValidateImageUrls } from "./imageProxyRoute";
 import { classifyAndExtractAssets, buildWorkflowPromptContext, type WorkflowExtractionResult } from "./workflowExtractor";
 import { checkAndIncrementUsage, requiresPlan } from "./usage";
+import { billingRouter } from "./billing";
 
 const branchConfigSchema = z.object({
   branchId: z.string(),
@@ -90,6 +91,7 @@ const messageContentSchema = z.object({
 
 export const appRouter = router({
   system: systemRouter,
+  billing: billingRouter,
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
     logout: publicProcedure.mutation(({ ctx }) => {
