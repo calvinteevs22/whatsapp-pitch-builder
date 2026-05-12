@@ -7,17 +7,36 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 
 export default function Login() {
   const [, navigate] = useLocation();
-  const [isRegister, setIsRegister] = useState(false);
+  const [mode, setMode] = useState<"login" | "register" | "forgot">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [forgotSent, setForgotSent] = useState(false);
+
+  const isRegister = mode === "register";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setLoading(true);
+
+    if (mode === "forgot") {
+      try {
+        await fetch("/api/auth/forgot-password", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
+        setForgotSent(true);
+      } catch {
+        setError("Network error. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+      return;
+    }
 
     try {
       const endpoint = isRegister ? "/api/auth/register" : "/api/auth/login";
@@ -45,6 +64,10 @@ export default function Login() {
     }
   };
 
+  const descriptionText =
+    mode === "forgot" ? "Reset your password" :
+    isRegister ? "Create your account" : "Sign in to your account";
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#075E54]/5 to-white p-4">
       <Card className="w-full max-w-md">
@@ -55,86 +78,117 @@ export default function Login() {
             </svg>
           </div>
           <CardTitle className="text-2xl font-bold">WhatsApp Pitch Builder</CardTitle>
-          <CardDescription>
-            {isRegister ? "Create your account" : "Sign in to your account"}
-          </CardDescription>
+          <CardDescription>{descriptionText}</CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {isRegister && (
+          {mode === "forgot" && forgotSent ? (
+            <div className="text-center py-4">
+              <p className="text-sm text-green-700 font-medium">Check your email for a reset link.</p>
+              <button
+                type="button"
+                className="mt-3 text-sm text-[#075E54] hover:underline"
+                onClick={() => { setMode("login"); setForgotSent(false); setEmail(""); }}
+              >
+                Back to sign in
+              </button>
+            </div>
+          ) : mode === "forgot" ? (
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="name">Name</Label>
-                <Input
-                  id="name"
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Your name"
-                />
+                <Label htmlFor="email">Email</Label>
+                <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" required />
               </div>
-            )}
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="At least 6 characters"
-                required
-                minLength={6}
-              />
-            </div>
-
-            {error && (
-              <p className="text-sm text-red-600">{error}</p>
-            )}
-
-            <Button
-              type="submit"
-              className="w-full bg-[#075E54] hover:bg-[#064E46] text-white"
-              disabled={loading}
-            >
-              {loading ? "Please wait..." : isRegister ? "Create Account" : "Sign In"}
-            </Button>
-          </form>
-
-          <div className="mt-4 text-center text-sm text-muted-foreground">
-            {isRegister ? (
-              <>
-                Already have an account?{" "}
-                <button
-                  type="button"
-                  className="text-[#075E54] hover:underline font-medium"
-                  onClick={() => { setIsRegister(false); setError(""); }}
-                >
-                  Sign in
+              {error && <p className="text-sm text-red-600">{error}</p>}
+              <Button type="submit" className="w-full bg-[#075E54] hover:bg-[#064E46] text-white" disabled={loading}>
+                {loading ? "Sending..." : "Send reset link"}
+              </Button>
+              <div className="text-center text-sm">
+                <button type="button" className="text-[#075E54] hover:underline" onClick={() => { setMode("login"); setError(""); }}>
+                  Back to sign in
                 </button>
-              </>
-            ) : (
-              <>
-                Don't have an account?{" "}
-                <button
-                  type="button"
-                  className="text-[#075E54] hover:underline font-medium"
-                  onClick={() => { setIsRegister(true); setError(""); }}
-                >
-                  Create one
-                </button>
-              </>
-            )}
-          </div>
+              </div>
+            </form>
+          ) : (
+            <>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                {isRegister && (
+                  <div className="space-y-2">
+                    <Label htmlFor="name">Name</Label>
+                    <Input
+                      id="name"
+                      type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Your name"
+                    />
+                  </div>
+                )}
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@example.com"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="password">Password</Label>
+                    {!isRegister && (
+                      <button
+                        type="button"
+                        className="text-xs text-muted-foreground hover:text-foreground underline"
+                        onClick={() => { setMode("forgot"); setError(""); }}
+                      >
+                        Forgot password?
+                      </button>
+                    )}
+                  </div>
+                  <Input
+                    id="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="At least 6 characters"
+                    required
+                    minLength={6}
+                  />
+                </div>
+                {error && <p className="text-sm text-red-600">{error}</p>}
+                <Button type="submit" className="w-full bg-[#075E54] hover:bg-[#064E46] text-white" disabled={loading}>
+                  {loading ? "Please wait..." : isRegister ? "Create Account" : "Sign In"}
+                </Button>
+              </form>
+              <div className="mt-4 text-center text-sm text-muted-foreground">
+                {isRegister ? (
+                  <>
+                    Already have an account?{" "}
+                    <button
+                      type="button"
+                      className="text-[#075E54] hover:underline font-medium"
+                      onClick={() => { setMode("login"); setError(""); }}
+                    >
+                      Sign in
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    Don&apos;t have an account?{" "}
+                    <button
+                      type="button"
+                      className="text-[#075E54] hover:underline font-medium"
+                      onClick={() => { setMode("register"); setError(""); }}
+                    >
+                      Create one
+                    </button>
+                  </>
+                )}
+              </div>
+            </>
+          )}
         </CardContent>
       </Card>
     </div>

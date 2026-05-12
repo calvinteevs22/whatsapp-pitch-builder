@@ -103,6 +103,9 @@ export default function Home() {
                   <Button variant="ghost" size="sm" onClick={() => navigate("/roi-calculator")} className="text-sm text-white/60 hover:text-white hover:bg-white/5 h-8">
                     <Calculator className="w-3.5 h-3.5 mr-1.5" /> ROI Calculator
                   </Button>
+                  <Button variant="ghost" size="sm" onClick={() => navigate("/pricing")} className="text-sm text-white/60 hover:text-white hover:bg-white/5 h-8">
+                    Pricing
+                  </Button>
                 </div>
               </>
             )}

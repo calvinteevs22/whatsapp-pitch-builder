@@ -13,12 +13,18 @@ import ROICalculator from "./pages/ROICalculator";
 import ApiDocs from "./pages/ApiDocs";
 import QuickCreate from "./pages/QuickCreate";
 import Login from "./pages/Login";
+import Pricing from "./pages/Pricing";
+import Account from "./pages/Account";
+import ResetPassword from "./pages/ResetPassword";
 import { FeedbackWidget } from "./components/FeedbackWidget";
 
 function Router() {
   return (
     <Switch>
       <Route path={"/login"} component={Login} />
+      <Route path={"/pricing"} component={Pricing} />
+      <Route path={"/account"} component={Account} />
+      <Route path={"/reset-password"} component={ResetPassword} />
       <Route path={"/"} component={Home} />
       <Route path={"/threads"} component={Dashboard} />
       <Route path={"/templates"} component={Samples} />

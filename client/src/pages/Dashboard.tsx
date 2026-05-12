@@ -1,4 +1,6 @@
 import { useState, useCallback } from "react";
+import { UsageIndicator } from "@/components/UsageIndicator";
+import { UpgradeModal } from "@/components/UpgradeModal";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 import { useLocation } from "wouter";
@@ -85,12 +87,21 @@ export default function Dashboard() {
     },
   });
 
+  const [upgradeReason, setUpgradeReason] = useState<string | null>(null);
+
   const createThread = trpc.thread.create.useMutation({
     onSuccess: (thread) => {
       toast.success("Thread created!");
       setCreateDialogOpen(false);
       setNewThreadName("");
       navigate(`/builder/${thread.uid}`);
+    },
+    onError: (err) => {
+      if (err.message === "requires_plan:pro") {
+        setUpgradeReason("requires_plan:pro");
+      } else {
+        toast.error("Failed to create thread");
+      }
     },
   });
 
@@ -251,6 +262,7 @@ export default function Dashboard() {
             </div>
           </div>
           <div className="flex items-center gap-2">
+            <UsageIndicator />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" className="gap-2 h-8">
@@ -261,6 +273,9 @@ export default function Dashboard() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => navigate("/account")}>
+                  <User className="w-4 h-4 mr-2" /> Account & Billing
+                </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => setApiKeysDialogOpen(true)}>
                   <Key className="w-4 h-4 mr-2" /> API Keys
                 </DropdownMenuItem>
@@ -793,6 +808,11 @@ export default function Dashboard() {
           </div>
         </DialogContent>
       </Dialog>
+      <UpgradeModal
+        open={upgradeReason !== null}
+        onClose={() => setUpgradeReason(null)}
+        reason={upgradeReason ?? undefined}
+      />
     </div>
   );
 }
