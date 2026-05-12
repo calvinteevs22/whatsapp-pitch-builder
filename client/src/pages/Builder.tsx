@@ -1832,7 +1832,7 @@ export default function Builder() {
   return (
     <div className="h-screen bg-background flex flex-col overflow-hidden">
       {/* Top bar */}
-      <div className="border-b bg-white sticky top-0 z-50">
+      <div className="border-b bg-white/95 backdrop-blur-xl sticky top-0 z-50">
         <div className="container flex items-center justify-between h-14">
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="icon" onClick={() => navigate("/threads")}>
@@ -2089,32 +2089,32 @@ export default function Builder() {
 
             {/* AI Generation / Manual Builder tabs */}
             <Tabs value={activeTab} onValueChange={setActiveTab}>
-              <TabsList className="w-full">
-                <TabsTrigger value="ai" className="flex-1">
-                  <Sparkles className="w-4 h-4 mr-1" /> AI Generate
+              <TabsList className="w-full h-9 p-0.5 bg-muted/60 rounded-xl">
+                <TabsTrigger value="ai" className="flex-1 rounded-lg text-xs h-8 data-[state=active]:bg-white data-[state=active]:shadow-sm">
+                  <Sparkles className="w-3.5 h-3.5 mr-1" /> AI Generate
                 </TabsTrigger>
-                <TabsTrigger value="manual" className="flex-1">
-                  <Edit3 className="w-4 h-4 mr-1" /> Manual Edit
+                <TabsTrigger value="manual" className="flex-1 rounded-lg text-xs h-8 data-[state=active]:bg-white data-[state=active]:shadow-sm">
+                  <Edit3 className="w-3.5 h-3.5 mr-1" /> Manual Edit
                 </TabsTrigger>
-                <TabsTrigger value="branches" className="flex-1">
-                  <GitBranch className="w-4 h-4 mr-1" /> Branches
+                <TabsTrigger value="branches" className="flex-1 rounded-lg text-xs h-8 data-[state=active]:bg-white data-[state=active]:shadow-sm">
+                  <GitBranch className="w-3.5 h-3.5 mr-1" /> Branches
                 </TabsTrigger>
-                <TabsTrigger value="reminders" className="flex-1">
-                  <Bell className="w-4 h-4 mr-1" /> Reminders
+                <TabsTrigger value="reminders" className="flex-1 rounded-lg text-xs h-8 data-[state=active]:bg-white data-[state=active]:shadow-sm">
+                  <Bell className="w-3.5 h-3.5 mr-1" /> Reminders
                   {reminderMessages.length > 0 && (
                     <Badge variant="secondary" className="ml-1 text-[9px] h-4 px-1">{reminderMessages.filter(r => r.enabled).length}</Badge>
                   )}
                 </TabsTrigger>
-                <TabsTrigger value="ctwa" className="flex-1">
-                  <Monitor className="w-4 h-4 mr-1" /> CTWA Ad
+                <TabsTrigger value="ctwa" className="flex-1 rounded-lg text-xs h-8 data-[state=active]:bg-white data-[state=active]:shadow-sm">
+                  <Monitor className="w-3.5 h-3.5 mr-1" /> CTWA Ad
                   {adCreative?.enabled && (
-                    <Badge variant="secondary" className="ml-1 text-[9px] h-4 px-1 bg-green-500/20 text-green-700">ON</Badge>
+                    <Badge className="ml-1 text-[9px] h-4 px-1 bg-[#25D366]/15 text-[#25D366] border-0">ON</Badge>
                   )}
                 </TabsTrigger>
               </TabsList>
 
               <TabsContent value="ai" className="mt-3">
-                <Card>
+                <Card className="border-border/60 shadow-sm">
                   <CardContent className="pt-4 space-y-3">
                     <div>
                       <label className="text-xs font-medium text-muted-foreground mb-1.5 block">
@@ -3090,7 +3090,7 @@ export default function Builder() {
           </div>
 
           {/* Right panel - Phone Preview */}
-          <div className="order-1 lg:order-2 flex flex-col h-full overflow-hidden">
+          <div className="order-1 lg:order-2 flex flex-col h-full overflow-hidden relative">
             <div className="flex items-center justify-between mb-2 shrink-0">
               <h3 className="text-sm font-semibold text-muted-foreground flex items-center gap-1.5">
                 <Eye className="w-4 h-4" /> Live Preview

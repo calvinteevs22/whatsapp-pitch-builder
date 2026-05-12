@@ -230,16 +230,16 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b">
+      <nav className="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b">
         <div className="container flex items-center justify-between h-14">
           <div className="flex items-center gap-5">
             <div className="flex items-center gap-2.5 cursor-pointer" onClick={() => navigate("/")}>
               <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663344446488/YocM5kPJZcUQjCCGhq86Jj/whatsapp-logo_55bb387d.png" alt="WhatsApp" className="w-7 h-7" />
-              <span className="font-bold text-[15px] tracking-tight hidden sm:inline">WhatsApp Pitch Builder</span>
+              <span className="font-semibold text-[15px] tracking-tight hidden sm:inline">WhatsApp Pitch Builder</span>
             </div>
             <div className="h-5 w-px bg-border hidden sm:block" />
             <div className="flex items-center gap-1">
-              <Button variant="ghost" size="sm" className="text-sm text-[#25D366] font-medium h-8">
+              <Button variant="ghost" size="sm" className="text-sm text-[#25D366] font-medium h-8 bg-[#25D366]/5">
                 <FolderOpen className="w-3.5 h-3.5 mr-1.5" /> My Threads
               </Button>
               <Button variant="ghost" size="sm" onClick={() => navigate("/templates")} className="text-sm text-muted-foreground hover:text-foreground h-8">
@@ -581,14 +581,16 @@ export default function Dashboard() {
             </CardContent>
           </Card>
         ) : (
-          <div className="grid gap-2.5">
+          <div className="grid gap-2">
             {filteredThreads.map(thread => {
               const isSelected = selectedUids.has(thread.uid);
+              const typeColor = thread.messageType === "marketing" ? "#25D366" :
+                thread.messageType === "utility" ? "#34B7F1" : "#fb923c";
               return (
-                <Card
+                <div
                   key={thread.uid}
-                  className={`group hover:shadow-md transition-all cursor-pointer border ${
-                    isSelected ? "border-[#25D366] bg-[#25D366]/5 shadow-sm" : ""
+                  className={`group relative flex items-center gap-0 rounded-xl border bg-card hover:shadow-md transition-all cursor-pointer overflow-hidden ${
+                    isSelected ? "border-[#25D366] shadow-sm ring-1 ring-[#25D366]/20" : "border-border hover:border-border/80"
                   }`}
                   onClick={() => {
                     if (isSelectMode) {
@@ -598,110 +600,102 @@ export default function Dashboard() {
                     }
                   }}
                 >
-                  <CardContent className="py-3.5 px-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3 min-w-0 flex-1">
-                        {isSelectMode ? (
-                          <div className="shrink-0" onClick={e => e.stopPropagation()}>
-                            <Checkbox
-                              checked={isSelected}
-                              onCheckedChange={() => toggleSelect(thread.uid)}
-                              className="data-[state=checked]:bg-[#25D366] data-[state=checked]:border-[#25D366]"
-                            />
-                          </div>
-                        ) : (
-                          <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${
-                            thread.messageType === "marketing" ? "bg-[#25D366]/10" :
-                            thread.messageType === "utility" ? "bg-[#34B7F1]/10" :
-                            "bg-[#FF6B35]/10"
-                          }`}>
-                            <MessageSquare className={`w-5 h-5 ${
-                              thread.messageType === "marketing" ? "text-[#25D366]" :
-                              thread.messageType === "utility" ? "text-[#34B7F1]" :
-                              "text-[#FF6B35]"
-                            }`} />
-                          </div>
-                        )}
-                        <div className="min-w-0">
-                          {renameUid === thread.uid ? (
-                            <div className="flex gap-2" onClick={e => e.stopPropagation()}>
-                              <Input
-                                value={renameName}
-                                onChange={e => setRenameName(e.target.value)}
-                                className="h-7 text-sm"
-                                autoFocus
-                                onKeyDown={e => {
-                                  if (e.key === "Enter") updateThread.mutate({ uid: thread.uid, name: renameName });
-                                  if (e.key === "Escape") setRenameUid(null);
-                                }}
-                              />
-                              <Button size="sm" className="h-7" onClick={() => updateThread.mutate({ uid: thread.uid, name: renameName })}>
-                                Save
-                              </Button>
-                            </div>
-                          ) : (
-                            <h3 className="font-medium text-sm truncate">{thread.name}</h3>
-                          )}
-                          <div className="flex items-center gap-2 mt-0.5">
-                            <Badge
-                              variant="secondary"
-                              className="text-[10px] h-4"
-                              style={{
-                                backgroundColor: `${MESSAGE_TYPES[thread.messageType].color}15`,
-                                color: MESSAGE_TYPES[thread.messageType].color,
-                              }}
-                            >
-                              {MESSAGE_TYPES[thread.messageType].label}
-                            </Badge>
-                            {thread.industry && (
-                              <Badge variant="outline" className="text-[10px] h-4">{thread.industry}</Badge>
-                            )}
-                            <span className="text-[10px] text-muted-foreground flex items-center gap-1">
-                              <Clock className="w-3 h-3" />
-                              {new Date(thread.updatedAt).toLocaleDateString()}
-                            </span>
-                          </div>
+                  {/* Colored left accent bar */}
+                  {!isSelectMode && (
+                    <div className="w-1 self-stretch shrink-0 rounded-l-xl" style={{ backgroundColor: typeColor }} />
+                  )}
+                  <div className="flex items-center justify-between flex-1 py-3.5 px-4">
+                    <div className="flex items-center gap-3 min-w-0 flex-1">
+                      {isSelectMode ? (
+                        <div className="shrink-0" onClick={e => e.stopPropagation()}>
+                          <Checkbox
+                            checked={isSelected}
+                            onCheckedChange={() => toggleSelect(thread.uid)}
+                            className="data-[state=checked]:bg-[#25D366] data-[state=checked]:border-[#25D366]"
+                          />
                         </div>
-                      </div>
-
-                      {!isSelectMode && (
-                        <div className="flex items-center gap-1" onClick={e => e.stopPropagation()}>
-                          <Button variant="ghost" size="sm" className="opacity-0 group-hover:opacity-100 transition-opacity h-8">
-                            <ArrowRight className="w-4 h-4" />
-                          </Button>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button variant="ghost" size="icon" className="h-8 w-8">
-                                <MoreHorizontal className="w-4 h-4" />
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuItem onClick={() => { setRenameUid(thread.uid); setRenameName(thread.name); }}>
-                                <Edit3 className="w-4 h-4 mr-2" /> Rename
-                              </DropdownMenuItem>
-                              <DropdownMenuItem onClick={() => duplicateThread.mutate({ uid: thread.uid })}>
-                                <Copy className="w-4 h-4 mr-2" /> Duplicate
-                              </DropdownMenuItem>
-                              <DropdownMenuItem onClick={() => toggleShare.mutate({ uid: thread.uid })}>
-                                <Share2 className="w-4 h-4 mr-2" />
-                                {thread.isPublic ? "Disable Sharing" : "Share"}
-                              </DropdownMenuItem>
-                              <DropdownMenuSeparator />
-                              <DropdownMenuItem
-                                className="text-destructive"
-                                onClick={() => {
-                                  if (confirm("Delete this thread?")) deleteThread.mutate({ uid: thread.uid });
-                                }}
-                              >
-                                <Trash2 className="w-4 h-4 mr-2" /> Delete
-                              </DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
+                      ) : (
+                        <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: `${typeColor}12` }}>
+                          <MessageSquare className="w-4.5 h-4.5" style={{ color: typeColor }} />
                         </div>
                       )}
+                      <div className="min-w-0">
+                        {renameUid === thread.uid ? (
+                          <div className="flex gap-2" onClick={e => e.stopPropagation()}>
+                            <Input
+                              value={renameName}
+                              onChange={e => setRenameName(e.target.value)}
+                              className="h-7 text-sm"
+                              autoFocus
+                              onKeyDown={e => {
+                                if (e.key === "Enter") updateThread.mutate({ uid: thread.uid, name: renameName });
+                                if (e.key === "Escape") setRenameUid(null);
+                              }}
+                            />
+                            <Button size="sm" className="h-7" onClick={() => updateThread.mutate({ uid: thread.uid, name: renameName })}>
+                              Save
+                            </Button>
+                          </div>
+                        ) : (
+                          <h3 className="font-medium text-sm truncate">{thread.name}</h3>
+                        )}
+                        <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+                          <span
+                            className="inline-flex items-center text-[10px] font-medium h-4 px-1.5 rounded-full"
+                            style={{ backgroundColor: `${typeColor}15`, color: typeColor }}
+                          >
+                            {MESSAGE_TYPES[thread.messageType].label}
+                          </span>
+                          {thread.industry && (
+                            <span className="inline-flex items-center text-[10px] text-muted-foreground h-4 px-1.5 rounded-full bg-muted border border-border/60">
+                              {thread.industry}
+                            </span>
+                          )}
+                          <span className="text-[10px] text-muted-foreground flex items-center gap-0.5">
+                            <Clock className="w-2.5 h-2.5" />
+                            {new Date(thread.updatedAt).toLocaleDateString()}
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                  </CardContent>
-                </Card>
+
+                    {!isSelectMode && (
+                      <div className="flex items-center gap-1 ml-2" onClick={e => e.stopPropagation()}>
+                        <Button variant="ghost" size="sm" className="opacity-0 group-hover:opacity-100 transition-opacity h-8 text-muted-foreground hover:text-foreground">
+                          <ArrowRight className="w-4 h-4" />
+                        </Button>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="icon" className="h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity">
+                              <MoreHorizontal className="w-4 h-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuItem onClick={() => { setRenameUid(thread.uid); setRenameName(thread.name); }}>
+                              <Edit3 className="w-4 h-4 mr-2" /> Rename
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => duplicateThread.mutate({ uid: thread.uid })}>
+                              <Copy className="w-4 h-4 mr-2" /> Duplicate
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => toggleShare.mutate({ uid: thread.uid })}>
+                              <Share2 className="w-4 h-4 mr-2" />
+                              {thread.isPublic ? "Disable Sharing" : "Share"}
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem
+                              className="text-destructive"
+                              onClick={() => {
+                                if (confirm("Delete this thread?")) deleteThread.mutate({ uid: thread.uid });
+                              }}
+                            >
+                              <Trash2 className="w-4 h-4 mr-2" /> Delete
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
+                    )}
+                  </div>
+                </div>
               );
             })}
           </div>

@@ -384,17 +384,17 @@ export default function Samples() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b">
+      <nav className="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b">
         <div className="container flex items-center justify-between h-14">
           <div className="flex items-center gap-5">
             <div className="flex items-center gap-2.5 cursor-pointer" onClick={() => navigate(isAuthenticated ? "/threads" : "/")}>
               <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663344446488/YocM5kPJZcUQjCCGhq86Jj/whatsapp-logo_55bb387d.png" alt="WhatsApp" className="w-7 h-7" />
-              <span className="font-bold text-[15px] tracking-tight hidden sm:inline">WhatsApp Pitch Builder</span>
+              <span className="font-semibold text-[15px] tracking-tight hidden sm:inline">WhatsApp Pitch Builder</span>
             </div>
             <div className="h-5 w-px bg-border hidden sm:block" />
             <div className="flex items-center gap-1">
               {isAuthenticated && <MyThreadsDropdown />}
-              <Button variant="ghost" size="sm" className="text-sm text-[#25D366] font-medium h-8">
+              <Button variant="ghost" size="sm" className="text-sm text-[#25D366] font-medium h-8 bg-[#25D366]/5">
                 <BookOpen className="w-3.5 h-3.5 mr-1.5" /> Industry Templates
               </Button>
               <Button variant="ghost" size="sm" onClick={() => navigate("/roi-calculator")} className="text-sm text-muted-foreground hover:text-foreground h-8">
@@ -432,27 +432,34 @@ export default function Samples() {
       </nav>
 
       {/* Hero Section */}
-      <div className="bg-gradient-to-b from-[#25D366]/5 to-transparent border-b">
-        <div className="container py-8 max-w-7xl">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+      <div className="border-b bg-gradient-to-b from-[#f0fdf4] to-transparent">
+        <div className="container py-7 max-w-7xl">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-bold tracking-tight mb-1">Industry Use Case Template Library</h1>
+              <div className="inline-flex items-center gap-1.5 text-[11px] font-medium text-[#25D366] bg-[#25D366]/8 px-2.5 py-1 rounded-full border border-[#25D366]/20 mb-3">
+                <BookOpen className="w-3 h-3" />
+                Template Library
+              </div>
+              <h1 style={{ fontFamily: "var(--font-display)" }} className="text-2xl font-bold tracking-tight mb-1">Industry Use Case Templates</h1>
               <p className="text-sm text-muted-foreground max-w-2xl">
-                {TEMPLATE_CATALOG.length} ready-made conversation templates across {INDUSTRIES.length} industries. Spot whitespace opportunities and drive new use cases for WhatsApp Paid Messaging adoption.
+                {TEMPLATE_CATALOG.length} ready-made templates across {INDUSTRIES.length} industries — spot whitespace opportunities and pitch new WhatsApp use cases to your clients.
               </p>
             </div>
-            <div className="flex items-center gap-3 text-xs">
-              <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-[#25D366]/10">
+            <div className="flex items-center gap-2 text-xs shrink-0">
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#25D366]/10 border border-[#25D366]/20">
                 <Target className="w-3 h-3 text-[#25D366]" />
-                <span className="font-medium text-[#25D366]">{TEMPLATE_CATALOG.filter(t => t.messageType === "marketing").length} Marketing</span>
+                <span className="font-semibold text-[#25D366]">{TEMPLATE_CATALOG.filter(t => t.messageType === "marketing").length}</span>
+                <span className="text-[#25D366]/70">Marketing</span>
               </div>
-              <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-[#34B7F1]/10">
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#34B7F1]/10 border border-[#34B7F1]/20">
                 <Layers className="w-3 h-3 text-[#34B7F1]" />
-                <span className="font-medium text-[#34B7F1]">{TEMPLATE_CATALOG.filter(t => t.messageType === "utility").length} Utility</span>
+                <span className="font-semibold text-[#34B7F1]">{TEMPLATE_CATALOG.filter(t => t.messageType === "utility").length}</span>
+                <span className="text-[#34B7F1]/70">Utility</span>
               </div>
-              <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-[#FF6B35]/10">
-                <Shield className="w-3 h-3 text-[#FF6B35]" />
-                <span className="font-medium text-[#FF6B35]">{TEMPLATE_CATALOG.filter(t => t.messageType === "authentication").length} Auth</span>
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#fb923c]/10 border border-[#fb923c]/20">
+                <Shield className="w-3 h-3 text-[#fb923c]" />
+                <span className="font-semibold text-[#fb923c]">{TEMPLATE_CATALOG.filter(t => t.messageType === "authentication").length}</span>
+                <span className="text-[#fb923c]/70">Auth</span>
               </div>
             </div>
           </div>
@@ -1021,22 +1028,16 @@ function TemplateCard({
   const bizCtx = templateBusinessContext[template.id];
 
   return (
-    <Card className="group hover:shadow-md transition-all overflow-hidden flex flex-col">
-      <div className="h-1 shrink-0" style={{ background: `linear-gradient(to right, ${typeInfo.color}, ${typeInfo.color}88)` }} />
-      <CardContent className="pt-4 pb-3 flex flex-col flex-1">
+    <div className="group relative rounded-xl border border-border bg-card hover:border-[#25D366]/30 hover:shadow-md transition-all overflow-hidden flex flex-col">
+      <div className="h-0.5 shrink-0" style={{ background: `linear-gradient(to right, ${typeInfo.color}, ${typeInfo.color}55)` }} />
+      <div className="pt-4 pb-3 px-4 flex flex-col flex-1">
         <div className="flex items-start justify-between mb-2.5">
-          <div className="flex items-center gap-1">
-            <Badge
-              variant="secondary"
-              className="text-[10px] h-4"
-              style={{
-                backgroundColor: `${typeInfo.color}12`,
-                color: typeInfo.color,
-              }}
-            >
-              {typeInfo.label.replace(" Messages", "")}
-            </Badge>
-          </div>
+          <span
+            className="inline-flex items-center text-[10px] h-4 px-2 rounded-full font-medium"
+            style={{ backgroundColor: `${typeInfo.color}12`, color: typeInfo.color }}
+          >
+            {typeInfo.label.replace(" Messages", "")}
+          </span>
           {bizCtx && (
             <button
               onClick={(e) => { e.stopPropagation(); onViewContext(template); }}
@@ -1055,12 +1056,12 @@ function TemplateCard({
         {bizCtx && (
           <button
             onClick={(e) => { e.stopPropagation(); onViewContext(template); }}
-            className="mb-2.5 p-2 rounded-md bg-gradient-to-r from-[#25D366]/5 to-transparent border border-[#25D366]/10 text-left hover:border-[#25D366]/25 transition-colors group/ctx cursor-pointer"
+            className="mb-2.5 p-2 rounded-lg bg-[#25D366]/5 border border-[#25D366]/10 text-left hover:border-[#25D366]/25 hover:bg-[#25D366]/8 transition-all group/ctx cursor-pointer"
           >
             <div className="flex items-center gap-1.5 mb-1">
               <Crosshair className="w-2.5 h-2.5 text-[#25D366]" />
               <span className="text-[9px] font-semibold text-[#25D366] uppercase tracking-wider">Business Objective</span>
-              <ChevronRight className="w-2.5 h-2.5 text-muted-foreground/50 ml-auto group-hover/ctx:text-[#25D366] transition-colors" />
+              <ChevronRight className="w-2.5 h-2.5 text-muted-foreground/40 ml-auto group-hover/ctx:text-[#25D366] transition-colors" />
             </div>
             <p className="text-[10px] text-muted-foreground leading-relaxed line-clamp-2">{bizCtx.objective}</p>
           </button>
@@ -1068,7 +1069,9 @@ function TemplateCard({
 
         <div className="flex flex-wrap gap-1 mb-2.5">
           {template.tags.slice(0, 3).map(tag => (
-            <Badge key={tag} variant="outline" className="text-[9px] h-4 font-normal">{tag}</Badge>
+            <span key={tag} className="text-[9px] h-4 px-1.5 py-0 rounded-full border border-border bg-muted text-muted-foreground inline-flex items-center">
+              {tag}
+            </span>
           ))}
         </div>
 
@@ -1076,11 +1079,11 @@ function TemplateCard({
         <div className="flex items-center gap-0.5 mb-3 overflow-x-auto pb-0.5">
           {template.flowSteps.map((step, i) => (
             <div key={i} className="flex items-center gap-0.5 shrink-0">
-              <span className="text-[8px] px-1 py-0.5 rounded bg-muted text-muted-foreground whitespace-nowrap">
+              <span className="text-[8px] px-1.5 py-0.5 rounded-full bg-muted text-muted-foreground whitespace-nowrap">
                 {step}
               </span>
               {i < template.flowSteps.length - 1 && (
-                <ArrowRight className="w-2 h-2 text-muted-foreground/30" />
+                <ArrowRight className="w-2 h-2 text-muted-foreground/25" />
               )}
             </div>
           ))}
@@ -1088,22 +1091,18 @@ function TemplateCard({
 
         <Button
           size="sm"
-          className="w-full text-xs bg-[#25D366] hover:bg-[#1da851] h-8"
+          className="w-full text-xs bg-[#25D366] hover:bg-[#1da851] h-8 text-white font-medium"
           onClick={() => onUse(template)}
           disabled={disabled}
         >
           {loading ? (
-            <>
-              <Loader2 className="w-3 h-3 mr-1.5 animate-spin" /> Creating...
-            </>
+            <><Loader2 className="w-3 h-3 mr-1.5 animate-spin" /> Creating...</>
           ) : (
-            <>
-              <Sparkles className="w-3 h-3 mr-1.5" /> Use Template
-            </>
+            <><Sparkles className="w-3 h-3 mr-1.5" /> Use Template</>
           )}
         </Button>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
 
