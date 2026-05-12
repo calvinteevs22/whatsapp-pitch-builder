@@ -161,7 +161,7 @@ export default function Home() {
             {/* Badge chip */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#25D366]/30 bg-[#25D366]/10 text-[#4ade80] text-xs font-medium mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-[#25D366] animate-pulse" />
-              Built for Meta Account Managers
+              For BSPs, Agencies & Freelancers
             </div>
 
             <h1 style={{ fontFamily: "var(--font-display)" }} className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold tracking-tight leading-[1.1] mb-5 text-white">
@@ -441,7 +441,7 @@ export default function Home() {
             <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663344446488/YocM5kPJZcUQjCCGhq86Jj/whatsapp-logo_55bb387d.png" alt="WhatsApp" className="w-4 h-4" />
             <span className="font-medium text-white/60">WhatsApp Pitch Builder</span>
           </div>
-          <p>Built for Meta Account Managers to pitch WhatsApp Paid Messaging</p>
+          <p>The fastest way for BSPs, agencies and freelancers to pitch WhatsApp Paid Messaging</p>
         </div>
       </footer>
 

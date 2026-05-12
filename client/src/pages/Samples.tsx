@@ -382,22 +382,22 @@ export default function Samples() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#0B1210] text-white">
       {/* Header */}
-      <nav className="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b">
+      <nav className="sticky top-0 z-50 border-b border-white/[0.06] bg-[#0B1210]/80 backdrop-blur-xl">
         <div className="container flex items-center justify-between h-14">
           <div className="flex items-center gap-5">
             <div className="flex items-center gap-2.5 cursor-pointer" onClick={() => navigate(isAuthenticated ? "/threads" : "/")}>
               <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663344446488/YocM5kPJZcUQjCCGhq86Jj/whatsapp-logo_55bb387d.png" alt="WhatsApp" className="w-7 h-7" />
-              <span className="font-semibold text-[15px] tracking-tight hidden sm:inline">WhatsApp Pitch Builder</span>
+              <span className="font-semibold text-[15px] tracking-tight hidden sm:inline text-white">WhatsApp Pitch Builder</span>
             </div>
-            <div className="h-5 w-px bg-border hidden sm:block" />
+            <div className="h-5 w-px bg-white/10 hidden sm:block" />
             <div className="flex items-center gap-1">
               {isAuthenticated && <MyThreadsDropdown />}
-              <Button variant="ghost" size="sm" className="text-sm text-[#25D366] font-medium h-8 bg-[#25D366]/5">
+              <Button variant="ghost" size="sm" className="text-sm text-[#25D366] font-medium h-8 bg-[#25D366]/10 hover:bg-[#25D366]/15 hover:text-[#25D366]">
                 <BookOpen className="w-3.5 h-3.5 mr-1.5" /> Industry Templates
               </Button>
-              <Button variant="ghost" size="sm" onClick={() => navigate("/roi-calculator")} className="text-sm text-muted-foreground hover:text-foreground h-8">
+              <Button variant="ghost" size="sm" onClick={() => navigate("/roi-calculator")} className="text-sm text-white/60 hover:text-white hover:bg-white/5 h-8">
                 <Calculator className="w-3.5 h-3.5 mr-1.5" /> ROI Calculator
               </Button>
             </div>
@@ -406,24 +406,24 @@ export default function Samples() {
             {isAuthenticated ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="gap-2 h-8">
-                    <div className="w-6 h-6 rounded-full bg-[#25D366]/10 flex items-center justify-center">
+                  <Button variant="ghost" size="sm" className="gap-2 h-8 text-white/70 hover:text-white hover:bg-white/5">
+                    <div className="w-6 h-6 rounded-full bg-[#25D366]/20 flex items-center justify-center">
                       <User className="w-3.5 h-3.5 text-[#25D366]" />
                     </div>
                     <span className="text-sm hidden sm:inline">{user?.name || "User"}</span>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem onClick={() => navigate("/api-docs")}>
+                <DropdownMenuContent align="end" className="bg-[#111a17] border-white/10 text-white">
+                  <DropdownMenuItem onClick={() => navigate("/api-docs")} className="text-white/70 hover:text-white focus:bg-white/5 focus:text-white">
                     <Globe className="w-4 h-4 mr-2" /> API Docs
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => { logout(); navigate("/"); }}>
+                  <DropdownMenuItem onClick={() => { logout(); navigate("/"); }} className="text-white/70 hover:text-white focus:bg-white/5 focus:text-white">
                     <LogOut className="w-4 h-4 mr-2" /> Sign Out
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button size="sm" asChild className="bg-[#25D366] hover:bg-[#1da851] h-8">
+              <Button size="sm" asChild className="bg-[#25D366] hover:bg-[#1da851] h-8 text-white font-medium">
                 <a href={getLoginUrl()}>Sign In</a>
               </Button>
             )}
@@ -432,16 +432,19 @@ export default function Samples() {
       </nav>
 
       {/* Hero Section */}
-      <div className="border-b bg-gradient-to-b from-[#f0fdf4] to-transparent">
-        <div className="container py-7 max-w-7xl">
+      <div className="border-b border-white/[0.06] relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -top-20 left-1/4 w-[400px] h-[300px] bg-[#25D366]/8 rounded-full blur-[100px]" />
+        </div>
+        <div className="container py-7 max-w-7xl relative">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-1.5 text-[11px] font-medium text-[#25D366] bg-[#25D366]/8 px-2.5 py-1 rounded-full border border-[#25D366]/20 mb-3">
+              <div className="inline-flex items-center gap-1.5 text-[11px] font-medium text-[#4ade80] bg-[#25D366]/10 px-2.5 py-1 rounded-full border border-[#25D366]/20 mb-3">
                 <BookOpen className="w-3 h-3" />
                 Template Library
               </div>
-              <h1 style={{ fontFamily: "var(--font-display)" }} className="text-2xl font-bold tracking-tight mb-1">Industry Use Case Templates</h1>
-              <p className="text-sm text-muted-foreground max-w-2xl">
+              <h1 style={{ fontFamily: "var(--font-display)" }} className="text-2xl font-bold tracking-tight mb-1 text-white">Industry Use Case Templates</h1>
+              <p className="text-sm text-white/50 max-w-2xl">
                 {TEMPLATE_CATALOG.length} ready-made templates across {INDUSTRIES.length} industries — spot whitespace opportunities and pitch new WhatsApp use cases to your clients.
               </p>
             </div>
@@ -449,17 +452,17 @@ export default function Samples() {
               <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#25D366]/10 border border-[#25D366]/20">
                 <Target className="w-3 h-3 text-[#25D366]" />
                 <span className="font-semibold text-[#25D366]">{TEMPLATE_CATALOG.filter(t => t.messageType === "marketing").length}</span>
-                <span className="text-[#25D366]/70">Marketing</span>
+                <span className="text-[#25D366]/60">Marketing</span>
               </div>
               <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#34B7F1]/10 border border-[#34B7F1]/20">
                 <Layers className="w-3 h-3 text-[#34B7F1]" />
                 <span className="font-semibold text-[#34B7F1]">{TEMPLATE_CATALOG.filter(t => t.messageType === "utility").length}</span>
-                <span className="text-[#34B7F1]/70">Utility</span>
+                <span className="text-[#34B7F1]/60">Utility</span>
               </div>
               <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#fb923c]/10 border border-[#fb923c]/20">
                 <Shield className="w-3 h-3 text-[#fb923c]" />
                 <span className="font-semibold text-[#fb923c]">{TEMPLATE_CATALOG.filter(t => t.messageType === "authentication").length}</span>
-                <span className="text-[#fb923c]/70">Auth</span>
+                <span className="text-[#fb923c]/60">Auth</span>
               </div>
             </div>
           </div>
@@ -467,13 +470,13 @@ export default function Samples() {
       </div>
 
       {/* Filters */}
-      <div className="sticky top-14 z-40 bg-white/95 backdrop-blur-sm border-b">
+      <div className="sticky top-14 z-40 bg-[#0B1210]/90 backdrop-blur-xl border-b border-white/[0.06]">
         <div className="container py-3 max-w-7xl">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
             {/* Industry filter */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" className="h-9 gap-2 min-w-[180px] justify-between">
+                <Button variant="outline" size="sm" className="h-9 gap-2 min-w-[180px] justify-between bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white hover:border-white/20">
                   <div className="flex items-center gap-2">
                     {selectedIndustry !== "all" ? (
                       <>
@@ -487,24 +490,24 @@ export default function Samples() {
                       </>
                     )}
                   </div>
-                  <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
+                  <ChevronDown className="w-3.5 h-3.5 text-white/40" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-56 max-h-80 overflow-y-auto">
-                <DropdownMenuItem onClick={() => setSelectedIndustry("all")} className="gap-2">
+              <DropdownMenuContent align="start" className="w-56 max-h-80 overflow-y-auto bg-[#111a17] border-white/10">
+                <DropdownMenuItem onClick={() => setSelectedIndustry("all")} className="gap-2 text-white/70 focus:bg-white/5 focus:text-white">
                   <LayoutGrid className="w-4 h-4" />
                   <span>All Industries</span>
-                  <Badge variant="secondary" className="ml-auto text-[10px] h-4">{TEMPLATE_CATALOG.length}</Badge>
+                  <Badge variant="secondary" className="ml-auto text-[10px] h-4 bg-white/10 text-white/50">{TEMPLATE_CATALOG.length}</Badge>
                 </DropdownMenuItem>
-                <div className="h-px bg-border my-1" />
+                <div className="h-px bg-white/10 my-1" />
                 {INDUSTRIES.map(industry => {
                   const Icon = industryIcons[industry] || MessageSquare;
                   const count = TEMPLATE_CATALOG.filter(t => t.industry === industry).length;
                   return (
-                    <DropdownMenuItem key={industry} onClick={() => setSelectedIndustry(industry)} className="gap-2">
+                    <DropdownMenuItem key={industry} onClick={() => setSelectedIndustry(industry)} className="gap-2 text-white/70 focus:bg-white/5 focus:text-white">
                       <Icon className="w-4 h-4" />
                       <span className="text-xs">{industry}</span>
-                      <Badge variant="secondary" className="ml-auto text-[10px] h-4">{count}</Badge>
+                      <Badge variant="secondary" className="ml-auto text-[10px] h-4 bg-white/10 text-white/50">{count}</Badge>
                     </DropdownMenuItem>
                   );
                 })}
@@ -517,8 +520,8 @@ export default function Samples() {
                 onClick={() => setSelectedType("all")}
                 className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
                   selectedType === "all"
-                    ? "bg-gray-900 text-white"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    ? "bg-white text-[#0B1210]"
+                    : "bg-white/8 text-white/60 hover:bg-white/12 hover:text-white"
                 }`}
               >
                 All Types ({filteredTemplates.length})
@@ -530,13 +533,9 @@ export default function Samples() {
                   <button
                     key={key}
                     onClick={() => setSelectedType(selectedType === key ? "all" : key)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all flex items-center gap-1.5 ${
-                      selectedType === key
-                        ? "text-white"
-                        : "text-gray-600 hover:opacity-80"
-                    }`}
+                    className="px-3 py-1.5 rounded-full text-xs font-medium transition-all flex items-center gap-1.5"
                     style={{
-                      backgroundColor: selectedType === key ? val.color : `${val.color}15`,
+                      backgroundColor: selectedType === key ? val.color : `${val.color}18`,
                       color: selectedType === key ? "white" : val.color,
                     }}
                   >
@@ -556,19 +555,19 @@ export default function Samples() {
 
             {/* Search */}
             <div className="relative ml-auto w-full sm:w-auto">
-              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
+              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/40" />
               <Input
                 placeholder="Search templates..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-8 h-9 text-xs w-full sm:w-56"
+                className="pl-8 h-9 text-xs w-full sm:w-56 bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-[#25D366]/50"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery("")}
                   className="absolute right-2.5 top-1/2 -translate-y-1/2"
                 >
-                  <X className="w-3.5 h-3.5 text-muted-foreground hover:text-foreground" />
+                  <X className="w-3.5 h-3.5 text-white/40 hover:text-white" />
                 </button>
               )}
             </div>
@@ -579,16 +578,16 @@ export default function Samples() {
           {/* Active filter badges */}
           {(selectedIndustry !== "all" || selectedType !== "all" || searchQuery) && (
             <div className="flex items-center gap-2 mt-2">
-              <span className="text-[10px] text-muted-foreground">Active filters:</span>
+              <span className="text-[10px] text-white/35">Active filters:</span>
               {selectedIndustry !== "all" && (
-                <Badge variant="secondary" className="text-[10px] h-5 gap-1 cursor-pointer hover:bg-destructive/10" onClick={() => setSelectedIndustry("all")}>
+                <span className="inline-flex items-center gap-1 text-[10px] h-5 px-2 rounded-full bg-white/10 text-white/60 cursor-pointer hover:bg-red-500/20 hover:text-red-300 transition-colors" onClick={() => setSelectedIndustry("all")}>
                   {selectedIndustry} <X className="w-2.5 h-2.5" />
-                </Badge>
+                </span>
               )}
               {selectedType !== "all" && (
                 <Badge
                   variant="secondary"
-                  className="text-[10px] h-5 gap-1 cursor-pointer hover:bg-destructive/10"
+                  className="text-[10px] h-5 gap-1 cursor-pointer bg-white/10 text-white/60 hover:bg-destructive/20"
                   onClick={() => setSelectedType("all")}
                   style={{ backgroundColor: `${MESSAGE_TYPES[selectedType as keyof typeof MESSAGE_TYPES].color}15`, color: MESSAGE_TYPES[selectedType as keyof typeof MESSAGE_TYPES].color }}
                 >
@@ -596,13 +595,13 @@ export default function Samples() {
                 </Badge>
               )}
               {searchQuery && (
-                <Badge variant="secondary" className="text-[10px] h-5 gap-1 cursor-pointer hover:bg-destructive/10" onClick={() => setSearchQuery("")}>
+                <span className="inline-flex items-center gap-1 text-[10px] h-5 px-2 rounded-full bg-white/10 text-white/60 cursor-pointer hover:bg-red-500/20 hover:text-red-300 transition-colors" onClick={() => setSearchQuery("")}>
                   "{searchQuery}" <X className="w-2.5 h-2.5" />
-                </Badge>
+                </span>
               )}
               <button
                 onClick={() => { setSelectedIndustry("all"); setSelectedType("all"); setSearchQuery(""); }}
-                className="text-[10px] text-muted-foreground hover:text-foreground underline ml-1"
+                className="text-[10px] text-white/35 hover:text-white underline ml-1"
               >
                 Clear all
               </button>
@@ -615,12 +614,12 @@ export default function Samples() {
       <div className="container py-6 max-w-7xl">
         {filteredTemplates.length === 0 ? (
           <div className="text-center py-16">
-            <Filter className="w-10 h-10 text-muted-foreground/30 mx-auto mb-3" />
-            <p className="text-sm text-muted-foreground">No templates match your filters.</p>
+            <Filter className="w-10 h-10 text-white/15 mx-auto mb-3" />
+            <p className="text-sm text-white/40">No templates match your filters.</p>
             <Button
               variant="link"
               size="sm"
-              className="text-xs mt-1"
+              className="text-xs mt-1 text-[#25D366]"
               onClick={() => { setSelectedIndustry("all"); setSelectedType("all"); setSearchQuery(""); }}
             >
               Clear all filters
@@ -631,8 +630,8 @@ export default function Samples() {
           <div>
             <div className="flex items-center gap-3 mb-4">
               {(() => { const Icon = industryIcons[selectedIndustry] || LayoutGrid; return <Icon className="w-5 h-5 text-[#25D366]" />; })()}
-              <h2 className="text-lg font-bold">{selectedIndustry}</h2>
-              <Badge variant="secondary" className="text-xs">{filteredTemplates.length} templates</Badge>
+              <h2 className="text-lg font-bold text-white">{selectedIndustry}</h2>
+              <span className="text-[11px] text-white/40 bg-white/8 px-2 py-0.5 rounded-full">{filteredTemplates.length} templates</span>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
               {[...filteredTemplates].sort((a, b) => {
@@ -659,16 +658,16 @@ export default function Samples() {
               return (
                 <div key={industry}>
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-8 rounded-lg bg-[#25D366]/10 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-lg bg-[#25D366]/12 flex items-center justify-center">
                       <Icon className="w-4 h-4 text-[#25D366]" />
                     </div>
-                    <h2 className="text-base font-bold">{industry}</h2>
-                    <Badge variant="secondary" className="text-[10px] h-4">{templates.length}</Badge>
+                    <h2 className="text-base font-bold text-white">{industry}</h2>
+                    <span className="text-[10px] text-white/35 bg-white/8 px-1.5 py-0.5 rounded-full">{templates.length}</span>
                     <button
                       onClick={() => setSelectedIndustry(industry)}
-                      className="text-[10px] text-[#25D366] hover:underline ml-auto"
+                      className="text-[10px] text-[#25D366]/70 hover:text-[#25D366] hover:underline ml-auto transition-colors"
                     >
-                      View all {industry} templates →
+                      View all →
                     </button>
                   </div>
                   <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
@@ -1028,20 +1027,20 @@ function TemplateCard({
   const bizCtx = templateBusinessContext[template.id];
 
   return (
-    <div className="group relative rounded-xl border border-border bg-card hover:border-[#25D366]/30 hover:shadow-md transition-all overflow-hidden flex flex-col">
-      <div className="h-0.5 shrink-0" style={{ background: `linear-gradient(to right, ${typeInfo.color}, ${typeInfo.color}55)` }} />
+    <div className="group relative rounded-xl border border-white/[0.07] bg-white/[0.03] hover:border-[#25D366]/30 hover:bg-white/[0.055] hover:shadow-lg hover:shadow-black/20 transition-all overflow-hidden flex flex-col">
+      <div className="h-0.5 shrink-0" style={{ background: `linear-gradient(to right, ${typeInfo.color}, ${typeInfo.color}44)` }} />
       <div className="pt-4 pb-3 px-4 flex flex-col flex-1">
         <div className="flex items-start justify-between mb-2.5">
           <span
             className="inline-flex items-center text-[10px] h-4 px-2 rounded-full font-medium"
-            style={{ backgroundColor: `${typeInfo.color}12`, color: typeInfo.color }}
+            style={{ backgroundColor: `${typeInfo.color}18`, color: typeInfo.color }}
           >
             {typeInfo.label.replace(" Messages", "")}
           </span>
           {bizCtx && (
             <button
               onClick={(e) => { e.stopPropagation(); onViewContext(template); }}
-              className="text-muted-foreground hover:text-[#25D366] transition-colors"
+              className="text-white/30 hover:text-[#25D366] transition-colors"
               title="View business context"
             >
               <Info className="w-3.5 h-3.5" />
@@ -1049,27 +1048,27 @@ function TemplateCard({
           )}
         </div>
 
-        <h3 className="font-semibold text-sm mb-1 leading-tight">{template.title}</h3>
-        <p className="text-[11px] text-muted-foreground mb-2.5 leading-relaxed line-clamp-2 flex-1">{template.description}</p>
+        <h3 className="font-semibold text-sm mb-1 leading-tight text-white">{template.title}</h3>
+        <p className="text-[11px] text-white/45 mb-2.5 leading-relaxed line-clamp-2 flex-1">{template.description}</p>
 
         {/* Business objective preview */}
         {bizCtx && (
           <button
             onClick={(e) => { e.stopPropagation(); onViewContext(template); }}
-            className="mb-2.5 p-2 rounded-lg bg-[#25D366]/5 border border-[#25D366]/10 text-left hover:border-[#25D366]/25 hover:bg-[#25D366]/8 transition-all group/ctx cursor-pointer"
+            className="mb-2.5 p-2 rounded-lg bg-[#25D366]/8 border border-[#25D366]/15 text-left hover:border-[#25D366]/30 hover:bg-[#25D366]/12 transition-all group/ctx cursor-pointer"
           >
             <div className="flex items-center gap-1.5 mb-1">
               <Crosshair className="w-2.5 h-2.5 text-[#25D366]" />
               <span className="text-[9px] font-semibold text-[#25D366] uppercase tracking-wider">Business Objective</span>
-              <ChevronRight className="w-2.5 h-2.5 text-muted-foreground/40 ml-auto group-hover/ctx:text-[#25D366] transition-colors" />
+              <ChevronRight className="w-2.5 h-2.5 text-white/20 ml-auto group-hover/ctx:text-[#25D366] transition-colors" />
             </div>
-            <p className="text-[10px] text-muted-foreground leading-relaxed line-clamp-2">{bizCtx.objective}</p>
+            <p className="text-[10px] text-white/45 leading-relaxed line-clamp-2">{bizCtx.objective}</p>
           </button>
         )}
 
         <div className="flex flex-wrap gap-1 mb-2.5">
           {template.tags.slice(0, 3).map(tag => (
-            <span key={tag} className="text-[9px] h-4 px-1.5 py-0 rounded-full border border-border bg-muted text-muted-foreground inline-flex items-center">
+            <span key={tag} className="text-[9px] h-4 px-1.5 py-0 rounded-full border border-white/10 bg-white/5 text-white/40 inline-flex items-center">
               {tag}
             </span>
           ))}
@@ -1079,11 +1078,11 @@ function TemplateCard({
         <div className="flex items-center gap-0.5 mb-3 overflow-x-auto pb-0.5">
           {template.flowSteps.map((step, i) => (
             <div key={i} className="flex items-center gap-0.5 shrink-0">
-              <span className="text-[8px] px-1.5 py-0.5 rounded-full bg-muted text-muted-foreground whitespace-nowrap">
+              <span className="text-[8px] px-1.5 py-0.5 rounded-full bg-white/8 text-white/40 whitespace-nowrap">
                 {step}
               </span>
               {i < template.flowSteps.length - 1 && (
-                <ArrowRight className="w-2 h-2 text-muted-foreground/25" />
+                <ArrowRight className="w-2 h-2 text-white/15" />
               )}
             </div>
           ))}
