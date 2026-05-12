@@ -1,4 +1,4 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, json, boolean } from "drizzle-orm/mysql-core";
+import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, json, boolean, datetime } from "drizzle-orm/mysql-core";
 import type { ReminderMessage, AdCreative } from "../shared/types";
 
 export const users = mysqlTable("users", {
@@ -13,6 +13,19 @@ export const users = mysqlTable("users", {
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
   loginCount: int("loginCount").default(0).notNull(),
+  // Billing
+  plan: mysqlEnum("plan", ["free", "pro", "agency"]).default("free").notNull(),
+  genCount: int("genCount").default(0).notNull(),
+  genResetAt: timestamp("genResetAt"),
+  stripeCustomerId: varchar("stripeCustomerId", { length: 255 }),
+  stripeSubscriptionId: varchar("stripeSubscriptionId", { length: 255 }),
+  subscriptionStatus: mysqlEnum("subscriptionStatus", ["active", "canceled", "past_due", "trialing"]),
+  // Email verification
+  emailVerified: boolean("emailVerified").default(false).notNull(),
+  emailVerifyToken: varchar("emailVerifyToken", { length: 64 }),
+  // Password reset
+  resetToken: varchar("resetToken", { length: 64 }),
+  resetTokenExpiresAt: timestamp("resetTokenExpiresAt"),
 });
 
 export type User = typeof users.$inferSelect;
